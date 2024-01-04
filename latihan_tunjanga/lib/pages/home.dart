@@ -12,7 +12,7 @@ class Home extends StatelessWidget {
     final databloc = TunjanganBloc()..add(GetTunjanganEvent());
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tunjangan"),
+        title: const Text("COK"),
         centerTitle: true,
       ),
       body: Center(

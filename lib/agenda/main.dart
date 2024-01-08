@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'bloc/agenda_bloc.dart';
-import 'pages/agenda_pages.dart';
+import 'pages/agenda_pages_origin.dart';
+// import 'package:konsumsi_api_agenda/agenda/pages/agenda_pages.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,16 +12,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AgendaBloc(),
-      child: MaterialApp(
-        title: "Konsumsi Agenda",
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: const AgendaPage(),
+    return MaterialApp(
+      title: "Konsumsi Agenda",
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
+      home: const AgendaAinx(),
     );
   }
 }

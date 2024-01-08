@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/agenda_bloc.dart';
+import 'package:konsumsi_api_agenda/agenda/bloc/agenda_bloc.dart';
 
 class AgendaDetailPage extends StatelessWidget {
   final String id;
@@ -8,7 +8,7 @@ class AgendaDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dataBloc = BlocProvider.of<AgendaBloc>(context);
+    final dataBloc = AgendaBloc();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Agenda Detail"),

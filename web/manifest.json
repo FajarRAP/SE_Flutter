@@ -1,6 +1,6 @@
 {
-    "name": "konsumsi_api_bloc",
-    "short_name": "konsumsi_api_bloc",
+    "name": "konsumsi_api_agenda",
+    "short_name": "konsumsi_api_agenda",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

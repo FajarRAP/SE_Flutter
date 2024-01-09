@@ -14,8 +14,4 @@ class GetAgendaDetailEvent extends AgendaEvent {
   GetAgendaDetailEvent(this.id);
 }
 
-class ClickButtonBerjalanEvent extends AgendaEvent {}
-
-class ClickButtonSelesaiEvent extends AgendaEvent {}
-
 class ClickCalendarEvent extends AgendaEvent {}

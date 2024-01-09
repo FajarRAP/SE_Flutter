@@ -11,35 +11,27 @@ part 'agenda_state.dart';
 
 class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   AgendaBloc() : super(AgendaInitial()) {
-    on<GetAgendaEvent>((event, emit) async {
-      emit(AgendaLoading());
-      final response = await http.get(Uri.parse(
-          "https://dev.laz-almuthiin.com/api/agenda?key=${event.kata}&bulan=${event.date}"));
-      emit(AgendaLoaded(agendaFromJson(response.body)));
-    });
-    on<GetAgendaDetailEvent>((event, emit) async {
-      emit(AgendaDetailLoading());
-      final response = await http
-          .get(Uri.parse("https://dev.laz-almuthiin.com/api/detil_agenda"));
-      emit(AgendaDetailLoaded(agendaDetailFromJson(response.body)));
-    });
-    on<ClickButtonBerjalanEvent>(clickButtonBerjalanEvent);
-    on<ClickButtonSelesaiEvent>(clickButtonSelesaiEvent);
+    on<GetAgendaEvent>(getAgendaEvent);
+    on<GetAgendaDetailEvent>(getAgendaDetailEvent);
     on<ClickCalendarEvent>(clickCalendarEvent);
   }
 
-  FutureOr<void> clickButtonBerjalanEvent(
-    ClickButtonBerjalanEvent event,
+  FutureOr<void> getAgendaEvent(
+    GetAgendaEvent event,
     Emitter<AgendaState> emit,
-  ) {
-    emit(ButtonBerjalanClicked());
+  ) async {
+    emit(AgendaLoading());
+    final results = await fetchAPIAgenda(event.kata, event.date);
+    emit(AgendaLoaded(results));
   }
 
-  FutureOr<void> clickButtonSelesaiEvent(
-    ClickButtonSelesaiEvent event,
+  FutureOr<void> getAgendaDetailEvent(
+    GetAgendaDetailEvent event,
     Emitter<AgendaState> emit,
-  ) {
-    emit(ButtonSelesaiClicked());
+  ) async {
+    emit(AgendaDetailLoading());
+    final results = await fetchAPIAgendaDetail();
+    emit(AgendaDetailLoaded(results));
   }
 
   FutureOr<void> clickCalendarEvent(
@@ -48,4 +40,24 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   ) {
     emit(DateCalendarPicked());
   }
+}
+
+Future<AgendaDetail> fetchAPIAgendaDetail() async {
+  final response = await http
+      .get(Uri.parse("https://dev.laz-almuthiin.com/api/detil_agenda"));
+  if (response.statusCode == 200) {
+    AgendaDetail data = agendaDetailFromJson(response.body);
+    return data;
+  }
+  throw Exception("Gagal Mengambil Data");
+}
+
+Future<Agenda> fetchAPIAgenda(String key, String bulan) async {
+  final response = await http.get(Uri.parse(
+      "https://dev.laz-almuthiin.com/api/agenda?key=$key&bulan=$bulan"));
+  if (response.statusCode == 200) {
+    Agenda data = agendaFromJson(response.body);
+    return data;
+  }
+  throw Exception("Gagal Mengambil Data");
 }

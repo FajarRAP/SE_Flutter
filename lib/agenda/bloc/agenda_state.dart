@@ -23,8 +23,4 @@ class AgendaDetailLoaded extends AgendaState {
 
 class AgendaDetailError extends AgendaState {}
 
-class ButtonBerjalanClicked extends AgendaState {}
-
-class ButtonSelesaiClicked extends AgendaState {}
-
 class DateCalendarPicked extends AgendaState {}

@@ -16,7 +16,7 @@ class AgendaDetailPage extends StatelessWidget {
       ),
       body: Center(
         child: BlocBuilder<AgendaBloc, AgendaState>(
-          bloc: dataBloc..add(GetAgendaDetailEvent(id)),
+          bloc: dataBloc..add(GetAgendaDetailEvent()),
           builder: (context, state) {
             if (state is AgendaDetailLoading) {
               return const CircularProgressIndicator();

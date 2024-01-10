@@ -9,9 +9,6 @@ class GetAgendaEvent extends AgendaEvent {
   GetAgendaEvent({this.kata = "", this.date = ""});
 }
 
-class GetAgendaDetailEvent extends AgendaEvent {
-  final String id;
-  GetAgendaDetailEvent(this.id);
-}
+class GetAgendaDetailEvent extends AgendaEvent {}
 
 class ClickCalendarEvent extends AgendaEvent {}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:konsumsi_api_agenda/agenda/pages/detail_agenda.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import '../helper/app_styles.dart';
 import '../helper/size_config.dart';
@@ -16,9 +17,9 @@ class AgendaAinx extends StatelessWidget {
     final AgendaBloc agendaBloc = AgendaBloc();
     final TextEditingController agendaController = TextEditingController();
     List<Datum> datum = [];
-    String datePicked = DateFormat("M, yyyy").format(DateTime.now());
-    String tanggal = "";
-    String kata = "";
+    String datePicked = DateFormat('M, yyyy').format(DateTime.now());
+    String tanggal = '';
+    String kata = '';
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -72,7 +73,7 @@ class AgendaAinx extends StatelessWidget {
                             GestureDetector(
                               onTap: () {},
                               child: const BerjalanSelesai(
-                                kata: "Berjalan",
+                                kata: 'Berjalan',
                                 warnaBg: Color(0XffEE6C4D),
                                 warnaFont: kWhite,
                               ),
@@ -83,7 +84,7 @@ class AgendaAinx extends StatelessWidget {
                             GestureDetector(
                               onTap: () {},
                               child: const BerjalanSelesai(
-                                  kata: "Selesai",
+                                  kata: 'Selesai',
                                   warnaBg: kLightGrey,
                                   warnaFont: kNeutral60),
                             ),
@@ -99,29 +100,30 @@ class AgendaAinx extends StatelessWidget {
                                   selectedMonthTextColor: kWhite,
                                   headerColor: kBlue,
                                   unselectedMonthTextColor: kBlue,
+                                  selectedMonthBackgroundColor: kBlue,
                                   cancelWidget: const Text(
                                     'Batal',
                                     style: TextStyle(
-                                      color: kNeutral80,
+                                      color: kGrey,
                                     ),
                                   ),
                                   confirmWidget: const Text(
                                     'Konfirmasi',
                                     style: TextStyle(
-                                      color: kNeutral80,
+                                      color: kGrey,
                                     ),
                                   ),
                                 ).then((date) {
                                   if (date != null) {
                                     tanggal =
-                                        DateFormat("dd-MM-yyyy").format(date);
+                                        DateFormat('dd-MM-yyyy').format(date);
                                     agendaBloc.add(GetAgendaEvent(
                                         kata: kata, date: tanggal));
                                   }
                                 });
                               },
                               child: Text(
-                                "Bulan $datePicked",
+                                'Bulan $datePicked',
                                 style: kPoppinsMedium.copyWith(
                                   fontSize:
                                       SizeConfig.blockSizeHorizontal! * 3.25,
@@ -211,7 +213,7 @@ class AgendaAinx extends StatelessWidget {
                                 .toList(),
                           );
                         }
-                        return const Text("");
+                        return const Text('');
                       },
                     ),
                     SizedBox(
@@ -273,49 +275,54 @@ class ItemAgenda extends StatelessWidget {
           )
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            namaEvent,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: kPoppinsMedium.copyWith(
-              fontSize: 14,
-              color: kBlack,
-            ),
-          ),
-          RichText(
-            text: TextSpan(
-              children: <TextSpan>[
-                TextSpan(
-                  text: 'Dari: ',
-                  style: kNunitoRegular.copyWith(
-                    fontSize: 14,
-                    color: kNeutral80,
-                  ),
-                ),
-                TextSpan(
-                  text: unitPengundang,
-                  style: kNunitoRegular.copyWith(
-                    fontSize: 14,
-                    color: kBlue,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Text(
-              tanggal,
-              style: kNunitoRegular.copyWith(
-                fontSize: 12,
-                color: kNeutral70,
+      child: InkWell(
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const DetailAgenda()),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              namaEvent,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: kPoppinsMedium.copyWith(
+                fontSize: 14,
+                color: kBlack,
               ),
             ),
-          ),
-        ],
+            RichText(
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: 'Dari: ',
+                    style: kNunitoRegular.copyWith(
+                      fontSize: 14,
+                      color: kNeutral80,
+                    ),
+                  ),
+                  TextSpan(
+                    text: unitPengundang,
+                    style: kNunitoRegular.copyWith(
+                      fontSize: 14,
+                      color: kBlue,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                tanggal,
+                style: kNunitoRegular.copyWith(
+                  fontSize: 12,
+                  color: kNeutral70,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

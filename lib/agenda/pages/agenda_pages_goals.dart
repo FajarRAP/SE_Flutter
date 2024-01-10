@@ -57,8 +57,9 @@ class _AgendaState extends State<Agenda> {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.blockSizeHorizontal! * 4.675,
-                vertical: SizeConfig.blockSizeHorizontal! * 3.75),
+              horizontal: SizeConfig.blockSizeHorizontal! * 4.675,
+              vertical: SizeConfig.blockSizeHorizontal! * 3.75,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

@@ -10,7 +10,8 @@ class AgendaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dataBloc = AgendaBloc(); // BLoC yang berbeda dengan yang di agenda-detail
+    final dataBloc =
+        AgendaBloc(); // BLoC yang berbeda dengan yang di agenda-detail
     final TextEditingController namaController = TextEditingController();
     String inputKata = "";
     String inputDate = "";

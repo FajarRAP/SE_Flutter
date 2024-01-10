@@ -12,21 +12,27 @@ class AgendaAinx extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     final AgendaBloc agendaBloc = AgendaBloc();
+    final TextEditingController agendaController = TextEditingController();
     List<Datum> datum = [];
     String datePicked = DateFormat("M, yyyy").format(DateTime.now());
-    SizeConfig().init(context);
+    String tanggal = "";
+    String kata = "";
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: kBlue,
       body: RefreshIndicator(
-        onRefresh: () async => agendaBloc.add(GetAgendaEvent()),
+        onRefresh: () async {
+          agendaBloc.add(GetAgendaEvent(kata: kata, date: tanggal));
+        },
         child: ListView(
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: SizeConfig.blockSizeHorizontal! * 4.675,
-                vertical: SizeConfig.blockSizeVertical! * 3.75,
+                vertical: SizeConfig.blockSizeHorizontal! * 3.75,
               ),
               child: Row(
                 children: [
@@ -38,9 +44,6 @@ class AgendaAinx extends StatelessWidget {
                       fontSize: SizeConfig.blockSizeHorizontal! * 4.675,
                     ),
                   ),
-                  SizedBox(
-                    width: SizeConfig.blockSizeHorizontal! * 5.5,
-                  ),
                 ],
               ),
             ),
@@ -50,8 +53,8 @@ class AgendaAinx extends StatelessWidget {
                 topRight: Radius.circular(32),
               ),
               child: Container(
-                width: SizeConfig.screenWidth,
-                // height: SizeConfig.screenHeight,
+                // width: ,
+                // height: MediaQuery.sizeOf(context).height,
                 padding: EdgeInsets.fromLTRB(
                   SizeConfig.blockSizeHorizontal! * 4.675,
                   SizeConfig.blockSizeHorizontal! * 7.5,
@@ -88,9 +91,6 @@ class AgendaAinx extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            SizedBox(
-                              width: SizeConfig.blockSizeHorizontal! * 1,
-                            ),
                             TextButton(
                               onPressed: () {
                                 showMonthPicker(
@@ -113,40 +113,21 @@ class AgendaAinx extends StatelessWidget {
                                   ),
                                 ).then((date) {
                                   if (date != null) {
-                                    agendaBloc.add(ClickCalendarEvent());
-                                    datePicked =
-                                        DateFormat("M, yyyy").format(date);
+                                    tanggal =
+                                        DateFormat("dd-MM-yyyy").format(date);
+                                    agendaBloc.add(GetAgendaEvent(
+                                        kata: kata, date: tanggal));
                                   }
                                 });
                               },
-                              child: BlocBuilder<AgendaBloc, AgendaState>(
-                                bloc: agendaBloc,
-                                builder: (context, state) {
-                                  switch (state.runtimeType) {
-                                    case DateCalendarPicked:
-                                      return Text(
-                                        "Bulan $datePicked",
-                                        style: kPoppinsMedium.copyWith(
-                                            fontSize: SizeConfig
-                                                    .blockSizeHorizontal! *
-                                                3.25,
-                                            color: kNeutral80),
-                                      );
-                                  }
-
-                                  return Text(
-                                    "Bulan $datePicked",
-                                    style: kPoppinsMedium.copyWith(
-                                        fontSize:
-                                            SizeConfig.blockSizeHorizontal! *
-                                                3.25,
-                                        color: kNeutral80),
-                                  );
-                                },
+                              child: Text(
+                                "Bulan $datePicked",
+                                style: kPoppinsMedium.copyWith(
+                                  fontSize:
+                                      SizeConfig.blockSizeHorizontal! * 3.25,
+                                  color: kNeutral80,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: SizeConfig.blockSizeHorizontal! * 1,
                             ),
                           ],
                         ),
@@ -179,12 +160,13 @@ class AgendaAinx extends StatelessWidget {
                         color: Colors.white,
                       ),
                       child: TextField(
+                        controller: agendaController,
                         decoration: InputDecoration(
                           isDense: false,
                           filled: true,
                           fillColor: Colors.transparent,
-                          contentPadding: EdgeInsets.all(
-                            SizeConfig.blockSizeHorizontal! * 3.75,
+                          contentPadding: const EdgeInsets.all(
+                            15,
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
@@ -192,251 +174,148 @@ class AgendaAinx extends StatelessWidget {
                           ),
                           hintText: 'Cari Agenda',
                           hintStyle: kNunitoRegular.copyWith(
-                            fontSize: SizeConfig.blockSizeHorizontal! * 3.75,
+                            fontSize: 15,
                             color: const Color(0XffAEB1B7),
                           ),
                         ),
+                        onChanged: (value) {
+                          kata = value;
+                          agendaBloc
+                              .add(GetAgendaEvent(kata: kata, date: tanggal));
+                        },
                       ),
                     ),
                     SizedBox(
                       height: SizeConfig.blockSizeHorizontal! * 5.5,
                     ),
                     BlocBuilder<AgendaBloc, AgendaState>(
-                      bloc: agendaBloc..add(GetAgendaEvent()),
+                      bloc: agendaBloc
+                        ..add(GetAgendaEvent(kata: kata, date: tanggal)),
                       builder: (context, state) {
-                        print(state);
-                        switch (state.runtimeType) {
-                          case AgendaLoading:
-                            return const CircularProgressIndicator();
-                          case AgendaLoaded:
-                            final agendaLoadedState = state as AgendaLoaded;
-                            datum = agendaLoadedState.data.data;
-                            return Column(
-                              children: datum
-                                  .map(
-                                    (e) => InkWell(
-                                      onTap: () {},
-                                      child: Container(
-                                        margin: EdgeInsets.only(
-                                          bottom:
-                                              SizeConfig.blockSizeHorizontal! *
-                                                  2.85,
-                                        ),
-                                        width: SizeConfig.screenWidth,
-                                        padding: const EdgeInsets.all(12),
-                                        decoration: ShapeDecoration(
-                                          color: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                          shadows: const [
-                                            BoxShadow(
-                                              color: Color(0x087281DF),
-                                              blurRadius: 4.11,
-                                              offset: Offset(0, 0.52),
-                                              spreadRadius: 0,
-                                            ),
-                                            BoxShadow(
-                                              color: Color(0x0C7281DF),
-                                              blurRadius: 6.99,
-                                              offset: Offset(0, 1.78),
-                                              spreadRadius: 0,
-                                            ),
-                                            BoxShadow(
-                                              color: Color(0x0F7281DF),
-                                              blurRadius: 10.20,
-                                              offset: Offset(0, 4.11),
-                                              spreadRadius: 0,
-                                            )
-                                          ],
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              e.namaEvent,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: kPoppinsMedium.copyWith(
-                                                fontSize: SizeConfig
-                                                        .blockSizeHorizontal! *
-                                                    3.25,
-                                                color: kBlack,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: SizeConfig
-                                                      .blockSizeHorizontal! *
-                                                  1,
-                                            ),
-                                            RichText(
-                                              text: TextSpan(
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text: 'Dari: ',
-                                                    style:
-                                                        kNunitoRegular.copyWith(
-                                                      fontSize: SizeConfig
-                                                              .blockSizeHorizontal! *
-                                                          3.25,
-                                                      color: kNeutral80,
-                                                    ),
-                                                  ),
-                                                  TextSpan(
-                                                    text: e.unitPengundang,
-                                                    style:
-                                                        kNunitoRegular.copyWith(
-                                                      fontSize: SizeConfig
-                                                              .blockSizeHorizontal! *
-                                                          3.25,
-                                                      color: kBlue,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Align(
-                                              alignment: Alignment.bottomRight,
-                                              child: Text(
-                                                e.tanggal,
-                                                style: kNunitoRegular.copyWith(
-                                                  fontSize: SizeConfig
-                                                          .blockSizeHorizontal! *
-                                                      2.85,
-                                                  color: kNeutral70,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
-                            );
-                        }
-                        if (datum.isNotEmpty) {
-                          // penanganan jika state tidak terpanggil lagi
+                        if (state is AgendaLoading) {
+                          return const CircularProgressIndicator();
+                        } else if (state is AgendaLoaded) {
+                          datum = state.data.data;
                           return Column(
                             children: datum
                                 .map(
                                   (e) => InkWell(
                                     onTap: () {},
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                        bottom:
-                                            SizeConfig.blockSizeHorizontal! *
-                                                2.85,
-                                      ),
-                                      width: SizeConfig.screenWidth,
-                                      padding: const EdgeInsets.all(12),
-                                      decoration: ShapeDecoration(
-                                        color: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        ),
-                                        shadows: const [
-                                          BoxShadow(
-                                            color: Color(0x087281DF),
-                                            blurRadius: 4.11,
-                                            offset: Offset(0, 0.52),
-                                            spreadRadius: 0,
-                                          ),
-                                          BoxShadow(
-                                            color: Color(0x0C7281DF),
-                                            blurRadius: 6.99,
-                                            offset: Offset(0, 1.78),
-                                            spreadRadius: 0,
-                                          ),
-                                          BoxShadow(
-                                            color: Color(0x0F7281DF),
-                                            blurRadius: 10.20,
-                                            offset: Offset(0, 4.11),
-                                            spreadRadius: 0,
-                                          )
-                                        ],
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            e.namaEvent,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: kPoppinsMedium.copyWith(
-                                              fontSize: SizeConfig
-                                                      .blockSizeHorizontal! *
-                                                  3.25,
-                                              color: kBlack,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: SizeConfig
-                                                    .blockSizeHorizontal! *
-                                                1,
-                                          ),
-                                          RichText(
-                                            text: TextSpan(
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                  text: 'Dari: ',
-                                                  style:
-                                                      kNunitoRegular.copyWith(
-                                                    fontSize: SizeConfig
-                                                            .blockSizeHorizontal! *
-                                                        3.25,
-                                                    color: kNeutral80,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: e.unitPengundang,
-                                                  style:
-                                                      kNunitoRegular.copyWith(
-                                                    fontSize: SizeConfig
-                                                            .blockSizeHorizontal! *
-                                                        3.25,
-                                                    color: kBlue,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.bottomRight,
-                                            child: Text(
-                                              e.tanggal,
-                                              style: kNunitoRegular.copyWith(
-                                                fontSize: SizeConfig
-                                                        .blockSizeHorizontal! *
-                                                    2.85,
-                                                color: kNeutral70,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                    child: ItemAgenda(
+                                      namaEvent: e.namaEvent,
+                                      unitPengundang: e.unitPengundang,
+                                      tanggal: e.tanggal,
                                     ),
                                   ),
                                 )
                                 .toList(),
                           );
                         }
-                        return const Text("Gagal Ambil Data");
+                        return const Text("");
                       },
                     ),
                     SizedBox(
                       height: SizeConfig.screenHeight! * .8,
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ItemAgenda extends StatelessWidget {
+  final String namaEvent;
+  final String unitPengundang;
+  final String tanggal;
+  const ItemAgenda({
+    super.key,
+    required this.namaEvent,
+    required this.unitPengundang,
+    required this.tanggal,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        bottom: 12,
+      ),
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: ShapeDecoration(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        shadows: const [
+          BoxShadow(
+            color: Color(0x087281DF),
+            blurRadius: 4.11,
+            offset: Offset(0, 0.52),
+            spreadRadius: 0,
+          ),
+          BoxShadow(
+            color: Color(0x0C7281DF),
+            blurRadius: 6.99,
+            offset: Offset(0, 1.78),
+            spreadRadius: 0,
+          ),
+          BoxShadow(
+            color: Color(0x0F7281DF),
+            blurRadius: 10.20,
+            offset: Offset(0, 4.11),
+            spreadRadius: 0,
+          )
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            namaEvent,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: kPoppinsMedium.copyWith(
+              fontSize: 14,
+              color: kBlack,
+            ),
+          ),
+          RichText(
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'Dari: ',
+                  style: kNunitoRegular.copyWith(
+                    fontSize: 14,
+                    color: kNeutral80,
+                  ),
+                ),
+                TextSpan(
+                  text: unitPengundang,
+                  style: kNunitoRegular.copyWith(
+                    fontSize: 14,
+                    color: kBlue,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Text(
+              tanggal,
+              style: kNunitoRegular.copyWith(
+                fontSize: 12,
+                color: kNeutral70,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

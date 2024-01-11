@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:konsumsi_api_agenda/agenda/pages/detail_agenda.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
+import 'agenda-detail_page.dart';
 import '../helper/app_styles.dart';
 import '../helper/size_config.dart';
 import '../bloc/agenda_bloc.dart';
 import '../models/agenda_model.dart';
 
-class AgendaAinx extends StatelessWidget {
-  const AgendaAinx({super.key});
+class AgendaPage extends StatelessWidget {
+  const AgendaPage({super.key});
 
   @override
   Widget build(BuildContext context) {

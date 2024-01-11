@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:konsumsi_api_agenda/agenda/models/agenda-detail_model.dart';
-import 'package:konsumsi_api_agenda/agenda/models/agenda_model.dart';
 import 'package:meta/meta.dart';
-import 'package:http/http.dart' as http;
+import '../models/agenda_model.dart';
+import '../models/agenda-detail_model.dart';
+import '../services/services.dart';
 
 part 'agenda_event.dart';
 part 'agenda_state.dart';
@@ -21,7 +20,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
     Emitter<AgendaState> emit,
   ) async {
     emit(AgendaLoading());
-    final results = await fetchAPIAgenda(event.kata, event.date);
+    final results = await Services.fetchAPIAgenda(event.kata, event.date);
     emit(AgendaLoaded(results));
   }
 
@@ -30,7 +29,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
     Emitter<AgendaState> emit,
   ) async {
     emit(AgendaDetailLoading());
-    final results = await fetchAPIAgendaDetail();
+    final results = await Services.fetchAPIAgendaDetail();
     emit(AgendaDetailLoaded(results));
   }
 
@@ -40,24 +39,4 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   ) {
     emit(DateCalendarPicked());
   }
-}
-
-Future<Agenda> fetchAPIAgenda(String key, String bulan) async {
-  final response = await http.get(Uri.parse(
-      "https://dev.laz-almuthiin.com/api/agenda?key=$key&bulan=$bulan"));
-  if (response.statusCode == 200) {
-    Agenda data = agendaFromJson(response.body);
-    return data;
-  }
-  throw Exception("Gagal Mengambil Data");
-}
-
-Future<AgendaDetail> fetchAPIAgendaDetail() async {
-  final response = await http
-      .get(Uri.parse("https://dev.laz-almuthiin.com/api/detil_agenda"));
-  if (response.statusCode == 200) {
-    AgendaDetail data = agendaDetailFromJson(response.body);
-    return data;
-  }
-  throw Exception("Gagal Mengambil Data");
 }

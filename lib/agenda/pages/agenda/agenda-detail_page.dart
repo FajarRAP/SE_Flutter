@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../helper/size_config.dart';
-import '../helper/app_styles.dart';
-import '../bloc/agenda_bloc.dart';
-import '../models/agenda-detail_model.dart';
-
+import '../../bloc/agenda/agenda_bloc.dart';
+import '../../helper/app_styles.dart';
+import '../../helper/size_config.dart';
+import '../../models/agenda/agenda-detail_model.dart';
 class DetailAgenda extends StatelessWidget {
   const DetailAgenda({super.key});
 

@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../models/tunjangan/detail_tunjangan_model.dart';
-import '../../models/tunjangan/tunjangan_model.dart';
-import '../../models/tunjangan/tunjangan_tahun_model.dart';
-import '../../services/services.dart';
+import '../../../services/services.dart';
+import '../models/detail_tunjangan_model.dart';
+import '../models/tunjangan_model.dart';
+import '../models/tunjangan_tahun_model.dart';
 part 'tunjangan_event.dart';
 part 'tunjangan_state.dart';
 

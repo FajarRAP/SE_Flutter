@@ -1,9 +1,11 @@
 import 'package:http/http.dart' as http;
-import '../models/agenda/agenda-detail_model.dart';
-import '../models/agenda/agenda_model.dart';
-import '../models/tunjangan/detail_tunjangan_model.dart';
-import '../models/tunjangan/tunjangan_model.dart';
-import '../models/tunjangan/tunjangan_tahun_model.dart';
+
+import '../agenda/models/agenda-detail_model.dart';
+import '../agenda/models/agenda_model.dart';
+import '../tunjangan/models/detail_tunjangan_model.dart';
+import '../tunjangan/models/tunjangan_model.dart';
+import '../tunjangan/models/tunjangan_tahun_model.dart';
+
 
 class Services {
   

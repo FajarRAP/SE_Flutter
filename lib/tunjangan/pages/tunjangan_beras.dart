@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
-import '../../bloc/tunjangan/tunjangan_bloc.dart';
-import '../../helper/app_styles.dart';
-import '../../helper/size_config.dart';
-import '../../models/tunjangan/tunjangan_model.dart';
-import '../../models/tunjangan/tunjangan_tahun_model.dart';
+import '../../../helper/app_styles.dart';
+import '../../../helper/size_config.dart';
+import '../bloc/tunjangan_bloc.dart';
+import '../models/tunjangan_model.dart';
+import '../models/tunjangan_tahun_model.dart';
 import 'detail_tunjangan_beras.dart';
 // import 'package:flutter_svg/svg.dart';
 // import 'package:page_transition/page_transition.dart';

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'agenda/agenda_page.dart';
-import 'tunjangan/tunjangan_beras.dart';
+
+import 'tunjangan/pages/tunjangan_beras.dart';
+import 'agenda/pages/agenda_page.dart';
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

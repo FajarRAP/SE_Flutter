@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
-import '../../bloc/agenda/agenda_bloc.dart';
-import '../../helper/app_styles.dart';
-import '../../helper/size_config.dart';
-import '../../models/agenda/agenda_model.dart';
+
+import '../../../helper/app_styles.dart';
+import '../../../helper/size_config.dart';
+
+import '../bloc/agenda_bloc.dart';
+import '../models/agenda_model.dart';
 import 'agenda-detail_page.dart';
 
 class AgendaPage extends StatelessWidget {

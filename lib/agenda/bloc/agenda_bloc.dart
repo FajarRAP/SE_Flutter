@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import '../../models/agenda/agenda-detail_model.dart';
-import '../../models/agenda/agenda_model.dart';
-import '../../services/services.dart';
+import '../../../services/services.dart';
+import '../models/agenda-detail_model.dart';
+import '../models/agenda_model.dart';
 part 'agenda_event.dart';
 part 'agenda_state.dart';
 

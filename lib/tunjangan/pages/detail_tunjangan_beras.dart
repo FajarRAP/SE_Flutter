@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_svg/svg.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 
-import '../../bloc/tunjangan/tunjangan_bloc.dart';
-import '../../helper/app_styles.dart';
-import '../../helper/size_config.dart';
+import '../../../helper/app_styles.dart';
+import '../../../helper/size_config.dart';
+import '../bloc/tunjangan_bloc.dart';
 
 class DetailTunjanganBeras extends StatelessWidget {
   const DetailTunjanganBeras({super.key});

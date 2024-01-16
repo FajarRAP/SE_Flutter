@@ -26,7 +26,7 @@ class AgendaPage extends StatelessWidget {
       backgroundColor: kBlue,
       body: RefreshIndicator(
         onRefresh: () async {
-          agendaBloc.add(GetAgendaEvent(kata: kata, date: tanggal));
+          agendaBloc.add(GetAgendaEvent(kata: kata, tanggal: tanggal));
         },
         child: ListView(
           children: [
@@ -54,8 +54,6 @@ class AgendaPage extends StatelessWidget {
                 topRight: Radius.circular(32),
               ),
               child: Container(
-                // width: ,
-                // height: MediaQuery.sizeOf(context).height,
                 padding: EdgeInsets.fromLTRB(
                   SizeConfig.blockSizeHorizontal! * 4.675,
                   SizeConfig.blockSizeHorizontal! * 7.5,
@@ -70,23 +68,57 @@ class AgendaPage extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            GestureDetector(
-                              onTap: () {},
-                              child: const BerjalanSelesai(
-                                kata: 'Berjalan',
-                                warnaBg: Color(0XffEE6C4D),
-                                warnaFont: kWhite,
-                              ),
+                            BlocBuilder<AgendaBloc, AgendaState>(
+                              bloc: agendaBloc,
+                              builder: (context, state) {
+                                print(state);
+                                if (state is SelesaiClicked) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      agendaBloc.add(ClickBerjalanEvent());
+                                    },
+                                    child: const BerjalanSelesai(
+                                        kata: 'Berjalan',
+                                        warnaBg: kLightGrey,
+                                        warnaFont: kNeutral60),
+                                  );
+                                }
+                                return GestureDetector(
+                                  onTap: () {},
+                                  child: const BerjalanSelesai(
+                                    kata: 'Berjalan',
+                                    warnaBg: Color(0XffEE6C4D),
+                                    warnaFont: kWhite,
+                                  ),
+                                );
+                              },
                             ),
                             SizedBox(
                               width: SizeConfig.blockSizeHorizontal! * 2.85,
                             ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: const BerjalanSelesai(
-                                  kata: 'Selesai',
-                                  warnaBg: kLightGrey,
-                                  warnaFont: kNeutral60),
+                            BlocBuilder<AgendaBloc, AgendaState>(
+                              bloc: agendaBloc,
+                              builder: (context, state) {
+                                if (state is SelesaiClicked) {
+                                  return GestureDetector(
+                                    onTap: () {},
+                                    child: const BerjalanSelesai(
+                                      kata: 'Selesai',
+                                      warnaBg: Color(0XffEE6C4D),
+                                      warnaFont: kWhite,
+                                    ),
+                                  );
+                                }
+                                return GestureDetector(
+                                  onTap: () {
+                                    agendaBloc.add(ClickSelesaiEvent());
+                                  },
+                                  child: const BerjalanSelesai(
+                                      kata: 'Selesai',
+                                      warnaBg: kLightGrey,
+                                      warnaFont: kNeutral60),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -117,18 +149,39 @@ class AgendaPage extends StatelessWidget {
                                   if (date != null) {
                                     tanggal =
                                         DateFormat('dd-MM-yyyy').format(date);
+                                    datePicked =
+                                        DateFormat('M, yyyy').format(date);
                                     agendaBloc.add(GetAgendaEvent(
-                                        kata: kata, date: tanggal));
+                                        kata: kata, tanggal: tanggal));
+                                    agendaBloc.add(ClickCalendarEvent(
+                                        DateFormat('M, yyyy').format(date)));
                                   }
                                 });
                               },
-                              child: Text(
-                                'Bulan $datePicked',
-                                style: kPoppinsMedium.copyWith(
-                                  fontSize:
-                                      SizeConfig.blockSizeHorizontal! * 3.25,
-                                  color: kNeutral80,
-                                ),
+                              child: BlocBuilder<AgendaBloc, AgendaState>(
+                                bloc: agendaBloc,
+                                builder: (context, state) {
+                                  if (state is AgendaLoaded) {
+                                    return Text(
+                                      'Bulan $datePicked',
+                                      style: kPoppinsMedium.copyWith(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal! *
+                                                3.25,
+                                        color: kNeutral80,
+                                      ),
+                                    );
+                                  }
+                                  return Text(
+                                    'Bulan $datePicked',
+                                    style: kPoppinsMedium.copyWith(
+                                      fontSize:
+                                          SizeConfig.blockSizeHorizontal! *
+                                              3.25,
+                                      color: kNeutral80,
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           ],
@@ -167,9 +220,7 @@ class AgendaPage extends StatelessWidget {
                           isDense: false,
                           filled: true,
                           fillColor: Colors.transparent,
-                          contentPadding: const EdgeInsets.all(
-                            15,
-                          ),
+                          contentPadding: const EdgeInsets.all(15),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                             borderSide: BorderSide.none,
@@ -182,8 +233,8 @@ class AgendaPage extends StatelessWidget {
                         ),
                         onChanged: (value) {
                           kata = value;
-                          agendaBloc
-                              .add(GetAgendaEvent(kata: kata, date: tanggal));
+                          agendaBloc.add(
+                              GetAgendaEvent(kata: kata, tanggal: tanggal));
                         },
                       ),
                     ),
@@ -192,12 +243,42 @@ class AgendaPage extends StatelessWidget {
                     ),
                     BlocBuilder<AgendaBloc, AgendaState>(
                       bloc: agendaBloc
-                        ..add(GetAgendaEvent(kata: kata, date: tanggal)),
+                        ..add(GetAgendaEvent(kata: kata, tanggal: tanggal)),
                       builder: (context, state) {
                         if (state is AgendaLoading) {
                           return const CircularProgressIndicator();
                         } else if (state is AgendaLoaded) {
                           datum = state.data.data;
+                          return Column(
+                            children: datum
+                                .map(
+                                  (e) => InkWell(
+                                    onTap: () {},
+                                    child: ItemAgenda(
+                                      namaEvent: e.namaEvent,
+                                      unitPengundang: e.unitPengundang,
+                                      tanggal: e.tanggal,
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          );
+                        } else if (state is SelesaiClicked) {
+                          return Column(
+                            children: datum
+                                .map(
+                                  (e) => InkWell(
+                                    onTap: () {},
+                                    child: ItemAgenda(
+                                      namaEvent: e.namaEvent,
+                                      unitPengundang: e.unitPengundang,
+                                      tanggal: e.tanggal,
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          );
+                        } else if (state is BerjalanClicked) {
                           return Column(
                             children: datum
                                 .map(

@@ -23,4 +23,11 @@ class AgendaDetailLoaded extends AgendaState {
 
 class AgendaDetailError extends AgendaState {}
 
-class DateCalendarPicked extends AgendaState {}
+class DateCalendarPicked extends AgendaState {
+  final String tanggal;
+  DateCalendarPicked(this.tanggal);
+}
+
+class BerjalanClicked extends AgendaState {}
+
+class SelesaiClicked extends AgendaState {}

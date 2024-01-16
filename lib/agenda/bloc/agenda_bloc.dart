@@ -13,6 +13,8 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
     on<GetAgendaEvent>(getAgendaEvent);
     on<GetAgendaDetailEvent>(getAgendaDetailEvent);
     on<ClickCalendarEvent>(clickCalendarEvent);
+    on<ClickBerjalanEvent>(clickBerjalanEvent);
+    on<ClickSelesaiEvent>(clickSelesaiEvent);
   }
 
   FutureOr<void> getAgendaEvent(
@@ -20,7 +22,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
     Emitter<AgendaState> emit,
   ) async {
     emit(AgendaLoading());
-    final results = await Services.fetchAPIAgenda(event.kata, event.date);
+    final results = await Services.fetchAPIAgenda(event.kata, event.tanggal);
     emit(AgendaLoaded(results));
   }
 
@@ -37,6 +39,20 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
     ClickCalendarEvent event,
     Emitter<AgendaState> emit,
   ) {
-    emit(DateCalendarPicked());
+    emit(DateCalendarPicked(event.tanggal));
+  }
+
+  FutureOr<void> clickSelesaiEvent(
+    ClickSelesaiEvent event,
+    Emitter<AgendaState> emit,
+  ) {
+    emit(SelesaiClicked());
+  }
+
+  FutureOr<void> clickBerjalanEvent(
+    ClickBerjalanEvent event,
+    Emitter<AgendaState> emit,
+  ) {
+    emit(BerjalanClicked());
   }
 }

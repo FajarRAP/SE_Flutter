@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'tunjangan/pages/tunjangan_beras.dart';
 import 'agenda/pages/agenda_page.dart';
 
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -11,14 +10,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
               // Impelement to Tunjangan Page
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                builder: (context) => TunjanganBeras(),
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const TunjanganBeras(),
               )),
               child: const Text("Tunjangan"),
             ),

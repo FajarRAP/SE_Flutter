@@ -5,24 +5,24 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "konsumsi_api_agenda",
+            "name": "SE_Flutter",
             "request": "launch",
             "type": "dart",
-            "program": "lib/agenda/main.dart"
+            "program": "lib/main.dart"
         },
         {
-            "name": "konsumsi_api_agenda (profile mode)",
+            "name": "SE_Flutter (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
-            "program": "lib/agenda/main.dart"
+            "program": "lib/main.dart"
         },
         {
-            "name": "konsumsi_api_agenda (release mode)",
+            "name": "SE_Flutter (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
-            "program": "lib/agenda/main.dart"
+            "program": "lib/main.dart"
         }
     ]
 }

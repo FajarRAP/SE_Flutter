@@ -4,8 +4,9 @@ import '../../../helper/app_styles.dart';
 import '../../../helper/size_config.dart';
 import '../bloc/agenda_bloc.dart';
 import '../models/agenda-detail_model.dart';
-class DetailAgenda extends StatelessWidget {
-  const DetailAgenda({super.key});
+
+class DetailAgendaPage extends StatelessWidget {
+  const DetailAgendaPage({super.key});
 
   @override
   Widget build(BuildContext context) {

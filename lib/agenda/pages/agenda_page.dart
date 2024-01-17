@@ -360,7 +360,7 @@ class ItemAgenda extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const DetailAgenda()),
+          MaterialPageRoute(builder: (context) => const DetailAgendaPage()),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,14 +1,16 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 import '../agenda/models/agenda-detail_model.dart';
 import '../agenda/models/agenda_model.dart';
+import '../layanan_cuti/models/keterangan-cuti_model.dart';
+import '../layanan_cuti/models/cuti-tahunan_model.dart';
 import '../tunjangan/models/detail_tunjangan_model.dart';
 import '../tunjangan/models/tunjangan_model.dart';
 import '../tunjangan/models/tunjangan_tahun_model.dart';
 
-
 class Services {
-  
   //AGENDA
   static Future<Agenda> fetchAPIAgenda(String key, String bulan) async {
     final response = await http.get(Uri.parse(
@@ -31,7 +33,7 @@ class Services {
   }
 
   //TUNJANGAN
-   //fetch api untuk mendapatkan semua data tunjangan
+  //fetch api untuk mendapatkan semua data tunjangan
   static Future<List<DataTunjangan>> fetchAPITunjangan() async {
     final myResponse = await http
         .get(Uri.parse("https://dev.laz-almuthiin.com/api/tunjangan_beras"));
@@ -67,5 +69,33 @@ class Services {
     } else {
       throw Exception("Gagal Mengambil Data...");
     }
+  }
+
+  static Future<KeteranganCuti> fetchAPIKeteranganCuti() async {
+    final response = await http.get(Uri.parse(
+        "https://dummy-api-ainx.000webhostapp.com/keterangan_cuti.php"));
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      return KeteranganCuti(
+          sisa: data["sisa_cuti"],
+          diambil: data["cuti_diambil"],
+          total: data["total_cuti"]);
+    }
+    throw ("Gagal Mengambil Data...");
+  }
+
+  static Future<List<CutiTahunan>> fetchAPICutiTahunan() async {
+    final response = await http.get(
+        Uri.parse("https://dummy-api-ainx.000webhostapp.com/cuti_tahunan.php"));
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
+      return data
+          .map((e) => CutiTahunan(
+              nama: e["nama_cuti"],
+              tglMulai: e["tgl_mulai"],
+              tglSelesai: e["tgl_selesai"]))
+          .toList();
+    }
+    throw ("Gagal Mengambil Data...");
   }
 }

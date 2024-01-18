@@ -16,7 +16,7 @@ class LayananCutiPage extends StatelessWidget {
     final LayananCutiBloc layananCutiBloc = LayananCutiBloc();
 
     return Scaffold(
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: kBlue,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
@@ -35,7 +35,7 @@ class LayananCutiPage extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: kBlue,
       ),
       body: SingleChildScrollView(
         child: ClipRRect(
@@ -46,7 +46,6 @@ class LayananCutiPage extends StatelessWidget {
           child: BlocBuilder<LayananCutiBloc, LayananCutiState>(
             bloc: layananCutiBloc..add(GetLayananCutiEvent()),
             builder: (context, state) {
-              print(state);
               if (state is LayananCutiLoading) {
                 return Container(
                   height: SizeConfig.screenHeight,
@@ -255,7 +254,7 @@ class KeteranganCutiWidget extends StatelessWidget {
       ),
       child: Container(
         color: kWhite,
-        width: 120,
+        width: SizeConfig.screenWidth! * .275,
         height: 100,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

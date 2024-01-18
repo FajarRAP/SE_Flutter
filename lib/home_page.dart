@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'agenda/pages/agenda_page.dart';
 import 'layanan_cuti/pages/layanan_cuti.dart';
+import 'monitoring/pages/monitoring_page.dart';
 import 'tunjangan/pages/tunjangan_beras.dart';
 
 class HomePage extends StatelessWidget {
@@ -33,6 +34,12 @@ class HomePage extends StatelessWidget {
                     builder: (context) => const LayananCutiPage()),
               ),
               child: const Text("Layanan Cuti"),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const MonitoringPage()),
+              ),
+              child: const Text("Monitoring"),
             ),
           ],
         ),

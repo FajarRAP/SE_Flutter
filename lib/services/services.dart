@@ -6,6 +6,7 @@ import '../agenda/models/agenda-detail_model.dart';
 import '../agenda/models/agenda_model.dart';
 import '../layanan_cuti/models/keterangan-cuti_model.dart';
 import '../layanan_cuti/models/cuti-tahunan_model.dart';
+import '../monitoring/models/monitoring_model.dart';
 import '../tunjangan/models/detail_tunjangan_model.dart';
 import '../tunjangan/models/tunjangan_model.dart';
 import '../tunjangan/models/tunjangan_tahun_model.dart';
@@ -94,6 +95,22 @@ class Services {
               nama: e["nama_cuti"],
               tglMulai: e["tgl_mulai"],
               tglSelesai: e["tgl_selesai"]))
+          .toList();
+    }
+    throw ("Gagal Mengambil Data...");
+  }
+
+  static Future<List<Monitoring>> fetchAPIMonitoring() async {
+    final response = await http.get(
+        Uri.parse("https://dummy-api-ainx.000webhostapp.com/monitoring.php"));
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
+      return data
+          .map((e) => Monitoring(
+              nama: e["nama"],
+              lokasi: e["lokasi"],
+              masuk: e["masuk"],
+              pulang: e["pulang"]))
           .toList();
     }
     throw ("Gagal Mengambil Data...");

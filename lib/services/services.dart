@@ -3,6 +3,7 @@ import 'package:konsumsi_api_agenda/shift/models/shift_model.dart';
 
 import '../agenda/models/agenda-detail_model.dart';
 import '../agenda/models/agenda_model.dart';
+import '../gaji/models/gaji_model.dart';
 import '../tunjangan/models/detail_tunjangan_model.dart';
 import '../tunjangan/models/tunjangan_model.dart';
 import '../tunjangan/models/tunjangan_tahun_model.dart';
@@ -77,6 +78,17 @@ class Services {
       //cek apakah data sudah masuk ke console
       // print(myResponse.body);
       JadwalShiftKerja result = jadwalShiftKerjaFromJson(myResponse.body);
+      return result;
+    }else{
+      throw Exception("Gagal Mengambil Data...");
+    }
+  }
+
+    //GAJI
+  static Future<List<Gaji>> fetchAPIGaji() async {
+    final myResponse = await http.get(Uri.parse('https://dummy-api-ainx.000webhostapp.com/gaji.php'));
+    if(myResponse.statusCode == 200){
+      List<Gaji> result = gajiFromJson(myResponse.body);
       return result;
     }else{
       throw Exception("Gagal Mengambil Data...");

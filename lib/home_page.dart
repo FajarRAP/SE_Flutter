@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:konsumsi_api_agenda/gaji/pages/gaji.dart';
+import 'package:konsumsi_api_agenda/shift/pages/jadwal_shift.dart';
 
 import 'tunjangan/pages/tunjangan_beras.dart';
 import 'agenda/pages/agenda_page.dart';
@@ -25,6 +27,18 @@ class HomePage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const AgendaPage()),
               ),
               child: const Text("Agenda"),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const InformasiGaji()),
+              ),
+              child: const Text("Gaji"),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const JadwalShift()),
+              ),
+              child: const Text("Shift"),
             ),
           ],
         ),

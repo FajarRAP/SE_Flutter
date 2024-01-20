@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../models/keterangan-cuti_model.dart';
 import '../models/cuti-tahunan_model.dart';
 import '../../helper/app_styles.dart';
@@ -14,6 +15,7 @@ class LayananCutiPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final LayananCutiBloc layananCutiBloc = LayananCutiBloc();
+    final double appBarHeight = AppBar().preferredSize.height;
 
     return Scaffold(
       backgroundColor: kBlue,
@@ -28,7 +30,7 @@ class LayananCutiPage extends StatelessWidget {
           // },
         ),
         title: Text(
-          "Layanan Cuti",
+          'Layanan Cuti',
           style: kPoppinsBold.copyWith(
             color: kWhite,
             fontSize: SizeConfig.blockSizeHorizontal! * 4.675,
@@ -37,117 +39,175 @@ class LayananCutiPage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: kBlue,
       ),
-      body: SingleChildScrollView(
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(32),
-            topRight: Radius.circular(32),
-          ),
-          child: BlocBuilder<LayananCutiBloc, LayananCutiState>(
-            bloc: layananCutiBloc..add(GetLayananCutiEvent()),
-            builder: (context, state) {
-              if (state is LayananCutiLoading) {
-                return Container(
-                  height: SizeConfig.screenHeight,
-                  color: const Color((0xFFF6F7F9)),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              } else if (state is LayananCutiLoaded) {
-                return Container(
-                  color: const Color((0xFFF6F7F9)),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.blockSizeHorizontal! * 4.675,
-                      vertical: SizeConfig.blockSizeHorizontal! * 7.5,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        BlocBuilder<LayananCutiBloc, LayananCutiState>(
-                          bloc: layananCutiBloc,
-                          builder: (context, state) {
-                            if (state is LayananCutiLoaded) {
-                              final KeteranganCuti data = state.keteranganCuti;
-                              return Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  KeteranganCutiWidget(
-                                    teks: "Sisa Cuti",
-                                    angka: data.sisa,
-                                    warna: kGreen,
-                                  ),
-                                  KeteranganCutiWidget(
-                                    teks: "Cuti Diambil",
-                                    angka: data.diambil,
-                                    warna: kOrange,
-                                  ),
-                                  KeteranganCutiWidget(
-                                    teks: "Total Cuti",
-                                    angka: data.total,
-                                    warna: kBlue,
-                                  ),
-                                ],
-                              );
-                            }
-                            return const Text("Gagal Ambil Data");
-                          },
+      body: RefreshIndicator(
+        onRefresh: () async => layananCutiBloc.add(GetLayananCutiEvent()),
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(32),
+                  topRight: Radius.circular(32),
+                ),
+                child: BlocBuilder<LayananCutiBloc, LayananCutiState>(
+                  bloc: layananCutiBloc..add(GetLayananCutiEvent()),
+                  builder: (context, state) {
+                    if (state is LayananCutiLoading) {
+                      return Container(
+                        height: SizeConfig.screenHeight,
+                        color: const Color((0xFFF6F7F9)),
+                        child: const Center(
+                          child: CircularProgressIndicator(),
                         ),
-                        const SizedBox(height: 16),
-                        const Divider(),
-                        const SizedBox(height: 16),
-                        Text(
-                          "Layanan Cuti Tahunan",
-                          style: kPoppinsMedium.copyWith(
-                            color: kGrey,
+                      );
+                    } else if (state is LayananCutiLoaded) {
+                      final List<CutiTahunan> cutiTahunan = state.cutiTahunan;
+                      return Container(
+                        height: cutiTahunan.isNotEmpty
+                            ? null
+                            : SizeConfig.screenHeight! - appBarHeight,
+                        color: const Color((0xFFF6F7F9)),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.blockSizeHorizontal! * 4.675,
+                            vertical: SizeConfig.blockSizeHorizontal! * 7.5,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              BlocBuilder<LayananCutiBloc, LayananCutiState>(
+                                bloc: layananCutiBloc,
+                                builder: (context, state) {
+                                  if (state is LayananCutiLoaded) {
+                                    final KeteranganCuti data =
+                                        state.keteranganCuti;
+                                    return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        KeteranganCutiWidget(
+                                          teks: "Sisa Cuti",
+                                          angka: data.sisa,
+                                          warna: kGreen,
+                                        ),
+                                        KeteranganCutiWidget(
+                                          teks: "Cuti Diambil",
+                                          angka: data.diambil,
+                                          warna: kOrange,
+                                        ),
+                                        KeteranganCutiWidget(
+                                          teks: "Total Cuti",
+                                          angka: data.total,
+                                          warna: kBlue,
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                  return const Text("Gagal Ambil Data");
+                                },
+                              ),
+                              const SizedBox(height: 16),
+                              const Divider(),
+                              const SizedBox(height: 16),
+                              Text(
+                                "Layanan Cuti Tahunan",
+                                style: kPoppinsMedium.copyWith(
+                                  color: kGrey,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              const Row(
+                                children: [
+                                  BerjalanSelesai(
+                                      kata: "Berjalan",
+                                      warnaBg: Color(0XffEE6C4D),
+                                      warnaFont: kWhite),
+                                  SizedBox(
+                                    width: 16,
+                                  ),
+                                  BerjalanSelesai(
+                                      kata: "Selesai",
+                                      warnaBg: kLightGrey,
+                                      warnaFont: kNeutral60),
+                                ],
+                              ),
+                              BlocBuilder<LayananCutiBloc, LayananCutiState>(
+                                bloc: layananCutiBloc,
+                                builder: (context, state) {
+                                  if (state is LayananCutiLoaded) {
+                                    if (cutiTahunan.isNotEmpty) {
+                                      return Column(
+                                        children: cutiTahunan
+                                            .map((e) => Column(children: [
+                                                  const SizedBox(height: 16),
+                                                  ItemCutiTahunan(
+                                                      nama: e.nama,
+                                                      tglMulai: e.tglMulai,
+                                                      tglSelesai: e.tglSelesai),
+                                                ]))
+                                            .toList(),
+                                      );
+                                    } else {
+                                      return Center(
+                                        child: Column(
+                                          children: [
+                                            const SizedBox(height: 32),
+                                            SvgPicture.asset(
+                                                'assets/icons/libur-jadwal-perkuliahan.svg'),
+                                            const SizedBox(height: 24),
+                                            Text(
+                                              'Saat ini tidak ada cuti yang diambil',
+                                              style: kPoppinsSemiBold.copyWith(
+                                                fontSize: 18,
+                                                color: kBlack,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Text(
+                                              'Anda belum memiliki cuti yang berjalan',
+                                              textAlign: TextAlign.center,
+                                              style: kNunitoRegular.copyWith(
+                                                fontSize: 14,
+                                                color: kNeutral90,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                  }
+                                  return const Text("Gagal Mengambil Data...");
+                                },
+                              ),
+                            ],
                           ),
                         ),
-                        const SizedBox(height: 16),
-                        const Row(
-                          children: [
-                            BerjalanSelesai(
-                                kata: "Berjalan",
-                                warnaBg: Color(0XffEE6C4D),
-                                warnaFont: kWhite),
-                            SizedBox(
-                              width: 16,
-                            ),
-                            BerjalanSelesai(
-                                kata: "Selesai",
-                                warnaBg: kLightGrey,
-                                warnaFont: kNeutral60),
-                          ],
-                        ),
-                        BlocBuilder<LayananCutiBloc, LayananCutiState>(
-                          bloc: layananCutiBloc,
-                          builder: (context, state) {
-                            if (state is LayananCutiLoaded) {
-                              final List<CutiTahunan> data = state.cutiTahunan;
-                              return Column(
-                                children: data
-                                    .map((e) => Column(children: [
-                                          const SizedBox(height: 16),
-                                          ItemCutiTahunan(
-                                              nama: e.nama,
-                                              tglMulai: e.tglMulai,
-                                              tglSelesai: e.tglSelesai),
-                                        ]))
-                                    .toList(),
-                              );
-                            }
-                            return const Text("Gagal Mengambil Data...");
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }
-              return const Text("Gagal Mengambil Data...");
-            },
-          ),
+                      );
+                    }
+                    return const Text("Gagal Mengambil Data...");
+                  },
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: SizeConfig.screenHeight! * .035,
+              right: SizeConfig.screenHeight! * .035,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: kBlue,
+                ),
+                onPressed: () {},
+                label: const Text(
+                  'Tambah',
+                  style: TextStyle(color: kWhite),
+                ),
+                icon: SvgPicture.asset(
+                  'assets/icons/edit-2.svg',
+                  colorFilter: const ColorFilter.mode(kWhite, BlendMode.srcIn),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

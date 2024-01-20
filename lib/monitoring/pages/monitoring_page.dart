@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../helper/app_styles.dart';
 import '../../helper/size_config.dart';
 import '../../services/services.dart';
@@ -13,12 +14,14 @@ class MonitoringPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final MonitoringBloc monitoringBloc = MonitoringBloc();
+    final double appBarHeight = AppBar().preferredSize.height;
+
     return Scaffold(
       backgroundColor: kBlue,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Monitoring",
+          'Monitoring',
           style: kPoppinsBold.copyWith(
             color: kWhite,
             fontSize: SizeConfig.blockSizeHorizontal! * 4.675,
@@ -31,61 +34,91 @@ class MonitoringPage extends StatelessWidget {
             color: kWhite,
           ),
           onPressed: () => Navigator.pop(context),
-          // onPressed: () async {
-          //   final List<Monitoring> monitoring =
-          //       await Services.fetchAPIMonitoring();
-          //   print(monitoring);
-          // },
         ),
       ),
-      body: SingleChildScrollView(
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(32),
-            topRight: Radius.circular(32),
-          ),
-          child: Container(
-            color: const Color((0xFFF6F7F9)),
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: SizeConfig.blockSizeHorizontal! * 4.5,
-                top: SizeConfig.blockSizeHorizontal! * 4.5,
-                right: SizeConfig.blockSizeHorizontal! * 4.5,
-              ),
-              child: BlocBuilder<MonitoringBloc, MonitoringState>(
-                bloc: monitoringBloc..add(GetMonitoringEvent()),
-                builder: (context, state) {
-                  if (state is MonitoringLoadingState) {
-                    return SizedBox(
-                      height: SizeConfig.screenHeight,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
+      body: RefreshIndicator(
+        onRefresh: () async => monitoringBloc.add(GetMonitoringEvent()),
+        child: SingleChildScrollView(
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(32),
+              topRight: Radius.circular(32),
+            ),
+            child: BlocBuilder<MonitoringBloc, MonitoringState>(
+              bloc: monitoringBloc..add(GetMonitoringEvent()),
+              builder: (context, state) {
+                if (state is MonitoringLoadingState) {
+                  return Container(
+                    height: SizeConfig.screenHeight,
+                    color: const Color((0xFFF6F7F9)),
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                } else if (state is MonitoringLoadedState) {
+                  final List<Monitoring> monitoringData = state.data;
+                  if (monitoringData.isNotEmpty) {
+                    return Container(
+                      color: const Color((0xFFF6F7F9)),
+                      padding: EdgeInsets.only(
+                        left: SizeConfig.blockSizeHorizontal! * 4.5,
+                        top: SizeConfig.blockSizeHorizontal! * 4.5,
+                        right: SizeConfig.blockSizeHorizontal! * 4.5,
+                      ),
+                      child: Column(
+                        children: monitoringData
+                            .map((e) => Column(
+                                  children: [
+                                    ItemMonitoring(
+                                        nama: e.nama,
+                                        lokasi: e.lokasi,
+                                        masuk: e.masuk,
+                                        pulang: e.pulang),
+                                    SizedBox(
+                                      height:
+                                          SizeConfig.blockSizeHorizontal! * 2,
+                                    ),
+                                  ],
+                                ))
+                            .toList(),
                       ),
                     );
-                  } else if (state is MonitoringLoadedState) {
-                    final List<Monitoring> monitoringData = state.data;
-                    return Column(
-                      children: monitoringData
-                          .map((e) => Column(
-                                children: [
-                                  ItemMonitoring(
-                                      nama: e.nama,
-                                      lokasi: e.lokasi,
-                                      masuk: e.masuk,
-                                      pulang: e.pulang),
-                                  SizedBox(
-                                    height: SizeConfig.blockSizeHorizontal! * 2,
-                                  ),
-                                ],
-                              ))
-                          .toList(),
+                  } else {
+                    return Container(
+                      color: const Color((0xFFF6F7F9)),
+                      height: SizeConfig.screenHeight! - appBarHeight,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 32),
+                            SvgPicture.asset(
+                                'assets/icons/libur-jadwal-perkuliahan.svg'),
+                            const SizedBox(height: 24),
+                            Text(
+                              'Saat ini tidak ada data monitoring',
+                              style: kPoppinsSemiBold.copyWith(
+                                fontSize: 18,
+                                color: kBlack,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Belum ada orang yang masuk',
+                              textAlign: TextAlign.center,
+                              style: kNunitoRegular.copyWith(
+                                fontSize: 14,
+                                color: kNeutral90,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     );
-                  } else if (state is MonitoringErrorState) {
-                    return Text("ERROR : ${state.pesan}");
                   }
-                  return const Text("Gagal Mengambil Data...");
-                },
-              ),
+                }
+                return const Text("Gagal Mengambil Data...");
+              },
             ),
           ),
         ),

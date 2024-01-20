@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:konsumsi_api_agenda/shift/models/shift_model.dart';
+// import 'package:konsumsi_api_agenda/shift/models/shift_model.dart';
 
 import '../agenda/models/agenda-detail_model.dart';
 import '../agenda/models/agenda_model.dart';
@@ -74,17 +74,17 @@ class Services {
 
 
   //SHIFT
-  static Future<JadwalShiftKerja> fetchAPIJadwalShift() async {
-    final myResponse = await http.get(Uri.parse("https://dev.laz-almuthiin.com/api/jadwal_shift"));
-    if(myResponse.statusCode == 200){
-      //cek apakah data sudah masuk ke console
-      // print(myResponse.body);
-      JadwalShiftKerja result = jadwalShiftKerjaFromJson(myResponse.body);
-      return result;
-    }else{
-      throw Exception("Gagal Mengambil Data...");
-    }
-  }
+  // static Future<JadwalShiftKerja> fetchAPIJadwalShift() async {
+  //   final myResponse = await http.get(Uri.parse("https://dev.laz-almuthiin.com/api/jadwal_shift"));
+  //   if(myResponse.statusCode == 200){
+  //     //cek apakah data sudah masuk ke console
+  //     // print(myResponse.body);
+  //     JadwalShiftKerja result = jadwalShiftKerjaFromJson(myResponse.body);
+  //     return result;
+  //   }else{
+  //     throw Exception("Gagal Mengambil Data...");
+  //   }
+  // }
 
   static Future<KeteranganCuti> fetchAPIKeteranganCuti() async {
     final response = await http.get(Uri.parse(

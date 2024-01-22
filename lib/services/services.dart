@@ -8,6 +8,7 @@ import '../agenda/models/agenda_model.dart';
 import '../layanan_cuti/models/keterangan-cuti_model.dart';
 import '../layanan_cuti/models/cuti-tahunan_model.dart';
 import '../monitoring/models/monitoring_model.dart';
+import '../monitoring/models/detail-monitoring_model.dart';
 import '../tunjangan/models/detail_tunjangan_model.dart';
 import '../tunjangan/models/tunjangan_model.dart';
 import '../tunjangan/models/tunjangan_tahun_model.dart';
@@ -65,13 +66,12 @@ class Services {
         "https://dev.laz-almuthiin.com/api/tunjangan_beras?tgl=$tahun"));
     if (myResponse.statusCode == 200) {
       // print(myResponse.body);
-      TunjanganTahun result = tunjanganTahunFromJson(myResponse.body);    
+      TunjanganTahun result = tunjanganTahunFromJson(myResponse.body);
       return result;
-    } else { 
+    } else {
       throw Exception("Gagal Mengambil Data...");
     }
   }
-
 
   //SHIFT
   // static Future<JadwalShiftKerja> fetchAPIJadwalShift() async {
@@ -126,6 +126,15 @@ class Services {
               masuk: e["masuk"],
               pulang: e["pulang"]))
           .toList();
+    }
+    throw ("Gagal Mengambil Data...");
+  }
+
+  static Future<DetailMonitoring> fetchAPIDetailMonitoring() async {
+    final response = await http.get(Uri.parse(
+        "https://dummy-api-ainx.000webhostapp.com/detail_monitoring.php"));
+    if (response.statusCode == 200) {
+      return detailMonitoringFromJson(response.body);
     }
     throw ("Gagal Mengambil Data...");
   }

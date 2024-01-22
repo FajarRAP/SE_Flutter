@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
@@ -27,9 +28,8 @@ class AgendaPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: kBlue,
       body: RefreshIndicator(
-        onRefresh: () async {
-          agendaBloc.add(GetAgendaEvent(kata: kata, tanggal: tanggal));
-        },
+        onRefresh: () async =>
+            agendaBloc.add(GetAgendaEvent(kata: kata, tanggal: tanggal)),
         child: ListView(
           children: [
             Padding(
@@ -40,6 +40,21 @@ class AgendaPage extends StatelessWidget {
               child: Row(
                 children: [
                   // Inkwell button back,
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: SvgPicture.asset(
+                      'assets/icons/arrow-left.svg',
+                      color: kWhite,
+                      fit: BoxFit.scaleDown,
+                      width: 24,
+                      height: 24,
+                    ),
+                  ),
+                  SizedBox(
+                    width: SizeConfig.blockSizeHorizontal! * 5.5,
+                  ),
                   Text(
                     'Agenda',
                     style: kPoppinsBold.copyWith(
@@ -73,7 +88,6 @@ class AgendaPage extends StatelessWidget {
                             BlocBuilder<AgendaBloc, AgendaState>(
                               bloc: agendaBloc,
                               builder: (context, state) {
-                                print(state);
                                 if (state is SelesaiClicked) {
                                   return GestureDetector(
                                     onTap: () {

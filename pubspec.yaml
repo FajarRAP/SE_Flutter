@@ -44,6 +44,8 @@ dependencies:
   pretty_qr_code: ^3.1.0
   qr_flutter: ^4.1.0
   flutter_svg: ^2.0.9
+  d_chart: ^2.6.7
+  fl_chart: ^0.66.0
 
 dev_dependencies:
   flutter_test:

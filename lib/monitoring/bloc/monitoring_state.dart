@@ -16,3 +16,15 @@ class MonitoringErrorState extends MonitoringState {
   final String pesan;
   MonitoringErrorState(this.pesan);
 }
+
+class DetailMonitoringLoadingState extends MonitoringState {}
+
+class DetailMonitoringLoadedState extends MonitoringState {
+  final DetailMonitoring data;
+  DetailMonitoringLoadedState(this.data);
+}
+
+class DetailMonitoringErrorState extends MonitoringState {
+  final String pesan;
+  DetailMonitoringErrorState(this.pesan);
+}

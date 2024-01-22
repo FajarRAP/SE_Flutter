@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'size_config.dart';
 
 const Color kBlue = Color(0xFF2B86C4);
 
@@ -36,15 +37,15 @@ final kNunitoSemiBold = GoogleFonts.nunito(fontWeight: FontWeight.w600);
 final kNunitoMedium = GoogleFonts.nunito(fontWeight: FontWeight.w500);
 final kNunitoRegular = GoogleFonts.nunito(fontWeight: FontWeight.w400);
 
-// final kSize4 = SizeConfig.blockSizeHorizontal! * 1;
-// final kSize8 = SizeConfig.blockSizeHorizontal! * 1.87;
-// final kSize10 = SizeConfig.blockSizeHorizontal! * 2.35;
-// final kSize12 = SizeConfig.blockSizeHorizontal! * 2.85;
-// final kSize14 = SizeConfig.blockSizeHorizontal! * 3.25;
-// final kSize16 = SizeConfig.blockSizeHorizontal! * 3.75;
-// final kSize18 = SizeConfig.blockSizeHorizontal! * 4.25;
-// final kSize20 = SizeConfig.blockSizeHorizontal! * 4.675;
-// final kSize24 = SizeConfig.blockSizeHorizontal! * 5.5;
-// final kSize28 = SizeConfig.blockSizeHorizontal! * 6.55;
-// final kSize32 = SizeConfig.blockSizeHorizontal! * 7.5;
-// final kSize40 = SizeConfig.blockSizeHorizontal! * 9.35;
+final kSize4 = SizeConfig.blockSizeHorizontal! * 1;
+final kSize8 = SizeConfig.blockSizeHorizontal! * 1.87;
+final kSize10 = SizeConfig.blockSizeHorizontal! * 2.35;
+final kSize12 = SizeConfig.blockSizeHorizontal! * 2.85;
+final kSize14 = SizeConfig.blockSizeHorizontal! * 3.25;
+final kSize16 = SizeConfig.blockSizeHorizontal! * 3.75;
+final kSize18 = SizeConfig.blockSizeHorizontal! * 4.25;
+final kSize20 = SizeConfig.blockSizeHorizontal! * 4.675;
+final kSize24 = SizeConfig.blockSizeHorizontal! * 5.5;
+final kSize28 = SizeConfig.blockSizeHorizontal! * 6.55;
+final kSize32 = SizeConfig.blockSizeHorizontal! * 7.5;
+final kSize40 = SizeConfig.blockSizeHorizontal! * 9.35;

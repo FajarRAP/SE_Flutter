@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'detail-monitoring_page.dart';
 import '../../helper/app_styles.dart';
 import '../../helper/size_config.dart';
 import '../../services/services.dart';
@@ -22,9 +23,9 @@ class MonitoringPage extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'Monitoring',
-          style: kPoppinsBold.copyWith(
+          style: kPoppinsSemiBold.copyWith(
             color: kWhite,
-            fontSize: SizeConfig.blockSizeHorizontal! * 4.675,
+            fontSize: kSize20,
           ),
         ),
         backgroundColor: kBlue,
@@ -57,13 +58,15 @@ class MonitoringPage extends StatelessWidget {
                   );
                 } else if (state is MonitoringLoadedState) {
                   final List<Monitoring> monitoringData = state.data;
+                  // monitoringData.clear();
                   if (monitoringData.isNotEmpty) {
                     return Container(
                       color: const Color((0xFFF6F7F9)),
                       padding: EdgeInsets.only(
-                        left: SizeConfig.blockSizeHorizontal! * 4.5,
-                        top: SizeConfig.blockSizeHorizontal! * 4.5,
-                        right: SizeConfig.blockSizeHorizontal! * 4.5,
+                        left: SizeConfig.blockSizeHorizontal! * 4.675,
+                        top: SizeConfig.blockSizeHorizontal! * 7.5,
+                        right: SizeConfig.blockSizeHorizontal! * 4.675,
+                        bottom: SizeConfig.blockSizeHorizontal! * 7.5,
                       ),
                       child: Column(
                         children: monitoringData
@@ -91,24 +94,24 @@ class MonitoringPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(height: 32),
+                            SizedBox(height: kSize32),
                             SvgPicture.asset(
                                 'assets/icons/libur-jadwal-perkuliahan.svg'),
-                            const SizedBox(height: 24),
+                            SizedBox(height: kSize24),
                             Text(
                               'Saat ini tidak ada data monitoring',
                               style: kPoppinsSemiBold.copyWith(
-                                fontSize: 18,
+                                fontSize: kSize18,
                                 color: kBlack,
                               ),
                             ),
-                            const SizedBox(height: 8),
+                            SizedBox(height: kSize8),
                             Text(
                               'Belum ada orang yang masuk',
                               textAlign: TextAlign.center,
                               style: kNunitoRegular.copyWith(
-                                fontSize: 14,
-                                color: kNeutral90,
+                                fontSize: kSize14,
+                                color: kNeutral80,
                               ),
                             ),
                           ],
@@ -142,18 +145,23 @@ class ItemMonitoring extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
+    return InkWell(
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => const DetailMonitoringPage(),
+      )),
       child: Container(
         width: double.infinity,
-        height: SizeConfig.screenHeight! * .09,
-        color: kWhite,
+        height: SizeConfig.screenHeight! * .1,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: kWhite,
+        ),
         child: Row(
           children: [
             Padding(
               padding: EdgeInsets.only(left: SizeConfig.screenWidth! * .04),
               child: SizedBox(
-                width: SizeConfig.screenWidth! * .45,
+                width: SizeConfig.screenWidth! * .53,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,21 +170,25 @@ class ItemMonitoring extends StatelessWidget {
                       child: Text(
                         nama,
                         overflow: TextOverflow.ellipsis,
-                        style: kPoppinsBold,
+                        style: kPoppinsMedium.copyWith(
+                          fontSize: kSize14,
+                          color: kBlack,
+                        ),
                       ),
                     ),
+                    SizedBox(height: kSize4),
                     Row(
                       children: [
-                        const Icon(
-                          Icons.location_pin,
-                          color: kRed,
-                        ),
+                        SvgPicture.asset(
+                            "assets/icons/tunjangan-beras-location.svg"),
+                        SizedBox(width: kSize4),
                         Flexible(
                           child: Text(
                             lokasi,
                             overflow: TextOverflow.ellipsis,
-                            style: kPoppinsMedium.copyWith(
-                              color: kGrey,
+                            style: kPoppinsRegular.copyWith(
+                              color: kNeutral80,
+                              fontSize: kSize12,
                             ),
                           ),
                         ),
@@ -188,20 +200,23 @@ class ItemMonitoring extends StatelessWidget {
             ),
             const VerticalDivider(),
             SizedBox(
-              width: SizeConfig.screenWidth! * .16,
+              width: SizeConfig.screenWidth! * .12,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Masuk",
-                    style: kPoppinsMedium.copyWith(
-                      color: kGrey,
+                    'Masuk',
+                    style: kPoppinsRegular.copyWith(
+                      color: kNeutral80,
+                      fontSize: kSize12,
                     ),
                   ),
+                  SizedBox(height: kSize4),
                   Text(
                     masuk,
                     style: kPoppinsMedium.copyWith(
                       color: kGreen,
+                      fontSize: kSize16,
                     ),
                   ),
                 ],
@@ -209,20 +224,23 @@ class ItemMonitoring extends StatelessWidget {
             ),
             const VerticalDivider(),
             SizedBox(
-              width: SizeConfig.screenWidth! * .16,
+              width: SizeConfig.screenWidth! * .12,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Pulang",
-                    style: kPoppinsMedium.copyWith(
+                    'Pulang',
+                    style: kPoppinsRegular.copyWith(
                       color: kGrey,
+                      fontSize: kSize12,
                     ),
                   ),
+                  SizedBox(height: kSize4),
                   Text(
                     pulang,
                     style: kPoppinsMedium.copyWith(
-                      color: kGreen,
+                      color: kOrange,
+                      fontSize: kSize16,
                     ),
                   ),
                 ],

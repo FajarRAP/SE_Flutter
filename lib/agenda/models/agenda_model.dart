@@ -11,7 +11,7 @@ String agendaToJson(Agenda data) => json.encode(data.toJson());
 
 class Agenda {
   final bool status;
-  final List<Datum> data;
+  final List<DataAgenda> data;
   final String code;
   final String message;
 
@@ -24,7 +24,8 @@ class Agenda {
 
   factory Agenda.fromJson(Map<String, dynamic> json) => Agenda(
         status: json["status"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<DataAgenda>.from(
+            json["data"].map((x) => DataAgenda.fromJson(x))),
         code: json["code"],
         message: json["message"],
       );
@@ -37,20 +38,20 @@ class Agenda {
       };
 }
 
-class Datum {
+class DataAgenda {
   final String idEvent;
   final String namaEvent;
   final String unitPengundang;
   final String tanggal;
 
-  Datum({
+  DataAgenda({
     required this.idEvent,
     required this.namaEvent,
     required this.unitPengundang,
     required this.tanggal,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory DataAgenda.fromJson(Map<String, dynamic> json) => DataAgenda(
         idEvent: json["id_event"],
         namaEvent: json["nama_event"],
         unitPengundang: json["unit_pengundang"],

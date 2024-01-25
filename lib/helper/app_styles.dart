@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'size_config.dart';
 
-const Color kBlue = Color(0xFF2B86C4);
-
-const Color kGrey = Color(0xFF7A8089);
-const Color kLightGrey = Color(0XFFF0F1F2);
-
 const Color kWhite = Color(0xFFFFFFFF);
 const Color kBlack = Color(0xFF293241);
-
+const Color kGrey = Color(0xFF7A8089);
+const Color kLightGrey = Color(0XFFF0F1F2);
 const Color kNeutral10 = Color(0xFFFFFFFF);
 const Color kNeutral20 = Color(0xFFF6F7F7);
 const Color kNeutral30 = Color(0xFFF0F1F2);
@@ -21,6 +17,8 @@ const Color kNeutral80 = Color(0xFF7A8089);
 const Color kNeutral90 = Color(0xFF5F6570);
 const Color kNeutral100 = Color(0xFF293241);
 
+const Color bgColor = Color((0xFFF6F7F9));
+const Color kBlue = Color(0xFF2B86C4);
 const Color kOrange = Color(0xFFFB7F54);
 const Color kYellow = Color(0xFFFFAC30);
 const Color kGreen = Color(0xFF4AAF57);

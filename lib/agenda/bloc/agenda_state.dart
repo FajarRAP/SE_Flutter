@@ -8,8 +8,9 @@ final class AgendaInitial extends AgendaState {}
 class AgendaLoading extends AgendaState {}
 
 class AgendaLoaded extends AgendaState {
-  final Agenda data;
-  AgendaLoaded(this.data);
+  final Agenda agenda;
+  final bool isBerjalan;
+  AgendaLoaded(this.agenda, this.isBerjalan);
 }
 
 class AgendaError extends AgendaState {}

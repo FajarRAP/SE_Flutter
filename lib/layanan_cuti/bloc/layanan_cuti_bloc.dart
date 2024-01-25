@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import '../../services/services.dart';
-import '../models/keterangan-cuti_model.dart';
-import '../models/cuti-tahunan_model.dart';
+import '../models/cuti-rekap_model.dart';
+import '../models/cuti-daftar_model.dart';
 
 part 'layanan_cuti_event.dart';
 part 'layanan_cuti_state.dart';
@@ -19,9 +19,9 @@ class LayananCutiBloc extends Bloc<LayananCutiEvent, LayananCutiState> {
     Emitter<LayananCutiState> emit,
   ) async {
     emit(LayananCutiLoading());
-    final KeteranganCuti keteranganCuti =
-        await Services.fetchAPIKeteranganCuti();
-    final List<CutiTahunan> cutiTahunan = await Services.fetchAPICutiTahunan();
-    emit(LayananCutiLoaded(keteranganCuti, cutiTahunan));
+    final CutiRekap cutiRekap =
+        await Services.fetchAPICutiRekap();
+    final CutiDaftar cutiDaftar = await Services.fetchAPICutiTahunan();
+    emit(LayananCutiLoaded(cutiRekap, cutiDaftar));
   }
 }

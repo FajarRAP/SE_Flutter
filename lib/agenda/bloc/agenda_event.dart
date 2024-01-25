@@ -6,17 +6,13 @@ sealed class AgendaEvent {}
 class GetAgendaEvent extends AgendaEvent {
   final String kata;
   final String tanggal;
+  final bool isBerjalan;
 
-  GetAgendaEvent({required this.kata, required this.tanggal});
+  GetAgendaEvent({
+    required this.kata,
+    required this.tanggal,
+    required this.isBerjalan,
+  });
 }
 
 class GetAgendaDetailEvent extends AgendaEvent {}
-
-class ClickCalendarEvent extends AgendaEvent {
-  final String tanggal;
-  ClickCalendarEvent(this.tanggal);
-}
-
-class ClickBerjalanEvent extends AgendaEvent {}
-
-class ClickSelesaiEvent extends AgendaEvent {}

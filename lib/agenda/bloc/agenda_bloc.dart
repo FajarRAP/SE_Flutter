@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import '../../../services/services.dart';
 import '../models/agenda-detail_model.dart';
@@ -11,9 +12,6 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   AgendaBloc() : super(AgendaInitial()) {
     on<GetAgendaEvent>(getAgendaEvent);
     on<GetAgendaDetailEvent>(getAgendaDetailEvent);
-    on<ClickCalendarEvent>(clickCalendarEvent);
-    on<ClickBerjalanEvent>(clickBerjalanEvent);
-    on<ClickSelesaiEvent>(clickSelesaiEvent);
   }
 
   FutureOr<void> getAgendaEvent(
@@ -22,7 +20,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   ) async {
     emit(AgendaLoading());
     final results = await Services.fetchAPIAgenda(event.kata, event.tanggal);
-    emit(AgendaLoaded(results));
+    emit(AgendaLoaded(results, event.isBerjalan));
   }
 
   FutureOr<void> getAgendaDetailEvent(
@@ -32,26 +30,5 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
     emit(AgendaDetailLoading());
     final results = await Services.fetchAPIAgendaDetail();
     emit(AgendaDetailLoaded(results));
-  }
-
-  FutureOr<void> clickCalendarEvent(
-    ClickCalendarEvent event,
-    Emitter<AgendaState> emit,
-  ) {
-    emit(DateCalendarPicked(event.tanggal));
-  }
-
-  FutureOr<void> clickSelesaiEvent(
-    ClickSelesaiEvent event,
-    Emitter<AgendaState> emit,
-  ) {
-    emit(SelesaiClicked());
-  }
-
-  FutureOr<void> clickBerjalanEvent(
-    ClickBerjalanEvent event,
-    Emitter<AgendaState> emit,
-  ) {
-    emit(BerjalanClicked());
   }
 }

@@ -57,11 +57,14 @@ class MonitoringPage extends StatelessWidget {
                     ),
                   );
                 } else if (state is MonitoringLoadedState) {
-                  final List<Monitoring> monitoringData = state.data;
+                  final Monitoring monitoringData = state.data;
                   // monitoringData.clear();
-                  if (monitoringData.isNotEmpty) {
+                  if (monitoringData.data.isNotEmpty) {
                     return Container(
                       color: const Color((0xFFF6F7F9)),
+                      height: monitoringData.data.length <= 8
+                          ? SizeConfig.screenHeight
+                          : null,
                       padding: EdgeInsets.only(
                         left: SizeConfig.blockSizeHorizontal! * 4.675,
                         top: SizeConfig.blockSizeHorizontal! * 7.5,
@@ -69,7 +72,7 @@ class MonitoringPage extends StatelessWidget {
                         bottom: SizeConfig.blockSizeHorizontal! * 7.5,
                       ),
                       child: Column(
-                        children: monitoringData
+                        children: monitoringData.data
                             .map((e) => Column(
                                   children: [
                                     ItemMonitoring(
@@ -147,7 +150,9 @@ class ItemMonitoring extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const DetailMonitoringPage(),
+        builder: (context) => DetailMonitoringPage(
+          nama: nama,
+        ),
       )),
       child: Container(
         width: double.infinity,

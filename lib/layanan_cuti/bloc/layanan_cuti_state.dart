@@ -8,7 +8,7 @@ final class LayananCutiInitial extends LayananCutiState {}
 class LayananCutiLoading extends LayananCutiState {}
 
 class LayananCutiLoaded extends LayananCutiState {
-  final KeteranganCuti keteranganCuti;
-  final List<CutiTahunan> cutiTahunan;
-  LayananCutiLoaded(this.keteranganCuti, this.cutiTahunan);
+  final CutiRekap cutiRekap;
+  final CutiDaftar cutiDaftar;
+  LayananCutiLoaded(this.cutiRekap, this.cutiDaftar);
 }

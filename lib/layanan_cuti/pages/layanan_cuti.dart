@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../models/keterangan-cuti_model.dart';
-import '../models/cuti-tahunan_model.dart';
+import '../models/cuti-rekap_model.dart';
+import '../models/cuti-daftar_model.dart';
 import '../../helper/app_styles.dart';
 import '../../helper/size_config.dart';
 import '../bloc/layanan_cuti_bloc.dart';
@@ -25,8 +25,9 @@ class LayananCutiPage extends StatelessWidget {
           color: kWhite,
           onPressed: () => Navigator.pop(context),
           // onPressed: () async {
-          //   final List<CutiTahunan> data = await Services.fetchAPICutiTahunan();
-          //   print(data.length);
+          // final List<CutiTahunan> data = await Services.fetchAPICutiTahunan();
+          // final CutiRekap cutiRekap = await Services.fetchAPICutiRekap();
+          // print(cutiRekap);
           // },
         ),
         title: Text(
@@ -61,9 +62,10 @@ class LayananCutiPage extends StatelessWidget {
                         ),
                       );
                     } else if (state is LayananCutiLoaded) {
-                      final List<CutiTahunan> cutiTahunan = state.cutiTahunan;
+                      final CutiDaftar cutiDaftar = state.cutiDaftar;
+                      final CutiRekap cutiRekap = state.cutiRekap;
                       return Container(
-                        height: cutiTahunan.isNotEmpty
+                        height: cutiDaftar.data.isNotEmpty
                             ? null
                             : SizeConfig.screenHeight! - appBarHeight,
                         color: const Color((0xFFF6F7F9)),
@@ -79,25 +81,23 @@ class LayananCutiPage extends StatelessWidget {
                                 bloc: layananCutiBloc,
                                 builder: (context, state) {
                                   if (state is LayananCutiLoaded) {
-                                    final KeteranganCuti data =
-                                        state.keteranganCuti;
                                     return Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         KeteranganCutiWidget(
                                           teks: "Sisa Cuti",
-                                          angka: data.sisa,
+                                          angka: cutiRekap.data.sisaCuti,
                                           warna: kGreen,
                                         ),
                                         KeteranganCutiWidget(
                                           teks: "Cuti Diambil",
-                                          angka: data.diambil,
+                                          angka: cutiRekap.data.cutiDiambil,
                                           warna: kOrange,
                                         ),
                                         KeteranganCutiWidget(
                                           teks: "Total Cuti",
-                                          angka: data.total,
+                                          angka: cutiRekap.data.totalCuti,
                                           warna: kBlue,
                                         ),
                                       ],
@@ -135,15 +135,16 @@ class LayananCutiPage extends StatelessWidget {
                                 bloc: layananCutiBloc,
                                 builder: (context, state) {
                                   if (state is LayananCutiLoaded) {
-                                    if (cutiTahunan.isNotEmpty) {
+                                    if (cutiDaftar.data.isNotEmpty) {
                                       return Column(
-                                        children: cutiTahunan
+                                        children: cutiDaftar.data
                                             .map((e) => Column(children: [
                                                   const SizedBox(height: 16),
-                                                  ItemCutiTahunan(
-                                                      nama: e.nama,
-                                                      tglMulai: e.tglMulai,
-                                                      tglSelesai: e.tglSelesai),
+                                                  ItemCutiDaftar(
+                                                      nama: e.keterangan,
+                                                      tglMulai: e.tanggalMulai,
+                                                      tglSelesai:
+                                                          e.tanggalSelesai),
                                                 ]))
                                             .toList(),
                                       );
@@ -214,11 +215,11 @@ class LayananCutiPage extends StatelessWidget {
   }
 }
 
-class ItemCutiTahunan extends StatelessWidget {
+class ItemCutiDaftar extends StatelessWidget {
   final String nama;
   final String tglMulai;
   final String tglSelesai;
-  const ItemCutiTahunan({
+  const ItemCutiDaftar({
     super.key,
     required this.nama,
     required this.tglMulai,

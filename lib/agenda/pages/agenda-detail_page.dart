@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../helper/app_styles.dart';
 import '../../../helper/size_config.dart';
 import '../bloc/agenda_bloc.dart';
@@ -10,8 +11,8 @@ class DetailAgendaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AgendaBloc agendaBloc = AgendaBloc()..add(GetAgendaDetailEvent());
     SizeConfig().init(context);
+    final AgendaBloc agendaBloc = AgendaBloc()..add(GetAgendaDetailEvent());
     return Scaffold(
       backgroundColor: kWhite,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -27,9 +28,7 @@ class DetailAgendaPage extends StatelessWidget {
             ) // Posisi shadow (x, y)
           ],
         ),
-        padding: EdgeInsets.all(
-          SizeConfig.blockSizeHorizontal! * 3.75,
-        ),
+        padding: EdgeInsets.all(kSize16),
         child: ElevatedButton(
           onPressed: () {
             // Navigator.push(
@@ -51,7 +50,7 @@ class DetailAgendaPage extends StatelessWidget {
           child: Text(
             'Scan Presensi',
             style: kPoppinsMedium.copyWith(
-              fontSize: SizeConfig.blockSizeHorizontal! * 3.75,
+              fontSize: kSize16,
               color: kWhite,
             ),
           ),
@@ -62,60 +61,47 @@ class DetailAgendaPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: SizeConfig.blockSizeHorizontal! * 5.5,
-              ),
+              SizedBox(height: kSize24),
               Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.blockSizeHorizontal! * 4.675),
+                padding: EdgeInsets.symmetric(horizontal: kSize20),
                 child: InkWell(
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Icon(Icons.arrow_back),
-                  // child: SvgPicture.asset('assets/icons/arrow-left.svg'),
+                  child: SvgPicture.asset('assets/icons/arrow-left.svg'),
                 ),
               ),
-              SizedBox(
-                height: SizeConfig.blockSizeHorizontal! * 5.5,
-              ),
+              SizedBox(height: kSize24),
               BlocBuilder<AgendaBloc, AgendaState>(
                 bloc: agendaBloc,
                 builder: (context, state) {
-                  print(state);
                   if (state is AgendaDetailLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return SizedBox(
+                      height: SizeConfig.screenHeight! * .7,
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     );
-                  }
-                  if (state is AgendaDetailLoaded) {
+                  } else if (state is AgendaDetailLoaded) {
                     final AgendaDetail agendaDetail = state.data;
                     return Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.blockSizeHorizontal! * 4.675,
-                          ),
+                          padding: EdgeInsets.symmetric(horizontal: kSize20),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                margin: EdgeInsets.only(
-                                  top: SizeConfig.blockSizeHorizontal! * 1.87,
-                                ),
-                                width: SizeConfig.blockSizeHorizontal! * 4.25,
-                                height: SizeConfig.blockSizeHorizontal! * 4.25,
+                                margin: EdgeInsets.only(top: kSize8),
+                                width: kSize18,
+                                height: kSize18,
                                 decoration: BoxDecoration(
                                   color: kBlue,
                                   borderRadius:
-                                      BorderRadiusDirectional.circular(
-                                    SizeConfig.blockSizeHorizontal! * 1,
-                                  ),
+                                      BorderRadiusDirectional.circular(kSize4),
                                 ),
                               ),
-                              SizedBox(
-                                width: SizeConfig.blockSizeHorizontal! * 3.75,
-                              ),
+                              SizedBox(width: kSize16),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,22 +109,15 @@ class DetailAgendaPage extends StatelessWidget {
                                     Text(
                                       agendaDetail.data.namaEvent,
                                       style: kPoppinsMedium.copyWith(
-                                        fontSize:
-                                            SizeConfig.blockSizeHorizontal! *
-                                                5.5,
+                                        fontSize: kSize24,
                                         color: kBlack,
                                       ),
                                     ),
-                                    SizedBox(
-                                      height:
-                                          SizeConfig.blockSizeHorizontal! * 1,
-                                    ),
+                                    SizedBox(height: kSize4),
                                     Text(
                                       agendaDetail.data.tanggal,
                                       style: kNunitoRegular.copyWith(
-                                        fontSize:
-                                            SizeConfig.blockSizeHorizontal! *
-                                                3.75,
+                                        fontSize: kSize16,
                                         color: kNeutral80,
                                       ),
                                     )
@@ -148,214 +127,52 @@ class DetailAgendaPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: SizeConfig.blockSizeHorizontal! * 7.5,
-                        ),
+                        SizedBox(height: kSize32),
                         Container(
                           height: 8,
                           color: const Color(0xFFF6F7F9),
                         ),
-                        SizedBox(
-                          height: SizeConfig.blockSizeHorizontal! * 7.5,
-                        ),
+                        SizedBox(height: kSize32),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.blockSizeHorizontal! * 4.675,
+                            horizontal: kSize20,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // SvgPicture.asset(
-                                  //   'assets/icons/agenda-penyelenggara.svg',
-                                  //   width: SizeConfig.blockSizeHorizontal! * 9.35,
-                                  // ),
-                                  SizedBox(
-                                    width:
-                                        SizeConfig.blockSizeHorizontal! * 3.75,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Penyelenggara',
-                                          style: kPoppinsRegular.copyWith(
-                                            fontSize: SizeConfig
-                                                    .blockSizeHorizontal! *
-                                                3.25,
-                                            color: kNeutral80,
-                                          ),
-                                        ),
-                                        Text(
-                                          agendaDetail.data.unitPengundang,
-                                          style: kNunitoSemiBold.copyWith(
-                                            fontSize: SizeConfig
-                                                    .blockSizeHorizontal! *
-                                                3.75,
-                                            color: kBlack,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
+                              ItemDetailAgenda(
+                                kata: 'Penyelenggara',
+                                keterangan: agendaDetail.data.unitPengundang,
                               ),
-                              SizedBox(
-                                height: SizeConfig.blockSizeHorizontal! * 5.5,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // SvgPicture.asset(
-                                  //   'assets/icons/agenda-pukul.svg',
-                                  //   width: SizeConfig.blockSizeHorizontal! * 9.35,
-                                  // ),
-                                  SizedBox(
-                                    width:
-                                        SizeConfig.blockSizeHorizontal! * 3.75,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Pukul',
-                                        style: kPoppinsRegular.copyWith(
-                                          fontSize:
-                                              SizeConfig.blockSizeHorizontal! *
-                                                  3.25,
-                                          color: kNeutral80,
-                                        ),
-                                      ),
-                                      Text(
-                                        agendaDetail.data.jam,
-                                        style: kNunitoSemiBold.copyWith(
-                                          fontSize:
-                                              SizeConfig.blockSizeHorizontal! *
-                                                  3.75,
-                                          color: kBlack,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: SizeConfig.blockSizeHorizontal! * 5.5,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // SvgPicture.asset(
-                                  //   'assets/icons/agenda-lokasi.svg',
-                                  //   width: SizeConfig.blockSizeHorizontal! * 9.35,
-                                  // ),
-                                  SizedBox(
-                                    width:
-                                        SizeConfig.blockSizeHorizontal! * 3.75,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Lokasi',
-                                          style: kPoppinsRegular.copyWith(
-                                            fontSize: SizeConfig
-                                                    .blockSizeHorizontal! *
-                                                3.25,
-                                            color: kNeutral80,
-                                          ),
-                                        ),
-                                        Text(
-                                          agendaDetail.data.lokasi,
-                                          style: kNunitoSemiBold.copyWith(
-                                            fontSize: SizeConfig
-                                                    .blockSizeHorizontal! *
-                                                3.75,
-                                            color: kBlack,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: SizeConfig.blockSizeHorizontal! * 5.5,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  // SvgPicture.asset(
-                                  //   'assets/icons/agenda-peserta.svg',
-                                  //   width: SizeConfig.blockSizeHorizontal! * 9.35,
-                                  // ),
-                                  SizedBox(
-                                    width:
-                                        SizeConfig.blockSizeHorizontal! * 3.75,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Peserta',
-                                          style: kPoppinsRegular.copyWith(
-                                            fontSize: SizeConfig
-                                                    .blockSizeHorizontal! *
-                                                3.25,
-                                            color: kNeutral80,
-                                          ),
-                                        ),
-                                        Text(
-                                          agendaDetail.data.peserta,
-                                          style: kNunitoSemiBold.copyWith(
-                                            fontSize: SizeConfig
-                                                    .blockSizeHorizontal! *
-                                                3.75,
-                                            color: kBlack,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: SizeConfig.blockSizeHorizontal! * 3.75,
-                              ),
+                              SizedBox(height: kSize24),
+                              ItemDetailAgenda(
+                                  kata: 'Pukul',
+                                  keterangan: agendaDetail.data.jam),
+                              SizedBox(height: kSize24),
+                              ItemDetailAgenda(
+                                  kata: 'Lokasi',
+                                  keterangan: agendaDetail.data.lokasi),
+                              SizedBox(height: kSize24),
+                              ItemDetailAgenda(
+                                  kata: 'Peserta',
+                                  keterangan: agendaDetail.data.peserta),
+                              SizedBox(height: kSize16),
                               const Divider(),
-                              SizedBox(
-                                height: SizeConfig.blockSizeHorizontal! * 3.75,
-                              ),
+                              SizedBox(height: kSize16),
                               Text(
                                 'Deskripsi',
                                 style: kPoppinsMedium.copyWith(
-                                  fontSize:
-                                      SizeConfig.blockSizeHorizontal! * 3.25,
+                                  fontSize: kSize14,
                                   color: kBlack,
                                 ),
                               ),
-                              SizedBox(
-                                height: SizeConfig.blockSizeHorizontal! * 1.87,
-                              ),
+                              SizedBox(height: kSize8),
                               Text(
                                 agendaDetail.data.keterangan,
                                 style: kNunitoRegular.copyWith(
-                                  fontSize:
-                                      SizeConfig.blockSizeHorizontal! * 3.25,
+                                  fontSize: kSize14,
                                   color: kNeutral80,
                                 ),
-                              ),
-                              SizedBox(
-                                height: SizeConfig.screenHeight! * .15,
                               ),
                             ],
                           ),
@@ -364,13 +181,67 @@ class DetailAgendaPage extends StatelessWidget {
                     );
                   }
 
-                  return const Text('');
+                  return SizedBox(
+                    height: SizeConfig.screenHeight! * .7,
+                    child: Center(
+                      child: ElevatedButton(
+                        onPressed: () => agendaBloc.add(GetAgendaDetailEvent()),
+                        child: const Text("Ulangi"),
+                      ),
+                    ),
+                  );
                 },
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class ItemDetailAgenda extends StatelessWidget {
+  const ItemDetailAgenda({
+    super.key,
+    required this.kata,
+    required this.keterangan,
+  });
+
+  final String kata;
+  final String keterangan;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SvgPicture.asset(
+          'assets/icons/agenda-$kata.svg',
+          width: kSize40,
+        ),
+        SizedBox(width: kSize16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                kata,
+                style: kPoppinsRegular.copyWith(
+                  fontSize: kSize14,
+                  color: kNeutral80,
+                ),
+              ),
+              Text(
+                keterangan,
+                style: kNunitoSemiBold.copyWith(
+                  fontSize: kSize14,
+                  color: kBlack,
+                ),
+              )
+            ],
+          ),
+        )
+      ],
     );
   }
 }

@@ -48,10 +48,11 @@ class MonitoringPage extends StatelessWidget {
             child: BlocBuilder<MonitoringBloc, MonitoringState>(
               bloc: monitoringBloc..add(GetMonitoringEvent()),
               builder: (context, state) {
+                print(state);
                 if (state is MonitoringLoadingState) {
                   return Container(
                     height: SizeConfig.screenHeight,
-                    color: const Color((0xFFF6F7F9)),
+                    color: bgColor,
                     child: const Center(
                       child: CircularProgressIndicator(),
                     ),
@@ -61,15 +62,13 @@ class MonitoringPage extends StatelessWidget {
                   // monitoringData.clear();
                   if (monitoringData.data.isNotEmpty) {
                     return Container(
-                      color: const Color((0xFFF6F7F9)),
+                      color: bgColor,
                       height: monitoringData.data.length <= 8
                           ? SizeConfig.screenHeight
                           : null,
-                      padding: EdgeInsets.only(
-                        left: SizeConfig.blockSizeHorizontal! * 4.675,
-                        top: SizeConfig.blockSizeHorizontal! * 7.5,
-                        right: SizeConfig.blockSizeHorizontal! * 4.675,
-                        bottom: SizeConfig.blockSizeHorizontal! * 7.5,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: kSize20,
+                        vertical: kSize32,
                       ),
                       child: Column(
                         children: monitoringData.data
@@ -80,10 +79,7 @@ class MonitoringPage extends StatelessWidget {
                                         lokasi: e.lokasi,
                                         masuk: e.masuk,
                                         pulang: e.pulang),
-                                    SizedBox(
-                                      height:
-                                          SizeConfig.blockSizeHorizontal! * 2,
-                                    ),
+                                    SizedBox(height: kSize8),
                                   ],
                                 ))
                             .toList(),
@@ -91,7 +87,7 @@ class MonitoringPage extends StatelessWidget {
                     );
                   } else {
                     return Container(
-                      color: const Color((0xFFF6F7F9)),
+                      color: bgColor,
                       height: SizeConfig.screenHeight! - appBarHeight,
                       child: Center(
                         child: Column(

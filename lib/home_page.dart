@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'tunjangan/pages/tunjangan_beras.dart';
 import 'agenda/pages/agenda_page.dart';
+import 'layanan_cuti/pages/layanan_cuti.dart';
+import 'monitoring/pages/monitoring_page.dart';
+import 'tunjangan/pages/tunjangan_beras.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -15,9 +17,9 @@ class HomePage extends StatelessWidget {
           children: [
             ElevatedButton(
               // Impelement to Tunjangan Page
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const TunjanganBeras(),
-              )),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const TunjanganBeras()),
+              ),
               child: const Text("Tunjangan"),
             ),
             ElevatedButton(
@@ -25,6 +27,19 @@ class HomePage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const AgendaPage()),
               ),
               child: const Text("Agenda"),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => const LayananCutiPage()),
+              ),
+              child: const Text("Layanan Cuti"),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const MonitoringPage()),
+              ),
+              child: const Text("Monitoring"),
             ),
           ],
         ),

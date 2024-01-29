@@ -9,12 +9,15 @@ part 'tunjangan_event.dart';
 part 'tunjangan_state.dart';
 
 class TunjanganBloc extends Bloc<TunjanganEvent, TunjanganState> {
+  bool showAll = false;
   TunjanganBloc() : super(TunjanganInitial()) {
     on<GetTunjanganEvent>((event, emit) async {
         emit(TunjanganLoading());
         try {
-          final response = await Services.fetchAPITunjangan();  
-          emit(TunjanganLoaded(response));       
+          showAll = !showAll;
+          final response = await Services.fetchAPITunjangan(event.selectedDate);  
+          
+          emit(TunjanganLoaded(data: response, showAll: showAll));       
         } catch (e) {
           emit(TunjanganError("Gagal Memuat Data.."));
         }
@@ -28,19 +31,17 @@ class TunjanganBloc extends Bloc<TunjanganEvent, TunjanganState> {
           emit(TunjanganDetailError("Gagal Memuat Data..."));
         }
     });
-
-    on<GetDetailTunjanganBerdasarkanTahunEvent>((event,emit)async {
-      emit(TunjanganTahunLoading());
-      try {
-        print(event.selectedDate);
-        final result = await Services.fetchAPITunjanganTahun(event.selectedDate);  //mengambil variabel parameter di event
-        // print();
-        print(result.data[0].periode);
-        emit(TunjanganTahunLoaded(result));
-      } catch (e) {
-        emit(TunjanganTahunError("Gagal Memuat Data..."));
-      }
-    });
+    
+    //tidak terpakai karena sudah di handel ama GetTunjanganEvent
+    // on<GetDetailTunjanganBerdasarkanTahunEvent>((event,emit)async {
+    //   emit(TunjanganTahunLoading());
+    //   try {
+    //     final result = await Services.fetchAPITunjanganTahun(event.selectedDate);  //mengambil variabel parameter di event
+    //     emit(TunjanganTahunLoaded(result));
+    //   } catch (e) {
+    //     emit(TunjanganTahunError("Gagal Memuat Data..."));
+    //   }
+    // });
   }
 }
 

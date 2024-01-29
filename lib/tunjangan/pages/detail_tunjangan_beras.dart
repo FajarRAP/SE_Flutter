@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 import '../../../helper/app_styles.dart';
@@ -27,12 +27,12 @@ class DetailTunjanganBeras extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: SizeConfig.blockSizeHorizontal! * 4.675),
-                // child: InkWell(
-                //     onTap: () {
-                //       Navigator.pop(context);
-                //     },
-                //     child: SvgPicture.asset('assets/icons/arrow-left.svg')
-                //     ),
+                child: InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: SvgPicture.asset('assets/icons/arrow-left.svg')
+                    ),
               ),
               SizedBox(
                 height: SizeConfig.blockSizeHorizontal! * 5.5,
@@ -74,15 +74,9 @@ class DetailTunjanganBeras extends StatelessWidget {
                 child: BlocBuilder<TunjanganBloc, TunjanganState>(
                   bloc: databloc..add(GetDetailTunjanganEvent()),
                   builder: (context, state) {
-                    print(state);
                     if (state is TunjanganDetailLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(
-                          color: kBlue,
-                        ),
-                      );
+                      return const Center();
                     } else if (state is TunjanganDetailLoaded) {
-                      print(state.data.data.qrcode);
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -110,10 +104,10 @@ class DetailTunjanganBeras extends StatelessWidget {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // SvgPicture.asset(
-                              //   'assets/icons/tunjangan-beras-berat.svg',
-                              //   width: SizeConfig.blockSizeHorizontal! * 9.35,
-                              // ),
+                              SvgPicture.asset(
+                                'assets/icons/tunjangan-beras-berat.svg',
+                                width: SizeConfig.blockSizeHorizontal! * 9.35,
+                              ),
                               SizedBox(
                                 width: SizeConfig.blockSizeHorizontal! * 3.75,
                               ),
@@ -146,10 +140,10 @@ class DetailTunjanganBeras extends StatelessWidget {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // SvgPicture.asset(
-                              //   'assets/icons/tunjangan-beras-tanggal.svg',
-                              //   width: SizeConfig.blockSizeHorizontal! * 9.35,
-                              // ),
+                              SvgPicture.asset(
+                                'assets/icons/tunjangan-beras-tanggal.svg',
+                                width: SizeConfig.blockSizeHorizontal! * 9.35,
+                              ),
                               SizedBox(
                                 width: SizeConfig.blockSizeHorizontal! * 3.75,
                               ),
@@ -182,10 +176,10 @@ class DetailTunjanganBeras extends StatelessWidget {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // SvgPicture.asset(
-                              //   'assets/icons/tunjangan-beras-lokasi.svg',
-                              //   width: SizeConfig.blockSizeHorizontal! * 9.35,
-                              // ),
+                              SvgPicture.asset(
+                                'assets/icons/tunjangan-beras-lokasi.svg',
+                                width: SizeConfig.blockSizeHorizontal! * 9.35,
+                              ),
                               SizedBox(
                                 width: SizeConfig.blockSizeHorizontal! * 3.75,
                               ),
@@ -218,11 +212,9 @@ class DetailTunjanganBeras extends StatelessWidget {
                       );
                       
                     } else if (state is TunjanganDetailError) {
-                      return Text(state.errorMsg);
+                      return const Center();
                     } else {
-                      return const Center(
-                        child: Text('Gagal'),
-                      );
+                      return const Center();
                     }
                   },
                 ),

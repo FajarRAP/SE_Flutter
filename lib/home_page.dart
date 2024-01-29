@@ -43,8 +43,10 @@ class HomePage extends StatelessWidget {
               child: const Text("Shift"),
             ),
             ElevatedButton(
-              onPressed: () => MaterialPageRoute(
-                  builder: (context) => const LayananCutiPage()),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => const LayananCutiPage()),
+              ),
               child: const Text("Layanan Cuti"),
             ),
             ElevatedButton(

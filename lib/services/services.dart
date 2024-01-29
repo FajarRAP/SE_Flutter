@@ -3,10 +3,10 @@ import 'package:konsumsi_api_agenda/shift/models/shift_model.dart';
 
 import '../agenda/models/agenda-detail_model.dart';
 import '../agenda/models/agenda_model.dart';
+import '../gaji/models/detail_gaji_model.dart';
 import '../gaji/models/gaji_model.dart';
 import '../tunjangan/models/detail_tunjangan_model.dart';
 import '../tunjangan/models/tunjangan_model.dart';
-import '../tunjangan/models/tunjangan_tahun_model.dart';
 
 
 class Services {
@@ -33,15 +33,15 @@ class Services {
   }
 
   //TUNJANGAN
-   //fetch api untuk mendapatkan semua data tunjangan
-  static Future<List<DataTunjangan>> fetchAPITunjangan() async {
+   //fetch api untuk mendapatkan semua data tunjangan atau berdasarkan bulan
+  static Future<List<DataTunjangan>> fetchAPITunjangan(String date) async {
     final myResponse = await http
-        .get(Uri.parse("https://dev.laz-almuthiin.com/api/tunjangan_beras"));
+        .get(Uri.parse("https://dev.laz-almuthiin.com/api/tunjangan_beras?tgl=$date"));
     if (myResponse.statusCode == 200) {
       Tunjangan data = tunjanganFromJson(myResponse.body);
       return data.data;
     } else {
-      throw Exception("Gagal Mengambil Data...");
+      throw Exception("Gagal Mengambil Data");
     }
   }
 
@@ -53,20 +53,7 @@ class Services {
       DetailTunjangan result = detailTunjanganFromJson(myResponse.body);
       return result;
     } else {
-      throw Exception("Gagal Mengambil Data...");
-    }
-  }
-
-//fetch api untuk mendapatkan tunjangan berdasarkan tahunnya.
-  static Future<TunjanganTahun> fetchAPITunjanganTahun(String tahun) async {
-    final myResponse = await http.get(Uri.parse(
-        "https://dev.laz-almuthiin.com/api/tunjangan_beras?tgl=$tahun"));
-    if (myResponse.statusCode == 200) {
-      // print(myResponse.body);
-      TunjanganTahun result = tunjanganTahunFromJson(myResponse.body);    
-      return result;
-    } else { 
-      throw Exception("Gagal Mengambil Data...");
+      throw Exception("Gagal Mengambil Data");
     }
   }
 
@@ -76,22 +63,34 @@ class Services {
     final myResponse = await http.get(Uri.parse("https://dev.laz-almuthiin.com/api/jadwal_shift"));
     if(myResponse.statusCode == 200){
       //cek apakah data sudah masuk ke console
-      // print(myResponse.body);
       JadwalShiftKerja result = jadwalShiftKerjaFromJson(myResponse.body);
       return result;
     }else{
-      throw Exception("Gagal Mengambil Data...");
+      throw Exception("Gagal Mengambil Data");
     }
   }
 
-    //GAJI
-  static Future<List<Gaji>> fetchAPIGaji() async {
-    final myResponse = await http.get(Uri.parse('https://dummy-api-ainx.000webhostapp.com/gaji.php'));
+
+  //GAJI
+  //gaji secara keseluruhan
+  static Future<Gaji> fetchAPIGaji() async {
+    final myResponse = await http.get(Uri.parse('https://dev.laz-almuthiin.com/api/gaji'));
     if(myResponse.statusCode == 200){
-      List<Gaji> result = gajiFromJson(myResponse.body);
+      Gaji result = gajiFromJson(myResponse.body);
       return result;
     }else{
-      throw Exception("Gagal Mengambil Data...");
+      throw Exception("Gagal Mengambil Data");
+    }
+  }
+
+  //Detail gaji kek pengeluaran dan pemasukan
+  static Future<DetailGaji> fetchAPIDetailGaji() async{
+    final myResponse = await http.get(Uri.parse('https://dev.laz-almuthiin.com/api/gaji_detil'));
+    if(myResponse.statusCode == 200){
+      DetailGaji result = detailGajiFromJson(myResponse.body);
+      return result;
+    }else {
+      throw Exception('Gagal Mengambil Data');
     }
   }
 }

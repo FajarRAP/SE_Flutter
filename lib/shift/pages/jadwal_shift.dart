@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:konsumsi_api_agenda/shift/bloc/shift_bloc.dart';
-import 'package:konsumsi_api_agenda/shift/pages/detail_jadwal_shift.dart';
-import '../models/shift_model.dart';
+import '../bloc/shift_bloc.dart';
 import '../../helper/app_styles.dart';
 import '../../helper/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,7 +13,8 @@ class JadwalShift extends StatefulWidget {
 }
 
 class _JadwalShiftState extends State<JadwalShift> {
-  List<JadwalShiftKerja> data = [];
+  List days = ['Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu'];
+  int currentDay = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -25,21 +24,18 @@ class _JadwalShiftState extends State<JadwalShift> {
       resizeToAvoidBottomInset: false,
       backgroundColor: kBlue,
       body: RefreshIndicator(
-        backgroundColor: kWhite,
         color: kBlue,
+        backgroundColor: kWhite,
         onRefresh: () async {
           jadwalShiftBloc.add(GetJadwalShiftEvent());
-          print("Berhasil euy");
         },
         child: ListView(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.blockSizeHorizontal! * 4.675,
-                vertical: SizeConfig.blockSizeHorizontal! * 3.75,
-              ),
+              padding:
+                  EdgeInsets.symmetric(horizontal: kSize20, vertical: kSize16),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
                     onTap: () {
@@ -53,229 +49,108 @@ class _JadwalShiftState extends State<JadwalShift> {
                       height: 24,
                     ),
                   ),
-                  SizedBox(
-                    width: SizeConfig.blockSizeHorizontal! *
-                        2, // Sesuaikan jarak antara ikon dan teks
+                  Text(
+                    'Jadwal Shift',
+                    style: kPoppinsSemiBold.copyWith(
+                        color: kWhite, fontSize: kSize20),
                   ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        'Jadwal Shift',
-                        style: kPoppinsSemiBold.copyWith(
-                          color: kWhite,
-                          fontSize: SizeConfig.blockSizeHorizontal! * 4.675,
-                        ),
-                      ),
-                    ),
+                  SizedBox(
+                    width: kSize24,
                   ),
                 ],
               ),
             ),
             ClipRRect(
               borderRadius: const BorderRadius.only(
-                  //background putih belakang item row
-                  topLeft: Radius.circular(32),
-                  topRight: Radius.circular(32)),
+                  topLeft: Radius.circular(32), topRight: Radius.circular(32)),
               child: Container(
                 width: SizeConfig.screenWidth,
-                height: MediaQuery.sizeOf(context).height,
-                padding: EdgeInsets.fromLTRB(
-                    SizeConfig.blockSizeHorizontal! * 4.675,
-                    SizeConfig.blockSizeHorizontal! * 3.75,
-                    SizeConfig.blockSizeHorizontal! * 4.675,
-                    SizeConfig.blockSizeHorizontal! * 7.5),
+                // height: SizeConfig.screenHeight,
+                padding: EdgeInsets.symmetric(vertical: kSize20),
                 color: const Color(0xFFF6F7F9),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 5,
-                    ),
-                    BlocBuilder<ShiftBloc, ShiftState>(
-                      bloc: jadwalShiftBloc..add(GetJadwalShiftEvent()),
-                      builder: (context, state) {
-                        print("$state");
-                        if (state is JadwalShiftLoading) {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              color: kBlue,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: kSize20),
+                      child: Container(
+                        decoration: ShapeDecoration(
+                          color: kWhite,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          shadows: const [
+                            BoxShadow(
+                              color: Color(0x087281DF),
+                              blurRadius: 4.11,
+                              offset: Offset(0, 0.52),
+                              spreadRadius: 0,
                             ),
-                          );
-                        } else if (state is JadwalShiftLoaded) {
-                          final List<DataJadwalShiftKerja> data =
-                              state.data.data;
-                          //bisa seperti ini
-                          // var zzz = state.data.data;
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            BoxShadow(
+                              color: Color(0x0C7281DF),
+                              blurRadius: 6.99,
+                              offset: Offset(0, 1.78),
+                              spreadRadius: 0,
+                            ),
+                            BoxShadow(
+                              color: Color(0x0F7281DF),
+                              blurRadius: 10.20,
+                              offset: Offset(0, 4.11),
+                              spreadRadius: 0,
+                            )
+                          ],
+                        ),
+                        child: IntrinsicHeight(
+                          child: Column(
                             children: [
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                   horizontal:
                                       SizeConfig.blockSizeHorizontal! * 2.85,
+                                  vertical:
+                                      SizeConfig.blockSizeVertical! * 0.85,
                                 ),
-                                child: Container(
-                                  decoration: ShapeDecoration(
-                                    color: kWhite,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(14),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    //ntar diganti kalo udah ada icon svgnya
+                                    Image.network(
+                                      'https://pixlok.com/wp-content/uploads/2022/02/Profile-Icon-SVG-09856789.png',
+                                      width: 50,
+                                      height: 50,
                                     ),
-                                    shadows: const [
-                                      BoxShadow(
-                                        color: Color(0x087281DF),
-                                        blurRadius: 4.11,
-                                        offset: Offset(0, 0.52),
-                                        spreadRadius: 0,
-                                      ),
-                                      BoxShadow(
-                                        color: Color(0x0C7281DF),
-                                        blurRadius: 6.99,
-                                        offset: Offset(0, 1.78),
-                                        spreadRadius: 0,
-                                      ),
-                                      BoxShadow(
-                                        color: Color(0x0F7281DF),
-                                        blurRadius: 10.20,
-                                        offset: Offset(0, 4.11),
-                                        spreadRadius: 0,
-                                      )
-                                    ],
-                                  ),
-                                  child: IntrinsicHeight(
-                                    child: Column(
+                                    SizedBox(
+                                      width: SizeConfig.blockSizeHorizontal! *
+                                          4.00,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: SizeConfig
+                                        Text(
+                                          'Lalu Ramadhan',
+                                          style: kPoppinsMedium.copyWith(
+                                            fontSize: SizeConfig
                                                     .blockSizeHorizontal! *
-                                                2.85,
-                                            vertical:
-                                                SizeConfig.blockSizeVertical! *
-                                                    0.85,
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Image.network(
-                                                'https://pixlok.com/wp-content/uploads/2022/02/Profile-Icon-SVG-09856789.png',
-                                                width: 50,
-                                                height: 50,
-                                              ),
-                                              SizedBox(
-                                                width: SizeConfig
-                                                        .blockSizeHorizontal! *
-                                                    4.00,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    'Lalu Ramadhan',
-                                                    style: kPoppinsRegular
-                                                        .copyWith(
-                                                      fontSize: SizeConfig
-                                                              .blockSizeHorizontal! *
-                                                          3.15,
-                                                      color: kBlack,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    '9817293112',
-                                                    style: kPoppinsRegular
-                                                        .copyWith(
-                                                      fontSize: SizeConfig
-                                                              .blockSizeHorizontal! *
-                                                          3.15,
-                                                      color: kBlue,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                                3.15,
+                                            color: kBlack,
                                           ),
                                         ),
-                                        Divider(),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: SizeConfig
+                                        Text(
+                                          '9817293112',
+                                          style: kPoppinsRegular.copyWith(
+                                            fontSize: SizeConfig
                                                     .blockSizeHorizontal! *
-                                                2.85,
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                'Unit Kerja    :',
-                                                style: kPoppinsMedium.copyWith(
-                                                  fontSize: SizeConfig
-                                                          .blockSizeHorizontal! *
-                                                      3.15,
-                                                  color: kNeutral70,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: SizeConfig
-                                                        .blockSizeHorizontal! *
-                                                    3.00,
-                                              ),
-                                              Text(
-                                                'Parkir',
-                                                style: kPoppinsMedium.copyWith(
-                                                  fontSize: SizeConfig
-                                                          .blockSizeHorizontal! *
-                                                      3.15,
-                                                  color: kBlack,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: SizeConfig
-                                                    .blockSizeHorizontal! *
-                                                2.85,
-                                            vertical:
-                                                SizeConfig.blockSizeVertical! *
-                                                    1.85,
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                'Posisi           :',
-                                                style: kPoppinsMedium.copyWith(
-                                                  fontSize: SizeConfig
-                                                          .blockSizeHorizontal! *
-                                                      3.15,
-                                                  color: kNeutral70,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: SizeConfig
-                                                        .blockSizeHorizontal! *
-                                                    3.00,
-                                              ),
-                                              Text(
-                                                'Preman',
-                                                style: kPoppinsMedium.copyWith(
-                                                  fontSize: SizeConfig
-                                                          .blockSizeHorizontal! *
-                                                      3.15,
-                                                  color: kBlack,
-                                                ),
-                                              ),
-                                            ],
+                                                3.15,
+                                            color: kBlue,
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ),
-                              SizedBox(
-                                height: SizeConfig.blockSizeVertical! * 2,
                               ),
                               Divider(),
                               Padding(
@@ -284,223 +159,284 @@ class _JadwalShiftState extends State<JadwalShift> {
                                       SizeConfig.blockSizeHorizontal! * 2.85,
                                 ),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    TextButton(
-                                      onPressed: () {},
-                                      child: Text(
-                                        'Januari 2024',
-                                        style: kPoppinsSemiBold.copyWith(
-                                            fontSize: SizeConfig
-                                                    .blockSizeHorizontal! *
-                                                3.00,
-                                            color: kNeutral60),
+                                    Text(
+                                      'Unit Kerja    :',
+                                      style: kPoppinsMedium.copyWith(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal! *
+                                                3.15,
+                                        color: kNeutral70,
                                       ),
-                                    )
+                                    ),
+                                    SizedBox(
+                                      width: SizeConfig.blockSizeHorizontal! *
+                                          3.00,
+                                    ),
+                                    Text(
+                                      //nanti diisi sama data pengguna
+                                      'Keamanan',
+                                      style: kPoppinsMedium.copyWith(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal! *
+                                                3.15,
+                                        color: kBlack,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
-                              Column(
-                                  children: data.map(
-                                (item) {
-                                  //ITEM ROWS
-                                  return Column(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          // Navigator.push(
-                                          //   context,
-                                          //   PageTransition(
-                                          //     duration: const Duration(
-                                          //         milliseconds: 100),
-                                          //     child: const DetailTunjanganBeras(),
-                                          //     type: PageTransitionType.fade,
-                                          //   ),
-                                          // );
-                                          //SEMENTARA
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    DetailPageJadwalShift(),
-                                              ));
-                                        },
-                                        child: Container(
-                                          decoration: ShapeDecoration(
-                                            color: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            shadows: const [
-                                              BoxShadow(
-                                                color: Color(0x087281DF),
-                                                blurRadius: 4.11,
-                                                offset: Offset(0, 0.52),
-                                                spreadRadius: 0,
-                                              ),
-                                              BoxShadow(
-                                                color: Color(0x0C7281DF),
-                                                blurRadius: 6.99,
-                                                offset: Offset(0, 1.78),
-                                                spreadRadius: 0,
-                                              ),
-                                              BoxShadow(
-                                                color: Color(0x0F7281DF),
-                                                blurRadius: 10.20,
-                                                offset: Offset(0, 4.11),
-                                                spreadRadius: 0,
-                                              )
-                                            ],
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      SizeConfig.blockSizeHorizontal! * 2.85,
+                                  vertical:
+                                      SizeConfig.blockSizeVertical! * 1.85,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Posisi           :',
+                                      style: kPoppinsMedium.copyWith(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal! *
+                                                3.15,
+                                        color: kNeutral70,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: SizeConfig.blockSizeHorizontal! *
+                                          3.00,
+                                    ),
+                                    Text(
+                                      //nanti diisi
+                                      'Satpam',
+                                      style: kPoppinsMedium.copyWith(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal! *
+                                                3.15,
+                                        color: kBlack,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: kSize12,
+                    ),
+                    SizedBox(
+                      height: 32,
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) => const SizedBox(
+                          width: 12,
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: kSize20),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: days.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                currentDay = index;
+                              });
+                            },
+                            child: Container(
+                              height: 32,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: currentDay == index
+                                    ? const Color(0XffEE6C4D)
+                                    : kLightGrey,
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 8,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  days[index],
+                                  style: kPoppinsRegular.copyWith(
+                                    color: currentDay == index ? kWhite : kGrey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: kSize24,
+                    ),
+                    BlocBuilder(
+                      bloc: jadwalShiftBloc..add(GetJadwalShiftEvent()),
+                      builder: (context, state) {
+                        if (state is JadwalShiftLoading) {
+                          return const Center();
+                        } else if (state is JadwalShiftLoaded) {
+                          var shift = state.data.data;
+                          if (shift.isNotEmpty) {
+                            return Column(
+                              children: shift.map((e) {
+                                return Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: kSize20),
+                                      child: Container(
+                                        padding: EdgeInsets.all(kSize12),
+                                        decoration: ShapeDecoration(
+                                          color: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
                                           ),
-                                          child: IntrinsicHeight(
-                                            child: Column(
+                                          shadows: const [
+                                            BoxShadow(
+                                              color: Color(0x087281DF),
+                                              blurRadius: 4.11,
+                                              offset: Offset(0, 0.52),
+                                              spreadRadius: 0,
+                                            ),
+                                            BoxShadow(
+                                              color: Color(0x0C7281DF),
+                                              blurRadius: 6.99,
+                                              offset: Offset(0, 1.78),
+                                              spreadRadius: 0,
+                                            ),
+                                            BoxShadow(
+                                              color: Color(0x0F7281DF),
+                                              blurRadius: 10.20,
+                                              offset: Offset(0, 4.11),
+                                              spreadRadius: 0,
+                                            )
+                                          ],
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding: EdgeInsets.symmetric(
-                                                        horizontal: SizeConfig
-                                                                .blockSizeHorizontal! *
-                                                            2.85,
-                                                        vertical: SizeConfig
-                                                                .blockSizeHorizontal! *
-                                                            0.85),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          //JADWAL SHIFT
-                                                          item.namaShift,
-                                                          style: kPoppinsMedium
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      SizeConfig
-                                                                              .blockSizeHorizontal! *
-                                                                          3.25,
-                                                                  color:
-                                                                      kBlack),
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                        SizedBox(
-                                                          height: SizeConfig
-                                                                  .blockSizeHorizontal! *
-                                                              1,
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets
-                                                              .all(SizeConfig
-                                                                      .blockSizeHorizontal! *
-                                                                  2.85),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              //WAKTU SHIFT
-                                                              Text(
-                                                                'Pukul',
-                                                                style:
-                                                                    kPoppinsRegular
-                                                                        .copyWith(
-                                                                  fontSize:
-                                                                      SizeConfig
-                                                                              .blockSizeHorizontal! *
-                                                                          3.35,
-                                                                  color:
-                                                                      kNeutral80,
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                width: SizeConfig
-                                                                        .blockSizeHorizontal! *
-                                                                    2.1,
-                                                              ),
-                                                              Text(
-                                                                item.waktuShift,
-                                                                style: kPoppinsMedium.copyWith(
-                                                                    fontSize:
-                                                                        SizeConfig.blockSizeHorizontal! *
-                                                                            3.35,
-                                                                    color:
-                                                                        kBlue),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        )
-                                                      ],
+                                                Text(
+                                                  e.namaShift,
+                                                  style:
+                                                      kPoppinsSemiBold.copyWith(
+                                                          fontSize: kSize14,
+                                                          color: kBlack),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      'Pukul',
+                                                      style: kPoppinsRegular
+                                                          .copyWith(
+                                                              fontSize: kSize14,
+                                                              color:
+                                                                  kNeutral90),
                                                     ),
-                                                  ),
+                                                    SizedBox(
+                                                      width: kSize4,
+                                                    ),
+                                                    Text(
+                                                      e.waktuShift,
+                                                      style: kPoppinsMedium
+                                                          .copyWith(
+                                                              fontSize: kSize14,
+                                                              color: kBlue),
+                                                    )
+                                                  ],
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: SizeConfig
-                                                              .blockSizeHorizontal! *
-                                                          2.85),
-                                                  child: const Divider(
-                                                    height: 1,
-                                                    color: kNeutral40,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal: SizeConfig
-                                                            .blockSizeHorizontal! *
-                                                        2.85,
-                                                    vertical: SizeConfig
-                                                            .blockSizeHorizontal! *
-                                                        2.95,
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      //LOKASI SHIFT
-                                                      Text(
-                                                        item.lokasiShift,
-                                                        style: kPoppinsMedium.copyWith(
-                                                            fontSize: SizeConfig
-                                                                    .blockSizeHorizontal! *
-                                                                3.25,
-                                                            color: kNeutral80),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
                                               ],
                                             ),
-                                          ),
+                                            const Divider(),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                        'assets/icons/tunjangan-beras-location.svg'),
+                                                    SizedBox(
+                                                      width: kSize4,
+                                                    ),
+                                                    Text(
+                                                      e.lokasiShift,
+                                                      style: kPoppinsMedium
+                                                          .copyWith(
+                                                              fontSize: kSize14,
+                                                              color:
+                                                                  kNeutral90),
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            )
+                                          ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        height:
-                                            SizeConfig.blockSizeHorizontal! *
-                                                2.85,
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ).toList()),
-                              SizedBox(
-                                height: SizeConfig.blockSizeHorizontal! * 1.87,
+                                    ),
+                                    SizedBox(
+                                      height: kSize12,
+                                    )
+                                  ],
+                                );
+                              }).toList(),
+                            );
+                          } else {
+                            return Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: kSize32,
+                                  ),
+                                  SvgPicture.asset(
+                                      'assets/icons/libur-jadwal-perkuliahan.svg'),
+                                  SizedBox(
+                                    height: kSize24,
+                                  ),
+                                  Text(
+                                    'Tidak ada jadwal shift',
+                                    style: kPoppinsSemiBold.copyWith(
+                                        fontSize: 18, color: kBlack),
+                                  ),
+                                  SizedBox(
+                                    height: SizeConfig.blockSizeVertical! * 0.5,
+                                  ),
+                                  Text(
+                                    'Hari ini anda tidak memiliki jadwal\n shift',
+                                    textAlign: TextAlign.center,
+                                    style: kNunitoRegular.copyWith(
+                                        fontSize: 14, color: kNeutral90),
+                                  ),
+                                  SizedBox(
+                                    height: kSize40,
+                                  )
+                                ],
                               ),
-                              SizedBox(
-                                height: SizeConfig.screenHeight! * .2,
-                              )
-                            ],
-                          );
+                            );
+                          }
                         } else if (state is JadwalShiftError) {
-                          return Text(state.errorMsg);
+                          return const Center();
                         } else {
-                          return const Center(
-                            child: Text('Gagal'),
-                          );
+                          return const Center();
                         }
                       },
                     ),
+                    SizedBox(
+                      height: SizeConfig.screenHeight! * .8,
+                    )
                   ],
                 ),
               ),
@@ -508,6 +444,55 @@ class _JadwalShiftState extends State<JadwalShift> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _presensiMasuk(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierColor: const Color(0xCC293241),
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.all(kSize40),
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(kSize24), // Sesuaikan nilai border radius
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SvgPicture.asset('assets/icons/check.svg'),
+              SizedBox(
+                height: kSize24,
+              ),
+              Text(
+                'Presensi Masuk\nBerhasil',
+                textAlign: TextAlign.center,
+                style:
+                    kPoppinsSemiBold.copyWith(fontSize: kSize20, color: kBlack),
+              ),
+              SizedBox(
+                height: kSize40,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF2B86C4),
+                    fixedSize: Size(SizeConfig.screenWidth!, 56),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(64),
+                    )),
+                child: Text(
+                  'Oke',
+                  style: kPoppinsMedium.copyWith(fontSize: kSize16),
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }

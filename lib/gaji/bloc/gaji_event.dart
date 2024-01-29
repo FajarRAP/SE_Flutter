@@ -4,3 +4,6 @@ part of 'gaji_bloc.dart';
 sealed class GajiEvent {}
 
 class GetGajiEvent extends GajiEvent{}
+
+class GetDetailGajiEvent extends GajiEvent{}
+

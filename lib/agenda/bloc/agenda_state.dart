@@ -8,8 +8,9 @@ final class AgendaInitial extends AgendaState {}
 class AgendaLoading extends AgendaState {}
 
 class AgendaLoaded extends AgendaState {
-  final Agenda data;
-  AgendaLoaded(this.data);
+  final Agenda agenda;
+  final bool isBerjalan;
+  AgendaLoaded(this.agenda, this.isBerjalan);
 }
 
 class AgendaError extends AgendaState {}
@@ -23,4 +24,11 @@ class AgendaDetailLoaded extends AgendaState {
 
 class AgendaDetailError extends AgendaState {}
 
-class DateCalendarPicked extends AgendaState {}
+class DateCalendarPicked extends AgendaState {
+  final String tanggal;
+  DateCalendarPicked(this.tanggal);
+}
+
+class BerjalanClicked extends AgendaState {}
+
+class SelesaiClicked extends AgendaState {}

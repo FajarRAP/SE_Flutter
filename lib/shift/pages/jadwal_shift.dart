@@ -113,12 +113,7 @@ class _JadwalShiftState extends State<JadwalShift> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    //ntar diganti kalo udah ada icon svgnya
-                                    Image.network(
-                                      'https://pixlok.com/wp-content/uploads/2022/02/Profile-Icon-SVG-09856789.png',
-                                      width: 50,
-                                      height: 50,
-                                    ),
+                                    SvgPicture.asset('assets/icons/circled_user_female.svg'),
                                     SizedBox(
                                       width: SizeConfig.blockSizeHorizontal! *
                                           4.00,

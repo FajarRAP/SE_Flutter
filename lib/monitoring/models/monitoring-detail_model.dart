@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final monitoringDetail = monitoringDetailFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 MonitoringDetail monitoringDetailFromJson(String str) =>

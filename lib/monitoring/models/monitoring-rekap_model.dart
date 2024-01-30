@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final monitoringRekap = monitoringRekapFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 MonitoringRekap monitoringRekapFromJson(String str) =>

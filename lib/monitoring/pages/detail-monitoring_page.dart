@@ -1,17 +1,13 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
-import 'package:d_chart/d_chart.dart';
-
 import '../bloc/monitoring_bloc.dart';
 import '../models/monitoring-detail_model.dart';
 import '../models/monitoring-rekap_model.dart';
 import '../../helper/app_styles.dart';
 import '../../helper/size_config.dart';
-import '../../services/services.dart';
+
 
 class DetailMonitoringPage extends StatelessWidget {
   final String nama;

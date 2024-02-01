@@ -9,8 +9,9 @@ class TunjanganLoading extends TunjanganState{}
 
 class TunjanganLoaded extends TunjanganState {
   final List<DataTunjangan> data;
+  final bool showAll;
 
-  TunjanganLoaded(this.data);
+  TunjanganLoaded({required this.data, this.showAll = false});
 } 
 
 class TunjanganError extends TunjanganState{

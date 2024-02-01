@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:konsumsi_api_agenda/helper/size_config.dart';
 
 import 'agenda/pages/agenda_page.dart';
+import 'gaji/pages/informasi_gaji.dart';
 import 'layanan_cuti/pages/layanan_cuti.dart';
 import 'monitoring/pages/monitoring_page.dart';
+import 'shift/pages/jadwal_shift.dart';
 import 'tunjangan/pages/tunjangan_beras.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,6 +22,8 @@ class HomePage extends StatelessWidget {
             NavigateTo(namaPage: 'Agenda', page: AgendaPage()),
             NavigateTo(namaPage: 'Layanan Cuti', page: LayananCutiPage()),
             NavigateTo(namaPage: 'Monitoring', page: MonitoringPage()),
+            NavigateTo(namaPage: 'Gaji', page: InformasiGaji()),
+            NavigateTo(namaPage: 'Shift', page: JadwalShift()),
           ],
         ),
       ),

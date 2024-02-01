@@ -7,7 +7,7 @@ import '../bloc/gaji_bloc.dart';
 import 'detail_gaji.dart';
 
 class InformasiGaji extends StatefulWidget {
-  InformasiGaji({super.key});
+  const InformasiGaji({super.key});
 
   @override
   State<InformasiGaji> createState() => _InformasiGajiState();
@@ -23,7 +23,7 @@ class _InformasiGajiState extends State<InformasiGaji> {
     final gajiBloc = GajiBloc();
     SizeConfig().init(context);
     return Scaffold(
-      backgroundColor: Color(0xFFF6F7F9),
+      backgroundColor: const Color(0xFFF6F7F9),
       appBar: AppBar(
         elevation: 4,
         leading: InkWell(
@@ -32,7 +32,7 @@ class _InformasiGajiState extends State<InformasiGaji> {
           },
           child: SvgPicture.asset(
             'assets/icons/arrow-left.svg',
-            color: kBlue,
+            colorFilter: const ColorFilter.mode(kBlue, BlendMode.srcIn),
             fit: BoxFit.scaleDown,
             width: 24,
             height: 24,

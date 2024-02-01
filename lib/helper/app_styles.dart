@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'size_config.dart';
 
@@ -47,3 +48,78 @@ final kSize24 = SizeConfig.blockSizeHorizontal! * 5.5;
 final kSize28 = SizeConfig.blockSizeHorizontal! * 6.55;
 final kSize32 = SizeConfig.blockSizeHorizontal! * 7.5;
 final kSize40 = SizeConfig.blockSizeHorizontal! * 9.35;
+
+const List<BoxShadow> boxShadow = [
+  BoxShadow(
+    color: Color(0x087281DF),
+    blurRadius: 4.11,
+    offset: Offset(0, 0.52),
+    spreadRadius: 0,
+  ),
+  BoxShadow(
+    color: Color(0x0C7281DF),
+    blurRadius: 6.99,
+    offset: Offset(0, 1.78),
+    spreadRadius: 0,
+  ),
+  BoxShadow(
+    color: Color(0x0F7281DF),
+    blurRadius: 10.20,
+    offset: Offset(0, 4.11),
+    spreadRadius: 0,
+  )
+];
+
+Future<void> successDialog(BuildContext context, String kata, String keterangan) {
+  return showDialog<void>(
+    context: context,
+    barrierColor: const Color(0xCC293241),
+    builder: (BuildContext context) {
+      return AlertDialog(
+        contentPadding: EdgeInsets.all(kSize40),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(kSize24)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgPicture.asset('assets/icons/check.svg'),
+            SizedBox(height: kSize24),
+            Text(
+              kata,
+              style: kPoppinsSemiBold.copyWith(
+                color: kBlack,
+                fontSize: kSize20,
+              ),
+            ),
+            SizedBox(height: kSize8),
+            Text(
+              keterangan,
+              textAlign: TextAlign.center,
+              style: kNunitoRegular.copyWith(
+                color: kNeutral70,
+                fontSize: kSize14,
+              ),
+            ),
+            SizedBox(height: kSize40),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: kBlue,
+                fixedSize: Size(SizeConfig.screenWidth!, kSize40 + kSize16),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(kSize40)),
+              ),
+              child: Text(
+                'Oke',
+                style: kPoppinsMedium.copyWith(
+                  color: kWhite,
+                  fontSize: kSize16,
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    },
+  );
+}

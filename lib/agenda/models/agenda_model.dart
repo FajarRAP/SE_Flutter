@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final agenda = agendaFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Agenda agendaFromJson(String str) => Agenda.fromJson(json.decode(str));

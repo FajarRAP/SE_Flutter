@@ -17,7 +17,7 @@ class AgendaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final AgendaBloc agendaBloc = AgendaBloc();
+    final AgendaBloc agendaBloc = context.read<AgendaBloc>();
     final TextEditingController agendaController = TextEditingController();
     String datePicked = DateFormat('M, yyyy').format(DateTime.now());
     String tanggal = '';
@@ -27,46 +27,45 @@ class AgendaPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: kBlue,
-      body: RefreshIndicator(
-        onRefresh: () async => agendaBloc.add(GetAgendaEvent(
-            kata: kata, tanggal: tanggal, isBerjalan: isBerjalan)),
-        child: ListView(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: kSize20,
-                vertical: kSize16,
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              backgroundColor: kBlue,
+              centerTitle: true,
+              leading: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: SvgPicture.asset(
+                  'assets/icons/arrow-left.svg',
+                  colorFilter: const ColorFilter.mode(kWhite, BlendMode.srcIn),
+                  fit: BoxFit.scaleDown,
+                  width: kSize24,
+                  height: kSize24,
+                ),
               ),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: SvgPicture.asset(
-                      'assets/icons/arrow-left.svg',
-                      colorFilter:
-                          const ColorFilter.mode(kWhite, BlendMode.srcIn),
-                      fit: BoxFit.scaleDown,
-                      width: 24,
-                      height: 24,
-                    ),
-                  ),
-                  SizedBox(
-                    width: kSize24,
-                  ),
-                  Text(
-                    'Agenda',
-                    style: kPoppinsBold.copyWith(
-                      color: kWhite,
-                      fontSize: kSize20,
-                    ),
-                  ),
-                ],
+              title: Text(
+                'Agenda',
+                style: kPoppinsSemiBold.copyWith(
+                  color: kWhite,
+                  fontSize: kSize20,
+                ),
               ),
             ),
-            Container(
-              decoration: const BoxDecoration(
+          ];
+        },
+        body: RefreshIndicator(
+          onRefresh: () async => agendaBloc.add(GetAgendaEvent(
+              kata: kata, tanggal: tanggal, isBerjalan: isBerjalan)),
+          child: SingleChildScrollView(
+            child: Container(
+              constraints: BoxConstraints(
+                minHeight: SizeConfig.screenHeight!,
+              ),
+              decoration: BoxDecoration(
                 color: bgColor,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(kSize32),
+                ),
               ),
               padding: EdgeInsets.symmetric(
                 horizontal: kSize20,
@@ -132,15 +131,11 @@ class AgendaPage extends StatelessWidget {
                                 selectedMonthBackgroundColor: kBlue,
                                 cancelWidget: const Text(
                                   'Batal',
-                                  style: TextStyle(
-                                    color: kGrey,
-                                  ),
+                                  style: TextStyle(color: kGrey),
                                 ),
                                 confirmWidget: const Text(
                                   'Konfirmasi',
-                                  style: TextStyle(
-                                    color: kGrey,
-                                  ),
+                                  style: TextStyle(color: kGrey),
                                 ),
                               ).then((date) {
                                 if (date != null) {
@@ -175,37 +170,21 @@ class AgendaPage extends StatelessWidget {
                   SizedBox(height: kSize24),
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0x087281df),
-                          blurRadius: 4.11,
-                          offset: Offset(0, 0.52),
-                        ),
-                        BoxShadow(
-                          color: Color(0x0c7281df),
-                          blurRadius: 6.99,
-                          offset: Offset(0, 1.78),
-                        ),
-                        BoxShadow(
-                          color: Color(0x0f7281df),
-                          blurRadius: 10.20,
-                          offset: Offset(0, 4.11),
-                        ),
-                      ],
+                      borderRadius: BorderRadius.circular(kSize12),
+                      boxShadow: boxShadow,
                       color: kWhite,
                     ),
                     child: TextField(
                       controller: agendaController,
                       decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(15),
+                        contentPadding: EdgeInsets.all(kSize16),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(kSize16),
                           borderSide: BorderSide.none,
                         ),
                         hintText: 'Cari Agenda',
                         hintStyle: kNunitoRegular.copyWith(
-                          fontSize: 15,
+                          fontSize: kSize16,
                           color: kNeutral60,
                         ),
                       ),
@@ -228,7 +207,7 @@ class AgendaPage extends StatelessWidget {
                     builder: (context, state) {
                       if (state is AgendaLoading) {
                         return SizedBox(
-                          height: SizeConfig.screenHeight! * .6,
+                          height: SizeConfig.screenHeight! * .7,
                           child: const Center(
                             child: CircularProgressIndicator(),
                           ),
@@ -237,29 +216,21 @@ class AgendaPage extends StatelessWidget {
                         final List<DataAgenda> dataAgenda = state.agenda.data;
                         // dataAgenda.clear();
                         if (dataAgenda.isNotEmpty) {
-                          return SizedBox(
-                            height: dataAgenda.length < 5
-                                ? SizeConfig.screenHeight! * .6
-                                : null,
-                            child: Column(
-                              children: dataAgenda
-                                  .map((e) => ItemAgenda(
-                                      namaEvent: e.namaEvent,
-                                      unitPengundang: e.unitPengundang,
-                                      tanggal: e.tanggal))
-                                  .toList(),
-                            ),
+                          return Column(
+                            children: dataAgenda
+                                .map((e) => ItemAgenda(dataAgenda: e))
+                                .toList(),
                           );
                         } else {
                           // Tidak ada data
                           return SizedBox(
-                            height: SizeConfig.screenHeight! * .6,
+                            height: SizeConfig.screenHeight! * .7,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SvgPicture.asset(
                                     'assets/icons/libur-jadwal-perkuliahan.svg'),
-                                const SizedBox(height: 24),
+                                SizedBox(height: kSize24),
                                 Text(
                                   'Saat ini tidak ada agenda',
                                   style: kPoppinsSemiBold.copyWith(
@@ -267,7 +238,7 @@ class AgendaPage extends StatelessWidget {
                                     color: kBlack,
                                   ),
                                 ),
-                                const SizedBox(height: 8),
+                                SizedBox(height: kSize8),
                                 Text(
                                   'Anda belum memiliki agenda',
                                   textAlign: TextAlign.center,
@@ -282,14 +253,15 @@ class AgendaPage extends StatelessWidget {
                         }
                       }
                       return SizedBox(
-                        height: SizeConfig.screenHeight! * .6,
+                        height: SizeConfig.screenHeight! * .7,
                         child: Center(
                           child: ElevatedButton(
                             onPressed: () => agendaBloc.add(GetAgendaEvent(
-                                kata: kata,
-                                tanggal: tanggal,
-                                isBerjalan: isBerjalan)),
-                            child: const Text("Ulangi"),
+                              kata: kata,
+                              tanggal: tanggal,
+                              isBerjalan: isBerjalan,
+                            )),
+                            child: const Text('Ulangi'),
                           ),
                         ),
                       );
@@ -298,7 +270,7 @@ class AgendaPage extends StatelessWidget {
                 ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -306,49 +278,24 @@ class AgendaPage extends StatelessWidget {
 }
 
 class ItemAgenda extends StatelessWidget {
-  final String namaEvent;
-  final String unitPengundang;
-  final String tanggal;
+  final DataAgenda dataAgenda;
   const ItemAgenda({
     super.key,
-    required this.namaEvent,
-    required this.unitPengundang,
-    required this.tanggal,
+    required this.dataAgenda,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-        bottom: 12,
-      ),
+      margin: EdgeInsets.only(bottom: kSize12),
+      padding: EdgeInsets.all(kSize12),
       width: double.infinity,
-      padding: const EdgeInsets.all(12),
       decoration: ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(kSize12),
         ),
-        shadows: const [
-          BoxShadow(
-            color: Color(0x087281DF),
-            blurRadius: 4.11,
-            offset: Offset(0, 0.52),
-            spreadRadius: 0,
-          ),
-          BoxShadow(
-            color: Color(0x0C7281DF),
-            blurRadius: 6.99,
-            offset: Offset(0, 1.78),
-            spreadRadius: 0,
-          ),
-          BoxShadow(
-            color: Color(0x0F7281DF),
-            blurRadius: 10.20,
-            offset: Offset(0, 4.11),
-            spreadRadius: 0,
-          )
-        ],
+        shadows: boxShadow,
       ),
       child: InkWell(
         onTap: () => Navigator.of(context).push(
@@ -358,7 +305,7 @@ class ItemAgenda extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              namaEvent,
+              dataAgenda.namaEvent,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: kPoppinsMedium.copyWith(
@@ -377,7 +324,7 @@ class ItemAgenda extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: unitPengundang,
+                    text: dataAgenda.unitPengundang,
                     style: kNunitoRegular.copyWith(
                       fontSize: kSize14,
                       color: kBlue,
@@ -389,7 +336,7 @@ class ItemAgenda extends StatelessWidget {
             Align(
               alignment: Alignment.bottomRight,
               child: Text(
-                tanggal,
+                dataAgenda.tanggal,
                 style: kNunitoRegular.copyWith(
                   fontSize: kSize12,
                   color: kNeutral70,
@@ -417,9 +364,9 @@ class BerjalanSelesai extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 32,
+      height: kSize32,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(kSize12),
         color: warnaBg,
       ),
       padding: EdgeInsets.symmetric(

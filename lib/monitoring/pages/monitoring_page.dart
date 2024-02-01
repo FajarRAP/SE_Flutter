@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'detail-monitoring_page.dart';
+import 'monitoring-detail_page.dart';
 import '../../helper/app_styles.dart';
 import '../../helper/size_config.dart';
 import '../bloc/monitoring_bloc.dart';
@@ -13,82 +13,75 @@ class MonitoringPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final MonitoringBloc monitoringBloc = MonitoringBloc();
-    final double appBarHeight = AppBar().preferredSize.height;
+    final MonitoringBloc monitoringBloc = context.read<MonitoringBloc>();
 
     return Scaffold(
       backgroundColor: kBlue,
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Monitoring',
-          style: kPoppinsSemiBold.copyWith(
-            color: kWhite,
-            fontSize: kSize20,
-          ),
-        ),
-        backgroundColor: kBlue,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-            color: kWhite,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-      body: RefreshIndicator(
-        onRefresh: () async => monitoringBloc.add(GetMonitoringEvent()),
-        child: SingleChildScrollView(
-          child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(32),
-              topRight: Radius.circular(32),
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              centerTitle: true,
+              title: Text(
+                'Monitoring',
+                style: kPoppinsSemiBold.copyWith(
+                  color: kWhite,
+                  fontSize: kSize20,
+                ),
+              ),
+              backgroundColor: kBlue,
+              leading: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: SvgPicture.asset(
+                  'assets/icons/arrow-left.svg',
+                  colorFilter: const ColorFilter.mode(kWhite, BlendMode.srcIn),
+                  fit: BoxFit.scaleDown,
+                  width: kSize24,
+                  height: kSize24,
+                ),
+              ),
             ),
-            child: BlocBuilder<MonitoringBloc, MonitoringState>(
-              bloc: monitoringBloc..add(GetMonitoringEvent()),
-              builder: (context, state) {
-                print(state);
-                if (state is MonitoringLoadingState) {
-                  return Container(
-                    height: SizeConfig.screenHeight,
-                    color: bgColor,
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                } else if (state is MonitoringLoadedState) {
-                  final Monitoring monitoringData = state.data;
-                  // monitoringData.clear();
-                  if (monitoringData.data.isNotEmpty) {
-                    return Container(
-                      color: bgColor,
-                      height: monitoringData.data.length <= 8
-                          ? SizeConfig.screenHeight
-                          : null,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: kSize20,
-                        vertical: kSize32,
-                      ),
-                      child: Column(
+          ];
+        },
+        body: RefreshIndicator(
+          onRefresh: () async => monitoringBloc.add(GetMonitoringEvent()),
+          child: SingleChildScrollView(
+            child: Container(
+              constraints: BoxConstraints(
+                minHeight: SizeConfig.screenHeight!,
+              ),
+              decoration: BoxDecoration(
+                color: bgColor,
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(kSize32)),
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: kSize20,
+                vertical: kSize32,
+              ),
+              child: BlocBuilder<MonitoringBloc, MonitoringState>(
+                bloc: monitoringBloc..add(GetMonitoringEvent()),
+                builder: (context, state) {
+                  if (state is MonitoringLoadingState) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is MonitoringLoadedState) {
+                    final Monitoring monitoringData = state.data;
+                    // monitoringData.data.clear();
+                    if (monitoringData.data.isNotEmpty) {
+                      return Column(
                         children: monitoringData.data
                             .map((e) => Column(
                                   children: [
                                     ItemMonitoring(
-                                        nama: e.nama,
-                                        lokasi: e.lokasi,
-                                        masuk: e.masuk,
-                                        pulang: e.pulang),
+                                      dataMonitoring: e,
+                                    ),
                                     SizedBox(height: kSize8),
                                   ],
                                 ))
                             .toList(),
-                      ),
-                    );
-                  } else {
-                    return Container(
-                      color: bgColor,
-                      height: SizeConfig.screenHeight! - appBarHeight,
-                      child: Center(
+                      );
+                    } else {
+                      return Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -114,12 +107,17 @@ class MonitoringPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
-                    );
+                      );
+                    }
                   }
-                }
-                return const Text("Gagal Mengambil Data...");
-              },
+                  return Center(
+                    child: ElevatedButton(
+                      onPressed: () => monitoringBloc.add(GetMonitoringEvent()),
+                      child: const Text('Ulangi'),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -129,16 +127,10 @@ class MonitoringPage extends StatelessWidget {
 }
 
 class ItemMonitoring extends StatelessWidget {
-  final String nama;
-  final String lokasi;
-  final String masuk;
-  final String pulang;
+  final DataMonitoring dataMonitoring;
   const ItemMonitoring({
     super.key,
-    required this.nama,
-    required this.lokasi,
-    required this.masuk,
-    required this.pulang,
+    required this.dataMonitoring,
   });
 
   @override
@@ -146,29 +138,32 @@ class ItemMonitoring extends StatelessWidget {
     return InkWell(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => DetailMonitoringPage(
-          nama: nama,
+          nama: dataMonitoring.nama,
         ),
       )),
       child: Container(
         width: double.infinity,
-        height: SizeConfig.screenHeight! * .1,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+        height: SizeConfig.screenWidth! * .18,
+        decoration: ShapeDecoration(
           color: kWhite,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(kSize12),
+          ),
+          shadows: boxShadow,
         ),
-        child: Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: SizeConfig.screenWidth! * .04),
-              child: SizedBox(
-                width: SizeConfig.screenWidth! * .53,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: kSize14),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 4,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(
                       child: Text(
-                        nama,
+                        dataMonitoring.nama,
                         overflow: TextOverflow.ellipsis,
                         style: kPoppinsMedium.copyWith(
                           fontSize: kSize14,
@@ -184,7 +179,7 @@ class ItemMonitoring extends StatelessWidget {
                         SizedBox(width: kSize4),
                         Flexible(
                           child: Text(
-                            lokasi,
+                            dataMonitoring.lokasi,
                             overflow: TextOverflow.ellipsis,
                             style: kPoppinsRegular.copyWith(
                               color: kNeutral80,
@@ -197,56 +192,54 @@ class ItemMonitoring extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-            const VerticalDivider(),
-            SizedBox(
-              width: SizeConfig.screenWidth! * .12,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Masuk',
-                    style: kPoppinsRegular.copyWith(
-                      color: kNeutral80,
-                      fontSize: kSize12,
+              const VerticalDivider(),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Masuk',
+                      style: kPoppinsRegular.copyWith(
+                        color: kNeutral80,
+                        fontSize: kSize12,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: kSize4),
-                  Text(
-                    masuk,
-                    style: kPoppinsMedium.copyWith(
-                      color: kGreen,
-                      fontSize: kSize16,
+                    SizedBox(height: kSize4),
+                    Text(
+                      dataMonitoring.masuk,
+                      style: kPoppinsMedium.copyWith(
+                        color: kGreen,
+                        fontSize: kSize16,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            const VerticalDivider(),
-            SizedBox(
-              width: SizeConfig.screenWidth! * .12,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Pulang',
-                    style: kPoppinsRegular.copyWith(
-                      color: kGrey,
-                      fontSize: kSize12,
+              const VerticalDivider(),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Pulang',
+                      style: kPoppinsRegular.copyWith(
+                        color: kGrey,
+                        fontSize: kSize12,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: kSize4),
-                  Text(
-                    pulang,
-                    style: kPoppinsMedium.copyWith(
-                      color: kOrange,
-                      fontSize: kSize16,
+                    SizedBox(height: kSize4),
+                    Text(
+                      dataMonitoring.pulang,
+                      style: kPoppinsMedium.copyWith(
+                        color: kOrange,
+                        fontSize: kSize16,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

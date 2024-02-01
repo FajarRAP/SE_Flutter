@@ -10,7 +10,6 @@ part 'shift_state.dart';
 class ShiftBloc extends Bloc<ShiftEvent, ShiftState> {
   ShiftBloc() : super(ShiftInitial()) {
     on<ShiftEvent>((event, emit) async {
-      // TODO: implement event handler
       emit(JadwalShiftLoading());
       try {
         final myResponse = await Services.fetchAPIJadwalShift();

@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import '../../../services/services.dart';
-import '../models/agenda-detail_model.dart';
 import '../models/agenda_model.dart';
 part 'agenda_event.dart';
 part 'agenda_state.dart';

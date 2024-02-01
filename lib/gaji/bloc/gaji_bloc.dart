@@ -12,7 +12,6 @@ class GajiBloc extends Bloc<GajiEvent, GajiState> {
   GajiBloc() : super(GajiInitial()) {
     on<GetGajiEvent>(
       (event, emit) async {
-        // TODO: implement event handler
         emit(GajiLoading());
         try {
           final response = await Services.fetchAPIGaji();

@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
             create: (context) => DetailMonitoringBloc()),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: true,
         title: 'ADISTY',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: kBlue),

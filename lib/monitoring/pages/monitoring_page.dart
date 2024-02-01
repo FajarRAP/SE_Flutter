@@ -143,7 +143,7 @@ class ItemMonitoring extends StatelessWidget {
       )),
       child: Container(
         width: double.infinity,
-        height: SizeConfig.screenHeight! * .1,
+        height: SizeConfig.screenWidth! * .18,
         decoration: ShapeDecoration(
           color: kWhite,
           shape: RoundedRectangleBorder(

@@ -47,7 +47,7 @@ class _DetailGajiState extends State<DetailGaji> {
           },
           child: SvgPicture.asset(
             'assets/icons/arrow-left.svg',
-            color: kBlue,
+            colorFilter: const ColorFilter.mode(kBlue, BlendMode.srcIn),
             fit: BoxFit.scaleDown,
             width: 24,
             height: 24,
@@ -193,67 +193,67 @@ class _DetailGajiState extends State<DetailGaji> {
                                       EdgeInsets.symmetric(horizontal: kSize20),
                                   child: Column(
                                     children: [
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: kSize16,
-                                              vertical: kSize16),
-                                          decoration: ShapeDecoration(
-                                            color: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: kSize16,
+                                            vertical: kSize16),
+                                        decoration: ShapeDecoration(
+                                          color: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                          shadows: const [
+                                            BoxShadow(
+                                              color: Color(0x087281DF),
+                                              blurRadius: 4.11,
+                                              offset: Offset(0, 0.52),
+                                              spreadRadius: 0,
                                             ),
-                                            shadows: const [
-                                              BoxShadow(
-                                                color: Color(0x087281DF),
-                                                blurRadius: 4.11,
-                                                offset: Offset(0, 0.52),
-                                                spreadRadius: 0,
-                                              ),
-                                              BoxShadow(
-                                                color: Color(0x0C7281DF),
-                                                blurRadius: 6.99,
-                                                offset: Offset(0, 1.78),
-                                                spreadRadius: 0,
-                                              ),
-                                              BoxShadow(
-                                                color: Color(0x0F7281DF),
-                                                blurRadius: 10.20,
-                                                offset: Offset(0, 4.11),
-                                                spreadRadius: 0,
-                                              )
-                                            ],
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              SvgPicture.asset(
-                                                'assets/icons/pemasukan.svg',
-                                                width: kSize40,
-                                              ),
-                                              SizedBox(width: kSize16),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    e.nominal,
-                                                    style:
-                                                        kPoppinsMedium.copyWith(
-                                                            fontSize: kSize18,
-                                                            color: kBlack),
-                                                  ),
-                                                  Text(
-                                                    e.keterangan,
-                                                    style:
-                                                        kNunitoRegular.copyWith(
-                                                            fontSize: kSize14,
-                                                            color: kNeutral90),
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          ),
+                                            BoxShadow(
+                                              color: Color(0x0C7281DF),
+                                              blurRadius: 6.99,
+                                              offset: Offset(0, 1.78),
+                                              spreadRadius: 0,
+                                            ),
+                                            BoxShadow(
+                                              color: Color(0x0F7281DF),
+                                              blurRadius: 10.20,
+                                              offset: Offset(0, 4.11),
+                                              spreadRadius: 0,
+                                            )
+                                          ],
                                         ),
+                                        child: Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/icons/pemasukan.svg',
+                                              width: kSize40,
+                                            ),
+                                            SizedBox(width: kSize16),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  e.nominal,
+                                                  style:
+                                                      kPoppinsMedium.copyWith(
+                                                          fontSize: kSize18,
+                                                          color: kBlack),
+                                                ),
+                                                Text(
+                                                  e.keterangan,
+                                                  style:
+                                                      kNunitoRegular.copyWith(
+                                                          fontSize: kSize14,
+                                                          color: kNeutral90),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                       SizedBox(
                                         height: kSize12,
                                       )
@@ -278,67 +278,67 @@ class _DetailGajiState extends State<DetailGaji> {
                                       EdgeInsets.symmetric(horizontal: kSize20),
                                   child: Column(
                                     children: [
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: kSize16,
-                                              vertical: kSize16),
-                                          decoration: ShapeDecoration(
-                                            color: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: kSize16,
+                                            vertical: kSize16),
+                                        decoration: ShapeDecoration(
+                                          color: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                          shadows: const [
+                                            BoxShadow(
+                                              color: Color(0x087281DF),
+                                              blurRadius: 4.11,
+                                              offset: Offset(0, 0.52),
+                                              spreadRadius: 0,
                                             ),
-                                            shadows: const [
-                                              BoxShadow(
-                                                color: Color(0x087281DF),
-                                                blurRadius: 4.11,
-                                                offset: Offset(0, 0.52),
-                                                spreadRadius: 0,
-                                              ),
-                                              BoxShadow(
-                                                color: Color(0x0C7281DF),
-                                                blurRadius: 6.99,
-                                                offset: Offset(0, 1.78),
-                                                spreadRadius: 0,
-                                              ),
-                                              BoxShadow(
-                                                color: Color(0x0F7281DF),
-                                                blurRadius: 10.20,
-                                                offset: Offset(0, 4.11),
-                                                spreadRadius: 0,
-                                              )
-                                            ],
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              SvgPicture.asset(
-                                                'assets/icons/potongan.svg',
-                                                width: kSize40,
-                                              ),
-                                              SizedBox(width: kSize16),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    e.nominal,
-                                                    style:
-                                                        kPoppinsMedium.copyWith(
-                                                            fontSize: kSize18,
-                                                            color: kBlack),
-                                                  ),
-                                                  Text(
-                                                    e.keterangan,
-                                                    style:
-                                                        kNunitoRegular.copyWith(
-                                                            fontSize: kSize14,
-                                                            color: kNeutral90),
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          ),
+                                            BoxShadow(
+                                              color: Color(0x0C7281DF),
+                                              blurRadius: 6.99,
+                                              offset: Offset(0, 1.78),
+                                              spreadRadius: 0,
+                                            ),
+                                            BoxShadow(
+                                              color: Color(0x0F7281DF),
+                                              blurRadius: 10.20,
+                                              offset: Offset(0, 4.11),
+                                              spreadRadius: 0,
+                                            )
+                                          ],
                                         ),
+                                        child: Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/icons/potongan.svg',
+                                              width: kSize40,
+                                            ),
+                                            SizedBox(width: kSize16),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  e.nominal,
+                                                  style:
+                                                      kPoppinsMedium.copyWith(
+                                                          fontSize: kSize18,
+                                                          color: kBlack),
+                                                ),
+                                                Text(
+                                                  e.keterangan,
+                                                  style:
+                                                      kNunitoRegular.copyWith(
+                                                          fontSize: kSize14,
+                                                          color: kNeutral90),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                       SizedBox(
                                         height: kSize12,
                                       )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'sunting_cuti_page.dart';
 import 'tambah_cuti_page.dart';
 import '../models/cuti-rekap_model.dart';
@@ -8,7 +9,6 @@ import '../models/cuti-daftar_model.dart';
 import '../../helper/app_styles.dart';
 import '../../helper/size_config.dart';
 import '../bloc/layanan_cuti_bloc.dart';
-import '../../services/services.dart';
 
 class LayananCutiPage extends StatelessWidget {
   const LayananCutiPage({super.key});
@@ -260,7 +260,7 @@ class ItemCutiDaftar extends StatelessWidget {
         shadows: boxShadow,
       ),
       width: SizeConfig.screenWidth,
-      height: SizeConfig.screenHeight! * .15,
+      height: SizeConfig.screenWidth! * .25,
       padding: EdgeInsets.all(kSize12),
       child: Column(
         children: [

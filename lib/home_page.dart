@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:konsumsi_api_agenda/helper/size_config.dart';
 
 import 'agenda/pages/agenda_page.dart';
 import 'gaji/pages/informasi_gaji.dart';
@@ -7,6 +6,8 @@ import 'layanan_cuti/pages/layanan_cuti.dart';
 import 'monitoring/pages/monitoring_page.dart';
 import 'shift/pages/jadwal_shift.dart';
 import 'tunjangan/pages/tunjangan_beras.dart';
+
+import 'helper/size_config.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

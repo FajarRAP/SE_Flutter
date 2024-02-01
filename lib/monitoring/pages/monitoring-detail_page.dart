@@ -373,7 +373,7 @@ class ItemDetailMonitoring extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: SizeConfig.screenHeight! * .1,
+      height: SizeConfig.screenWidth! * .18,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(kSize12),
         color: kWhite,

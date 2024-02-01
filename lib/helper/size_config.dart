@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SizeConfig {
-  static var _mediaQueryData;
+  static Size? _mediaQueryData;
   static double? screenWidth;
   static double? screenHeight;
   static double? blockSizeHorizontal;

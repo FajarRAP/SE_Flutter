@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final cutiDaftar = cutiDaftarFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 CutiDaftar cutiDaftarFromJson(String str) =>

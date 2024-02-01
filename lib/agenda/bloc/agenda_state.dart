@@ -15,15 +15,6 @@ class AgendaLoaded extends AgendaState {
 
 class AgendaError extends AgendaState {}
 
-class AgendaDetailLoading extends AgendaState {}
-
-class AgendaDetailLoaded extends AgendaState {
-  final AgendaDetail data;
-  AgendaDetailLoaded(this.data);
-}
-
-class AgendaDetailError extends AgendaState {}
-
 class DateCalendarPicked extends AgendaState {
   final String tanggal;
   DateCalendarPicked(this.tanggal);

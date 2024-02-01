@@ -14,7 +14,7 @@ String monitoringDetailToJson(MonitoringDetail data) =>
 class MonitoringDetail {
   final bool status;
   final String code;
-  final List<Datum> data;
+  final List<DataMonitoringDetail> data;
   final String message;
 
   MonitoringDetail({
@@ -28,7 +28,8 @@ class MonitoringDetail {
       MonitoringDetail(
         status: json["status"],
         code: json["code"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<DataMonitoringDetail>.from(
+            json["data"].map((x) => DataMonitoringDetail.fromJson(x))),
         message: json["message"],
       );
 
@@ -40,14 +41,14 @@ class MonitoringDetail {
       };
 }
 
-class Datum {
+class DataMonitoringDetail {
   final String hari;
   final String tanggal;
   final String status;
   final String masuk;
   final String pulang;
 
-  Datum({
+  DataMonitoringDetail({
     required this.hari,
     required this.tanggal,
     required this.status,
@@ -55,7 +56,8 @@ class Datum {
     required this.pulang,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory DataMonitoringDetail.fromJson(Map<String, dynamic> json) =>
+      DataMonitoringDetail(
         hari: json["hari"],
         tanggal: json["tanggal"],
         status: json["status"],

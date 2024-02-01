@@ -19,9 +19,11 @@ class LayananCutiBloc extends Bloc<LayananCutiEvent, LayananCutiState> {
     Emitter<LayananCutiState> emit,
   ) async {
     emit(LayananCutiLoading());
-    final CutiRekap cutiRekap =
-        await Services.fetchAPICutiRekap();
+    final CutiRekap cutiRekap = await Services.fetchAPICutiRekap();
     final CutiDaftar cutiDaftar = await Services.fetchAPICutiTahunan();
-    emit(LayananCutiLoaded(cutiRekap, cutiDaftar));
+    emit(LayananCutiLoaded(
+        cutiRekap: cutiRekap,
+        cutiDaftar: cutiDaftar,
+        isBerjalan: event.isBerjalan));
   }
 }

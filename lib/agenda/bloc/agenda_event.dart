@@ -11,8 +11,6 @@ class GetAgendaEvent extends AgendaEvent {
   GetAgendaEvent({
     required this.kata,
     required this.tanggal,
-    required this.isBerjalan,
+    this.isBerjalan = true,
   });
 }
-
-class GetAgendaDetailEvent extends AgendaEvent {}

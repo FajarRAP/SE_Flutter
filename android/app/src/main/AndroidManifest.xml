@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="konsumsi_api_agenda"
+        android:label="Adisty"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

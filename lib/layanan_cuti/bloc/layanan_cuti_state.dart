@@ -10,5 +10,11 @@ class LayananCutiLoading extends LayananCutiState {}
 class LayananCutiLoaded extends LayananCutiState {
   final CutiRekap cutiRekap;
   final CutiDaftar cutiDaftar;
-  LayananCutiLoaded(this.cutiRekap, this.cutiDaftar);
+  final bool isBerjalan;
+
+  LayananCutiLoaded({
+    required this.cutiRekap,
+    required this.cutiDaftar,
+    required this.isBerjalan
+  });
 }

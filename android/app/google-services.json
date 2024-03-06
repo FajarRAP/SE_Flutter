@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "318482072163",
+    "project_id": "adisty-c2548",
+    "storage_bucket": "adisty-c2548.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318482072163:android:1e5bf0854a5336ba506e56",
+        "android_client_info": {
+          "package_name": "com.example.konsumsi_api_agenda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyoFeLVEl9tGdGx4xZOtabKVJiECq4dFk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

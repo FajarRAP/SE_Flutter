@@ -11,20 +11,14 @@ import '../bloc/tunjangan_bloc.dart';
 
 import 'detail_tunjangan_beras.dart';
 
-class TunjanganBeras extends StatefulWidget {
+class TunjanganBeras extends StatelessWidget {
   const TunjanganBeras({super.key});
 
   @override
-  State<TunjanganBeras> createState() => _TunjanganBerasState();
-}
-
-class _TunjanganBerasState extends State<TunjanganBeras> {
-  //variabel untuk waktu
-
-  @override
   Widget build(BuildContext context) {
+    //variabel untuk waktu
     String selectedDate = "";
-    String datePicked = DateFormat('M, yyyy').format(DateTime.now());
+    String tanggal = DateFormat('M, yyyy').format(DateTime.now());
     final databloc = TunjanganBloc();
     SizeConfig().init(context);
     return Scaffold(
@@ -115,17 +109,23 @@ class _TunjanganBerasState extends State<TunjanganBeras> {
                                 if (date != null) {
                                   selectedDate =
                                       DateFormat('dd MM y').format(date);
+                                  tanggal = DateFormat('M, yyyy').format(date);
                                   databloc.add(GetTunjanganEvent(selectedDate));
                                 }
                               },
                             );
                           },
-                          child: Text(
-                            'Bulan ${datePicked}',
-                            style: kPoppinsMedium.copyWith(
-                              fontSize: SizeConfig.blockSizeHorizontal! * 3.25,
-                              color: kNeutral80,
-                            ),
+                          child: BlocBuilder<TunjanganBloc, TunjanganState>(
+                            bloc: databloc,
+                            builder: (context, state) {
+                              return Text(
+                                'Bulan $tanggal',
+                                style: kPoppinsMedium.copyWith(
+                                  fontSize: kSize14,
+                                  color: kNeutral80,
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ],
@@ -136,6 +136,7 @@ class _TunjanganBerasState extends State<TunjanganBeras> {
                     BlocBuilder<TunjanganBloc, TunjanganState>(
                       bloc: databloc..add(GetTunjanganEvent(selectedDate)),
                       builder: (context, state) {
+                        print(state);
                         if (state is TunjanganLoading) {
                           return const Center();
                         } else if (state is TunjanganTahunLoading) {

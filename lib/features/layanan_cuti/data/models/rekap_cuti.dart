@@ -1,26 +1,26 @@
 import 'dart:convert';
 
-CutiRekap cutiRekapFromJson(String str) => CutiRekap.fromJson(json.decode(str));
+RekapCutiModel rekapCutiFromJson(String str) => RekapCutiModel.fromJson(json.decode(str));
 
-String cutiRekapToJson(CutiRekap data) => json.encode(data.toJson());
+String rekapCutiToJson(RekapCutiModel data) => json.encode(data.toJson());
 
-class CutiRekap {
+class RekapCutiModel {
   final bool status;
   final String code;
-  final DataCutiRekap data;
+  final DataRekapCutiModel data;
   final String message;
 
-  CutiRekap({
+  RekapCutiModel({
     required this.status,
     required this.code,
     required this.data,
     required this.message,
   });
 
-  factory CutiRekap.fromJson(Map<String, dynamic> json) => CutiRekap(
+  factory RekapCutiModel.fromJson(Map<String, dynamic> json) => RekapCutiModel(
         status: json["status"],
         code: json["code"],
-        data: DataCutiRekap.fromJson(json["data"]),
+        data: DataRekapCutiModel.fromJson(json["data"]),
         message: json["message"],
       );
 
@@ -32,18 +32,18 @@ class CutiRekap {
       };
 }
 
-class DataCutiRekap {
+class DataRekapCutiModel {
   final String sisaCuti;
   final String cutiDiambil;
   final String totalCuti;
 
-  DataCutiRekap({
+  DataRekapCutiModel({
     required this.sisaCuti,
     required this.cutiDiambil,
     required this.totalCuti,
   });
 
-  factory DataCutiRekap.fromJson(Map<String, dynamic> json) => DataCutiRekap(
+  factory DataRekapCutiModel.fromJson(Map<String, dynamic> json) => DataRekapCutiModel(
         sisaCuti: json["sisa_cuti"],
         cutiDiambil: json["cuti_diambil"],
         totalCuti: json["total_cuti"],

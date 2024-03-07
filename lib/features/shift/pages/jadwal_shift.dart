@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/constants_finals.dart';
-import '../../../helper/size_config.dart';
-import '../bloc/shift_bloc.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../core/constants_finals.dart';
+import '../bloc/shift_bloc.dart';
 
 class JadwalShift extends StatefulWidget {
   const JadwalShift({super.key});
@@ -20,7 +19,7 @@ class _JadwalShiftState extends State<JadwalShift> {
   @override
   Widget build(BuildContext context) {
     final jadwalShiftBloc = ShiftBloc();
-    SizeConfig().init(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: kBlue,
@@ -65,7 +64,7 @@ class _JadwalShiftState extends State<JadwalShift> {
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(32), topRight: Radius.circular(32)),
               child: Container(
-                width: SizeConfig.screenWidth,
+                width: Screen.width,
                 // height: SizeConfig.screenHeight,
                 padding: EdgeInsets.symmetric(vertical: Screen.kSize20),
                 color: const Color(0xFFF6F7F9),
@@ -419,7 +418,7 @@ class _JadwalShiftState extends State<JadwalShift> {
                       },
                     ),
                     SizedBox(
-                      height: SizeConfig.screenHeight! * .8,
+                      height: Screen.height * .8,
                     )
                   ],
                 ),
@@ -464,7 +463,10 @@ class _JadwalShiftState extends State<JadwalShift> {
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF2B86C4),
-                    fixedSize: Size(SizeConfig.screenWidth!, 56),
+                    fixedSize: Size(
+                      Screen.width,
+                      56,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(64),
                     )),

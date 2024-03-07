@@ -1,11 +1,7 @@
 import 'package:http/http.dart' as http;
 
-import '../features/agenda/data/models/detail_agenda.dart';
-import '../features/agenda/data/models/agenda.dart';
 import '../features/gaji/models/detail_gaji_model.dart';
 import '../features/gaji/models/gaji_model.dart';
-import '../features/layanan_cuti/models/cuti-daftar_model.dart';
-import '../features/layanan_cuti/models/cuti-rekap_model.dart';
 import '../features/monitoring/models/monitoring-detail_model.dart';
 import '../features/monitoring/models/monitoring-rekap_model.dart';
 import '../features/monitoring/models/monitoring_model.dart';
@@ -14,26 +10,6 @@ import '../features/tunjangan/models/detail_tunjangan_model.dart';
 import '../features/tunjangan/models/tunjangan_model.dart';
 
 class Services {
-  //AGENDA
-  static Future<AgendaModel> fetchAPIAgenda(
-      String key, String bulan, bool isBerjalan) async {
-    final response = await http.get(Uri.parse(
-        "https://dev.laz-almuthiin.com/api/agenda?key=$key$isBerjalan&bulan=$bulan"));
-    if (response.statusCode == 200) {
-      return agendaFromJson(response.body);
-    }
-    throw Exception("Gagal Mengambil Data...");
-  }
-
-  static Future<DetailAgendaModel> fetchAPIDetailAgenda() async {
-    final response = await http
-        .get(Uri.parse("https://dev.laz-almuthiin.com/api/detil_agenda"));
-    if (response.statusCode == 200) {
-      return detailAgendaFromJson(response.body);
-    }
-    throw Exception("Gagal Mengambil Data...");
-  }
-
   //TUNJANGAN
   //fetch api untuk mendapatkan semua data tunjangan atau berdasarkan bulan
   static Future<List<DataTunjangan>> fetchAPITunjangan(String date) async {
@@ -96,24 +72,6 @@ class Services {
     } else {
       throw Exception('Gagal Mengambil Data');
     }
-  }
-
-  static Future<CutiRekap> fetchAPICutiRekap() async {
-    final response = await http
-        .get(Uri.parse("https://dev.laz-almuthiin.com/api/rekap_cuti"));
-    if (response.statusCode == 200) {
-      return cutiRekapFromJson(response.body);
-    }
-    throw ("Gagal Mengambil Data...");
-  }
-
-  static Future<CutiDaftar> fetchAPICutiTahunan() async {
-    final response = await http
-        .get(Uri.parse("https://dev.laz-almuthiin.com/api/daftar_cuti"));
-    if (response.statusCode == 200) {
-      return cutiDaftarFromJson(response.body);
-    }
-    throw ("Gagal Mengambil Data...");
   }
 
   static Future<Monitoring> fetchAPIMonitoring() async {

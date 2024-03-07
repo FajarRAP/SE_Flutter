@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+
 import '../../../core/constants_finals.dart';
-import '../../../helper/size_config.dart';
 import '../bloc/gaji_bloc.dart';
 import 'detail_gaji.dart';
 
@@ -21,7 +21,7 @@ class _InformasiGajiState extends State<InformasiGaji> {
   @override
   Widget build(BuildContext context) {
     final gajiBloc = GajiBloc();
-    SizeConfig().init(context);
+    
     return Scaffold(
       backgroundColor: const Color(0xFFF6F7F9),
       appBar: AppBar(
@@ -66,7 +66,7 @@ class _InformasiGajiState extends State<InformasiGaji> {
             builder: (context, state) {
               if (state is GajiLoading) {
                 return Container(
-                  height: SizeConfig.screenHeight,
+                  height: Screen.height,
                   color: const Color((0xFFF6F7F9)),
                 );
               } else if (state is GajiLoaded) {
@@ -208,12 +208,12 @@ class _InformasiGajiState extends State<InformasiGaji> {
                 }
               } else if (state is GajiError) {
                 return Container(
-                  height: SizeConfig.screenHeight,
+                  height: Screen.height,
                   color: const Color((0xFFF6F7F9)),
                 );
               } else {
                 return Container(
-                  height: SizeConfig.screenHeight,
+                  height: Screen.height,
                   color: const Color((0xFFF6F7F9)),
                 );
               }

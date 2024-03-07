@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../core/constants_finals.dart';
-import '../../../../core/functions.dart';
-import '../../../layanan_cuti/pages/layanan_cuti.dart';
 import '../cubit/agenda_cubit.dart';
+import '../widgets/button_dan_tanggal.dart';
+import '../widgets/cari_agenda.dart';
 import '../widgets/item_agenda.dart';
 
 class AgendaPage extends StatefulWidget {
@@ -18,7 +17,6 @@ class AgendaPage extends StatefulWidget {
 
 class _AgendaPageState extends State<AgendaPage> {
   final TextEditingController agendaController = TextEditingController();
-  final ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +35,7 @@ class _AgendaPageState extends State<AgendaPage> {
                   Navigator.pop(context);
                 },
                 child: SvgPicture.asset(
-                  'assets/icons/arrow-left.svg',
+                  arrowBackSvg,
                   colorFilter: const ColorFilter.mode(
                     kWhite,
                     BlendMode.srcIn,
@@ -58,6 +56,7 @@ class _AgendaPageState extends State<AgendaPage> {
           ];
         },
         body: RefreshIndicator(
+          displacement: 10,
           onRefresh: () async {
             agendaController.text = '';
             agendaCubit.kata = '';
@@ -80,111 +79,21 @@ class _AgendaPageState extends State<AgendaPage> {
             child: Column(
               children: [
                 // Button dan Tanggal
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    BlocBuilder<AgendaCubit, AgendaState>(
-                      bloc: agendaCubit,
-                      builder: (context, state) {
-                        return Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                agendaCubit.isBerjalan = true;
-                                agendaCubit.getAgendas();
-                              },
-                              child: BerjalanSelesai(
-                                kata: 'Berjalan',
-                                warnaBg: agendaCubit.isBerjalan
-                                    ? const Color(0XffEE6C4D)
-                                    : kLightGrey,
-                                warnaFont: agendaCubit.isBerjalan
-                                    ? kWhite
-                                    : kNeutral60,
-                              ),
-                            ),
-                            SizedBox(width: Screen.kSize12),
-                            InkWell(
-                              onTap: () {
-                                agendaCubit.isBerjalan = false;
-                                agendaCubit.getAgendas();
-                              },
-                              child: BerjalanSelesai(
-                                kata: 'Selesai',
-                                warnaBg: !agendaCubit.isBerjalan
-                                    ? const Color(0XffEE6C4D)
-                                    : kLightGrey,
-                                warnaFont: !agendaCubit.isBerjalan
-                                    ? kWhite
-                                    : kNeutral60,
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                    Row(
-                      children: [
-                        TextButton(
-                          onPressed: () async {
-                            final DateTime? date =
-                                await ourMonthPicker(context);
-                            if (date != null) {
-                              agendaCubit.tanggal =
-                                  DateFormat('dd-MM-yyyy').format(date);
-                              agendaCubit.datePicked =
-                                  DateFormat('M, yyyy').format(date);
-                              agendaCubit.getAgendas();
-                            }
-                          },
-                          child: BlocBuilder<AgendaCubit, AgendaState>(
-                            bloc: agendaCubit,
-                            builder: (context, state) {
-                              return Text(
-                                'Bulan ${agendaCubit.datePicked}',
-                                style: Styles.kPoppinsMedium.copyWith(
-                                  fontSize: Screen.kSize14,
-                                  color: kNeutral80,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                const ButtonDanTanggal(),
+
+                SizedBox(
+                  height: Screen.kSize24,
                 ),
-                SizedBox(height: Screen.kSize24),
-                // TextField
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      Screen.kSize12,
-                    ),
-                    boxShadow: boxShadow,
-                    color: kWhite,
-                  ),
-                  child: TextField(
-                    controller: agendaController,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(Screen.kSize16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(Screen.kSize16),
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: 'Cari Agenda',
-                      hintStyle: Styles.kNunitoRegular.copyWith(
-                        fontSize: Screen.kSize16,
-                        color: kNeutral60,
-                      ),
-                    ),
-                    onChanged: (value) {
-                      agendaCubit.kata = value;
-                      agendaCubit.getAgendas();
-                    },
-                  ),
+
+                // TextField Cari Agenda
+                CariAgenda(
+                  agendaController: agendaController,
                 ),
-                SizedBox(height: Screen.kSize24),
+
+                SizedBox(
+                  height: Screen.kSize24,
+                ),
+
                 // Data
                 Expanded(
                   child: BlocBuilder<AgendaCubit, AgendaState>(
@@ -199,7 +108,8 @@ class _AgendaPageState extends State<AgendaPage> {
                         return ListView.builder(
                           itemBuilder: (context, index) {
                             return ItemAgenda(
-                                dataAgenda: agendaCubit.agenda!.data[index]);
+                              dataAgenda: agendaCubit.agenda!.data[index],
+                            );
                           },
                           itemCount: agendaCubit.agenda!.data.length,
                         );
@@ -209,7 +119,8 @@ class _AgendaPageState extends State<AgendaPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                                'assets/icons/libur-jadwal-perkuliahan.svg'),
+                              'assets/icons/libur-jadwal-perkuliahan.svg',
+                            ),
                             SizedBox(height: Screen.kSize24),
                             Text(
                               'Saat ini tidak ada agenda',
@@ -218,7 +129,9 @@ class _AgendaPageState extends State<AgendaPage> {
                                 color: kBlack,
                               ),
                             ),
-                            SizedBox(height: Screen.kSize8),
+                            SizedBox(
+                              height: Screen.kSize8,
+                            ),
                             Text(
                               'Anda belum memiliki agenda',
                               textAlign: TextAlign.center,

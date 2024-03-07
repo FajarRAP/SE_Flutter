@@ -3,12 +3,19 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// API
 const String url = 'https://dev.laz-almuthiin.com/';
 const String route = 'api/';
 const Map<String, String> endpoint = {
   'agenda': 'agenda?',
   'detailAgenda': 'detil_agenda',
+  'daftarCuti': 'daftar_cuti',
+  'rekapCuti': 'rekap_cuti',
 };
+
+// Assets Location
+const String arrowBackSvg = 'assets/icons/arrow-left.svg';
+const String penEditSvg = 'assets/icons/edit-2.svg';
 
 const Color kWhite = Color(0xFFFFFFFF);
 const Color kBlack = Color(0xFF293241);

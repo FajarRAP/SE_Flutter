@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 import '../../../core/constants_finals.dart';
-import '../../../helper/size_config.dart';
 import '../bloc/detail_monitoring_bloc.dart';
 import '../models/monitoring-detail_model.dart';
 import '../models/monitoring-rekap_model.dart';
@@ -20,7 +19,6 @@ class DetailMonitoringPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     final DetailMonitoringBloc detailMonitoringBloc =
         context.read<DetailMonitoringBloc>();
     String date = DateFormat('M, y').format(DateTime.now());
@@ -59,7 +57,7 @@ class DetailMonitoringPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Container(
               constraints: BoxConstraints(
-                minHeight: SizeConfig.screenHeight!,
+                minHeight: Screen.height,
               ),
               decoration: BoxDecoration(
                 color: bgColor,
@@ -70,7 +68,7 @@ class DetailMonitoringPage extends StatelessWidget {
                 vertical: Screen.kSize32,
                 horizontal: Screen.kSize20,
               ),
-              width: SizeConfig.screenWidth,
+              width: Screen.width,
               child: BlocBuilder<DetailMonitoringBloc, DetailMonitoringState>(
                 bloc: detailMonitoringBloc..add(GetDetailMonitoringEvent()),
                 builder: (context, state) {
@@ -177,10 +175,10 @@ class DetailMonitoringPage extends StatelessWidget {
                                     ),
                                   ];
                                   return SizedBox(
-                                    width: SizeConfig.screenWidth,
+                                    width: Screen.width,
                                     height: currentState.isPie
-                                        ? SizeConfig.screenWidth! * .25 * 2
-                                        : SizeConfig.screenWidth! * .25,
+                                        ? Screen.width * .25 * 2
+                                        : Screen.width * .25,
                                     child: currentState.isPie
                                         ? Stack(
                                             children: [
@@ -380,7 +378,7 @@ class ItemDetailMonitoring extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: SizeConfig.screenWidth! * .18,
+      height: Screen.width * .18,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Screen.kSize12),
         color: kWhite,

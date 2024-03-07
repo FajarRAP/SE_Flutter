@@ -2,27 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import '../../../core/constants_finals.dart';
-import '../../../core/functions.dart';
-import '../models/cuti-daftar_model.dart';
-import '../bloc/other_cuti_bloc.dart';
-import '../../../helper/size_config.dart';
+import '../../../../core/constants_finals.dart';
+import '../../../../core/functions.dart';
+import '../../bloc/other_cuti_bloc.dart';
 
 // Month
 
-class SuntingCutiPage extends StatelessWidget {
-  final DataCutiDaftar dataCutiDaftar;
-  const SuntingCutiPage({
+class TambahCutiPage extends StatelessWidget {
+  const TambahCutiPage({
     super.key,
-    required this.dataCutiDaftar,
   });
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     final OtherCutiBloc otherCutiBloc = context.read<OtherCutiBloc>();
-    String startDate = dataCutiDaftar.tanggalMulai;
-    String endDate = dataCutiDaftar.tanggalSelesai;
+    String startDate = 'Mau Mulai Kapan';
+    String endDate = 'Mau Ampe Kapan';
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -41,7 +36,7 @@ class SuntingCutiPage extends StatelessWidget {
                   fit: BoxFit.scaleDown,
                 ),
               ),
-            ),
+            )
           ];
         },
         body: Column(
@@ -55,13 +50,14 @@ class SuntingCutiPage extends StatelessWidget {
                     height: Screen.kSize18,
                     decoration: BoxDecoration(
                         color: kBlue,
-                        borderRadius: BorderRadiusDirectional.circular(Screen.kSize4)),
+                        borderRadius:
+                            BorderRadiusDirectional.circular(Screen.kSize4)),
                   ),
                   SizedBox(width: Screen.kSize16),
                   Text(
-                    'Edit Cuti',
-                    style: Styles.kPoppinsMedium.copyWith(
-                        fontSize: Screen.kSize24, color: kBlack),
+                    'Tambah Cuti',
+                    style: Styles.kPoppinsMedium
+                        .copyWith(fontSize: Screen.kSize24, color: kBlack),
                   ),
                 ],
               ),
@@ -91,7 +87,7 @@ class SuntingCutiPage extends StatelessWidget {
                       if (state is StartDatePicked) {
                         startDate = state.date;
                       } else if (state is OtherCutiInitial) {
-                        startDate = dataCutiDaftar.tanggalMulai;
+                        startDate = 'Mau Mulai Kapan';
                       }
                       return ContainerDesigned(
                         widget: Tanggal(pesan: startDate),
@@ -108,12 +104,11 @@ class SuntingCutiPage extends StatelessWidget {
                   ),
                   SizedBox(height: Screen.kSize8),
                   BlocBuilder<OtherCutiBloc, OtherCutiState>(
-                    bloc: otherCutiBloc,
                     builder: (context, state) {
                       if (state is EndDatePicked) {
                         endDate = state.date;
                       } else if (state is OtherCutiInitial) {
-                        endDate = dataCutiDaftar.tanggalSelesai;
+                        endDate = 'Mau Ampe Kapan';
                       }
                       return ContainerDesigned(
                         widget: Tanggal(
@@ -132,8 +127,8 @@ class SuntingCutiPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: Screen.kSize8),
-                  ContainerDesigned(
-                    widget: Keterangan(keterangan: dataCutiDaftar.keterangan),
+                  const ContainerDesigned(
+                    widget: Keterangan(),
                   ),
                 ],
               ),
@@ -158,17 +153,20 @@ class SuntingCutiPage extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () => successDialog(
             context,
-            'Berhasil Sunting',
-            'Cuti Berhasil Disunting',
+            'Berhasil Tambah',
+            'Berhasil Menambah cuti',
           ),
           style: ElevatedButton.styleFrom(
             backgroundColor: kBlue,
-            fixedSize: Size(SizeConfig.screenWidth!, Screen.kSize40 + Screen.kSize10),
+            fixedSize: Size(
+              Screen.width,
+              Screen.kSize40 + Screen.kSize10,
+            ),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(Screen.kSize10)),
           ),
           child: Text(
-            'Sunting Cuti',
+            'Tambah Cuti',
             style: Styles.kPoppinsMedium.copyWith(
               fontSize: Screen.kSize16,
               color: kWhite,
@@ -204,16 +202,13 @@ class ContainerDesigned extends StatelessWidget {
 }
 
 class Keterangan extends StatelessWidget {
-  final String keterangan;
   const Keterangan({
     super.key,
-    required this.keterangan,
   });
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller =
-        TextEditingController(text: keterangan);
+    final TextEditingController controller = TextEditingController();
     return TextField(
       controller: controller,
       maxLines: 5,
@@ -238,28 +233,35 @@ class Keterangan extends StatelessWidget {
 class Tanggal extends StatelessWidget {
   final String pesan;
   final bool isMulai;
-  const Tanggal({super.key, required this.pesan, this.isMulai = true});
+  const Tanggal({
+    super.key,
+    required this.pesan,
+    this.isMulai = true,
+  });
 
   @override
   Widget build(BuildContext context) {
     final OtherCutiBloc otherCutiBloc = context.read<OtherCutiBloc>();
     return InkWell(
       onTap: () async {
-        final DateTime? date = await showDatePicker(
-            context: context,
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2100));
-        if (date != null) {
-          if (isMulai) {
-            otherCutiBloc.add(PickStartDateEvent(
-              date: DateFormat('d MMMM y').format(date),
-            ));
-          } else {
-            otherCutiBloc.add(PickEndDateEvent(
-              date: DateFormat('d MMMM y').format(date),
-            ));
+        await showDatePicker(
+                context: context,
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2100))
+            .then((value) {
+          if (value != null) {
+            print(value);
+            if (isMulai) {
+              otherCutiBloc.add(PickStartDateEvent(
+                date: DateFormat('d MMMM y').format(value),
+              ));
+            } else {
+              otherCutiBloc.add(PickEndDateEvent(
+                date: DateFormat('d MMMM y').format(value),
+              ));
+            }
           }
-        }
+        });
       },
       child: Row(
         children: [

@@ -1,28 +1,27 @@
 import 'dart:convert';
 
-CutiDaftar cutiDaftarFromJson(String str) =>
-    CutiDaftar.fromJson(json.decode(str));
+CutiModel cutiFromJson(String str) => CutiModel.fromJson(json.decode(str));
 
-String cutiDaftarToJson(CutiDaftar data) => json.encode(data.toJson());
+String cutiToJson(CutiModel data) => json.encode(data.toJson());
 
-class CutiDaftar {
+class CutiModel {
   final bool status;
   final String code;
-  final List<DataCutiDaftar> data;
+  final List<DataCutiModel> data;
   final String message;
 
-  CutiDaftar({
+  CutiModel({
     required this.status,
     required this.code,
     required this.data,
     required this.message,
   });
 
-  factory CutiDaftar.fromJson(Map<String, dynamic> json) => CutiDaftar(
+  factory CutiModel.fromJson(Map<String, dynamic> json) => CutiModel(
         status: json["status"],
         code: json["code"],
-        data: List<DataCutiDaftar>.from(
-            json["data"].map((x) => DataCutiDaftar.fromJson(x))),
+        data: List<DataCutiModel>.from(
+            json["data"].map((x) => DataCutiModel.fromJson(x))),
         message: json["message"],
       );
 
@@ -34,18 +33,18 @@ class CutiDaftar {
       };
 }
 
-class DataCutiDaftar {
-  final String keterangan;
-  final String tanggalMulai;
-  final String tanggalSelesai;
+class DataCutiModel {
+  String keterangan;
+  String tanggalMulai;
+  String tanggalSelesai;
 
-  DataCutiDaftar({
+  DataCutiModel({
     required this.keterangan,
     required this.tanggalMulai,
     required this.tanggalSelesai,
   });
 
-  factory DataCutiDaftar.fromJson(Map<String, dynamic> json) => DataCutiDaftar(
+  factory DataCutiModel.fromJson(Map<String, dynamic> json) => DataCutiModel(
         keterangan: json["keterangan"],
         tanggalMulai: json["tanggal_mulai"],
         tanggalSelesai: json["tanggal_selesai"],

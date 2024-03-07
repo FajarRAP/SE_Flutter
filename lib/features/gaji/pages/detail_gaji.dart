@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../core/constants_finals.dart';
-import '../../../helper/size_config.dart';
 import '../bloc/gaji_bloc.dart';
 import '../models/detail_gaji_model.dart';
 
@@ -37,7 +36,7 @@ class _DetailGajiState extends State<DetailGaji> {
     String infoGaji = widget.gaji;
     String infoWaktu = widget.waktu;
     GajiBloc detailGajiBloc = GajiBloc();
-    SizeConfig().init(context);
+    
     return Scaffold(
       appBar: AppBar(
         elevation: 4,
@@ -75,7 +74,7 @@ class _DetailGajiState extends State<DetailGaji> {
                 horizontal: Screen.kSize20,
               ),
               child: Container(
-                width: SizeConfig.screenWidth,
+                width: Screen.width,
                 padding: EdgeInsets.symmetric(
                   horizontal: Screen.kSize20,
                   vertical: Screen.kSize16,
@@ -167,7 +166,7 @@ class _DetailGajiState extends State<DetailGaji> {
               builder: (context, state) {
                 if (state is DetailGajiLoading) {
                   return Container(
-                    height: SizeConfig.screenHeight,
+                    height: Screen.height,
                     color: kWhite,
                   );
                 } else if (state is DetailGajiLoaded) {
@@ -359,12 +358,12 @@ class _DetailGajiState extends State<DetailGaji> {
                   );
                 } else if (state is DetailGajiError) {
                   return Container(
-                    height: SizeConfig.screenHeight,
+                    height: Screen.height,
                     color: const Color((0xFFF6F7F9)),
                   );
                 } else {
                   return Container(
-                    height: SizeConfig.screenHeight,
+                    height: Screen.height,
                     color: const Color((0xFFF6F7F9)),
                   );
                 }

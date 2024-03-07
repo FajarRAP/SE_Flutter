@@ -27,7 +27,7 @@ class DetailAgendaPage extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 child: SvgPicture.asset(
-                  'assets/icons/arrow-left.svg',
+                  arrowBackSvg,
                   fit: BoxFit.scaleDown,
                 ),
               ),
@@ -66,7 +66,9 @@ class DetailAgendaPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(width: Screen.kSize16),
+                        SizedBox(
+                          width: Screen.kSize16,
+                        ),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +80,9 @@ class DetailAgendaPage extends StatelessWidget {
                                   color: kBlack,
                                 ),
                               ),
-                              SizedBox(height: Screen.kSize4),
+                              SizedBox(
+                                height: Screen.kSize4,
+                              ),
                               Text(
                                 detailAgendaCubit.detailAgenda!.data.tanggal,
                                 style: Styles.kNunitoRegular.copyWith(
@@ -92,12 +96,16 @@ class DetailAgendaPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: Screen.kSize24),
+                  SizedBox(
+                    height: Screen.kSize24,
+                  ),
                   Container(
                     height: Screen.kSize8,
                     color: const Color(0xFFF0F1F3),
                   ),
-                  SizedBox(height: Screen.kSize32),
+                  SizedBox(
+                    height: Screen.kSize32,
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: Screen.kSize20,
@@ -163,52 +171,60 @@ class DetailAgendaPage extends StatelessWidget {
           },
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        decoration: BoxDecoration(
-          color: kWhite,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5), // Warna dan opasitas shadow
-              // Jarak penyebaran shadow
-              blurRadius: 4, // Radius blur shadow
-              offset: const Offset(0, -1),
-            ) // Posisi shadow (x, y)
-          ],
-        ),
-        padding: EdgeInsets.all(
-          Screen.kSize16,
-        ),
-        child: ElevatedButton(
-          onPressed: () {
-            successDialog(
-              context,
-              'Berhasil Presensi',
-              'Terimakasih Telah Melakukan Presensi',
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: kBlue,
-            fixedSize: Size(
-              Screen.width,
-              Screen.kSize40 + Screen.kSize10,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                Screen.kSize10,
+      floatingActionButton: BlocBuilder<DetailAgendaCubit, DetailAgendaState>(
+        bloc: detailAgendaCubit,
+        builder: (context, state) {
+          if (state is DetailAgendaLoaded) {
+            return Container(
+              decoration: BoxDecoration(
+                color: kWhite,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey
+                        .withOpacity(.5), // Warna dan opasitas shadow
+                    // Jarak penyebaran shadow
+                    blurRadius: 4, // Radius blur shadow
+                    offset: const Offset(0, -1),
+                  ) // Posisi shadow (x, y)
+                ],
               ),
-            ),
-          ),
-          child: Text(
-            'Scan Presensi',
-            style: Styles.kPoppinsMedium.copyWith(
-              fontSize: Screen.kSize16,
-              color: kWhite,
-            ),
-          ),
-        ),
+              padding: EdgeInsets.all(
+                Screen.kSize16,
+              ),
+              child: ElevatedButton(
+                onPressed: () {
+                  successDialog(
+                    context,
+                    'Berhasil Presensi',
+                    'Terimakasih Telah Melakukan Presensi',
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: kBlue,
+                  fixedSize: Size(
+                    Screen.width,
+                    Screen.kSize40 + Screen.kSize10,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      Screen.kSize10,
+                    ),
+                  ),
+                ),
+                child: Text(
+                  'Scan Presensi',
+                  style: Styles.kPoppinsMedium.copyWith(
+                    fontSize: Screen.kSize16,
+                    color: kWhite,
+                  ),
+                ),
+              ),
+            );
+          }
+          return const SizedBox();
+        },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
-

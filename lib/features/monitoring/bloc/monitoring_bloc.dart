@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import '../models/monitoring_model.dart';
+
 import '../../../services/services.dart';
+import '../models/monitoring_model.dart';
 
 part 'monitoring_event.dart';
 part 'monitoring_state.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/constants_finals.dart';
-import '../../../helper/size_config.dart';
+
 import 'monitoring-detail_page.dart';
 import '../bloc/monitoring_bloc.dart';
 import '../models/monitoring_model.dart';
@@ -12,7 +12,7 @@ class MonitoringPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    
     final MonitoringBloc monitoringBloc = context.read<MonitoringBloc>();
 
     return Scaffold(
@@ -48,7 +48,7 @@ class MonitoringPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Container(
               constraints: BoxConstraints(
-                minHeight: SizeConfig.screenHeight!,
+                minHeight: Screen.height,
               ),
               decoration: BoxDecoration(
                 color: bgColor,
@@ -143,7 +143,7 @@ class ItemMonitoring extends StatelessWidget {
       )),
       child: Container(
         width: double.infinity,
-        height: SizeConfig.screenWidth! * .18,
+        height: Screen.width * .18,
         decoration: ShapeDecoration(
           color: kWhite,
           shape: RoundedRectangleBorder(

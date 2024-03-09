@@ -14,11 +14,15 @@ Future<DateTime?> ourMonthPicker(BuildContext context) {
     selectedMonthBackgroundColor: kBlue,
     cancelWidget: const Text(
       'Batal',
-      style: TextStyle(color: kGrey),
+      style: TextStyle(
+        color: kGrey,
+      ),
     ),
     confirmWidget: const Text(
       'Konfirmasi',
-      style: TextStyle(color: kGrey),
+      style: TextStyle(
+        color: kGrey,
+      ),
     ),
   );
 }

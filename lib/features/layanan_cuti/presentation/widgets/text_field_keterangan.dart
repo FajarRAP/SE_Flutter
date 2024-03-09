@@ -19,8 +19,7 @@ class _TextFieldKeteranganState extends State<TextFieldKeterangan> {
   Widget build(BuildContext context) {
     final TambahSuntingCutiCubit tambahSuntingCutiCubit =
         context.read<TambahSuntingCutiCubit>();
-    keteranganController.text =
-        tambahSuntingCutiCubit.dataCutiModel!.keterangan;
+    keteranganController.text = tambahSuntingCutiCubit.keterangan;
     return TextField(
       controller: keteranganController,
       maxLines: 5,
@@ -39,7 +38,7 @@ class _TextFieldKeteranganState extends State<TextFieldKeterangan> {
         hintText: 'Masukan alasan cuti',
       ),
       onChanged: (value) {
-        tambahSuntingCutiCubit.dataCutiModel!.keterangan = value;
+        tambahSuntingCutiCubit.keterangan = value;
       },
     );
   }

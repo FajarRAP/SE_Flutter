@@ -11,12 +11,17 @@ const Map<String, String> endpoint = {
   'detailAgenda': 'detil_agenda',
   'daftarCuti': 'daftar_cuti',
   'rekapCuti': 'rekap_cuti',
+  'monitoring': 'monitoring',
+  'rekapMonitoring': 'monitoring_rekap',
+  'detailMonitoring': 'monitoring_detil',
 };
 
 // Assets Location
 const String arrowBackSvg = 'assets/icons/arrow-left.svg';
 const String penEditSvg = 'assets/icons/edit-2.svg';
+const String emptyDataSvg = 'assets/icons/libur-jadwal-perkuliahan.svg';
 
+// Colors
 const Color kWhite = Color(0xFFFFFFFF);
 const Color kBlack = Color(0xFF293241);
 const Color kGrey = Color(0xFF7A8089);
@@ -111,3 +116,13 @@ class Styles {
   static final TextStyle kNunitoRegular =
       GoogleFonts.nunito(fontWeight: FontWeight.w400);
 }
+
+// Nama Rute
+const String homeRoute = '/';
+const String agendaRoute = '${homeRoute}agenda/';
+const String agendaDetailRoute = '${agendaRoute}detail/';
+const String layananCutiRoute = '${homeRoute}layananCuti/';
+const String layananCutiSuntingRoute = '${layananCutiRoute}sunting';
+const String layananCutiTambahRoute = '${layananCutiRoute}tambah';
+const String monitoringRoute = '${homeRoute}monitoring/';
+const String monitoringDetailRoute = '${monitoringRoute}detail';

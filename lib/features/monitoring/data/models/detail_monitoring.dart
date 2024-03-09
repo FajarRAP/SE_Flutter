@@ -1,30 +1,30 @@
 import 'dart:convert';
 
-MonitoringDetail monitoringDetailFromJson(String str) =>
-    MonitoringDetail.fromJson(json.decode(str));
+DetailMonitoringModel detailMonitoringFromJson(String str) =>
+    DetailMonitoringModel.fromJson(json.decode(str));
 
-String monitoringDetailToJson(MonitoringDetail data) =>
+String detailMonitoringToJson(DetailMonitoringModel data) =>
     json.encode(data.toJson());
 
-class MonitoringDetail {
+class DetailMonitoringModel {
   final bool status;
   final String code;
-  final List<DataMonitoringDetail> data;
+  final List<DataDetailMonitoringModel> data;
   final String message;
 
-  MonitoringDetail({
+  DetailMonitoringModel({
     required this.status,
     required this.code,
     required this.data,
     required this.message,
   });
 
-  factory MonitoringDetail.fromJson(Map<String, dynamic> json) =>
-      MonitoringDetail(
+  factory DetailMonitoringModel.fromJson(Map<String, dynamic> json) =>
+      DetailMonitoringModel(
         status: json["status"],
         code: json["code"],
-        data: List<DataMonitoringDetail>.from(
-            json["data"].map((x) => DataMonitoringDetail.fromJson(x))),
+        data: List<DataDetailMonitoringModel>.from(
+            json["data"].map((x) => DataDetailMonitoringModel.fromJson(x))),
         message: json["message"],
       );
 
@@ -36,14 +36,14 @@ class MonitoringDetail {
       };
 }
 
-class DataMonitoringDetail {
+class DataDetailMonitoringModel {
   final String hari;
   final String tanggal;
   final String status;
   final String masuk;
   final String pulang;
 
-  DataMonitoringDetail({
+  DataDetailMonitoringModel({
     required this.hari,
     required this.tanggal,
     required this.status,
@@ -51,8 +51,8 @@ class DataMonitoringDetail {
     required this.pulang,
   });
 
-  factory DataMonitoringDetail.fromJson(Map<String, dynamic> json) =>
-      DataMonitoringDetail(
+  factory DataDetailMonitoringModel.fromJson(Map<String, dynamic> json) =>
+      DataDetailMonitoringModel(
         hari: json["hari"],
         tanggal: json["tanggal"],
         status: json["status"],

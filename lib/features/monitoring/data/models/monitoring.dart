@@ -1,28 +1,29 @@
 import 'dart:convert';
 
-Monitoring monitoringFromJson(String str) =>
-    Monitoring.fromJson(json.decode(str));
+MonitoringModel monitoringFromJson(String str) =>
+    MonitoringModel.fromJson(json.decode(str));
 
-String monitoringToJson(Monitoring data) => json.encode(data.toJson());
+String monitoringToJson(MonitoringModel data) => json.encode(data.toJson());
 
-class Monitoring {
+class MonitoringModel {
   final bool status;
   final String code;
-  final List<DataMonitoring> data;
+  final List<DataMonitoringModel> data;
   final String message;
 
-  Monitoring({
+  MonitoringModel({
     required this.status,
     required this.code,
     required this.data,
     required this.message,
   });
 
-  factory Monitoring.fromJson(Map<String, dynamic> json) => Monitoring(
+  factory MonitoringModel.fromJson(Map<String, dynamic> json) =>
+      MonitoringModel(
         status: json["status"],
         code: json["code"],
-        data: List<DataMonitoring>.from(
-            json["data"].map((x) => DataMonitoring.fromJson(x))),
+        data: List<DataMonitoringModel>.from(
+            json["data"].map((x) => DataMonitoringModel.fromJson(x))),
         message: json["message"],
       );
 
@@ -34,14 +35,14 @@ class Monitoring {
       };
 }
 
-class DataMonitoring {
+class DataMonitoringModel {
   final String nipm;
   final String nama;
   final String lokasi;
   final String masuk;
   final String pulang;
 
-  DataMonitoring({
+  DataMonitoringModel({
     required this.nipm,
     required this.nama,
     required this.lokasi,
@@ -49,7 +50,8 @@ class DataMonitoring {
     required this.pulang,
   });
 
-  factory DataMonitoring.fromJson(Map<String, dynamic> json) => DataMonitoring(
+  factory DataMonitoringModel.fromJson(Map<String, dynamic> json) =>
+      DataMonitoringModel(
         nipm: json["nipm"],
         nama: json["nama"],
         lokasi: json["lokasi"],

@@ -2,9 +2,6 @@ import 'package:http/http.dart' as http;
 
 import '../features/gaji/models/detail_gaji_model.dart';
 import '../features/gaji/models/gaji_model.dart';
-import '../features/monitoring/models/monitoring-detail_model.dart';
-import '../features/monitoring/models/monitoring-rekap_model.dart';
-import '../features/monitoring/models/monitoring_model.dart';
 import '../features/shift/models/shift_model.dart';
 import '../features/tunjangan/models/detail_tunjangan_model.dart';
 import '../features/tunjangan/models/tunjangan_model.dart';
@@ -72,32 +69,5 @@ class Services {
     } else {
       throw Exception('Gagal Mengambil Data');
     }
-  }
-
-  static Future<Monitoring> fetchAPIMonitoring() async {
-    final response = await http
-        .get(Uri.parse("https://dev.laz-almuthiin.com/api/monitoring"));
-    if (response.statusCode == 200) {
-      return monitoringFromJson(response.body);
-    }
-    throw ("Gagal Mengambil Data...");
-  }
-
-  static Future<MonitoringRekap> fetchAPIMonitoringRekap() async {
-    final response = await http
-        .get(Uri.parse("https://dev.laz-almuthiin.com/api/monitoring_rekap"));
-    if (response.statusCode == 200) {
-      return monitoringRekapFromJson(response.body);
-    }
-    throw ("Gagal Mengambil Data...");
-  }
-
-  static Future<MonitoringDetail> fetchAPIMonitoringDetail() async {
-    final response = await http
-        .get(Uri.parse("https://dev.laz-almuthiin.com/api/monitoring_detil"));
-    if (response.statusCode == 200) {
-      return monitoringDetailFromJson(response.body);
-    }
-    throw ("Gagal Mengambil Data...");
   }
 }

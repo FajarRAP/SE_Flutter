@@ -1,29 +1,29 @@
 import 'dart:convert';
 
-MonitoringRekap monitoringRekapFromJson(String str) =>
-    MonitoringRekap.fromJson(json.decode(str));
+RekapMonitoringModel rekapMonitoringFromJson(String str) =>
+    RekapMonitoringModel.fromJson(json.decode(str));
 
-String monitoringRekapToJson(MonitoringRekap data) =>
+String rekapMonitoringToJson(RekapMonitoringModel data) =>
     json.encode(data.toJson());
 
-class MonitoringRekap {
+class RekapMonitoringModel {
   final bool status;
   final String code;
-  final DataMonitoringRekap data;
+  final DataRekapMonitoringModel data;
   final String message;
 
-  MonitoringRekap({
+  RekapMonitoringModel({
     required this.status,
     required this.code,
     required this.data,
     required this.message,
   });
 
-  factory MonitoringRekap.fromJson(Map<String, dynamic> json) =>
-      MonitoringRekap(
+  factory RekapMonitoringModel.fromJson(Map<String, dynamic> json) =>
+      RekapMonitoringModel(
         status: json["status"],
         code: json["code"],
-        data: DataMonitoringRekap.fromJson(json["data"]),
+        data: DataRekapMonitoringModel.fromJson(json["data"]),
         message: json["message"],
       );
 
@@ -35,19 +35,19 @@ class MonitoringRekap {
       };
 }
 
-class DataMonitoringRekap {
+class DataRekapMonitoringModel {
   final int onTime;
   final int absen;
   final int telat;
 
-  DataMonitoringRekap({
+  DataRekapMonitoringModel({
     required this.onTime,
     required this.absen,
     required this.telat,
   });
 
-  factory DataMonitoringRekap.fromJson(Map<String, dynamic> json) =>
-      DataMonitoringRekap(
+  factory DataRekapMonitoringModel.fromJson(Map<String, dynamic> json) =>
+      DataRekapMonitoringModel(
         onTime: json["on_time"],
         absen: json["absen"],
         telat: json["telat"],

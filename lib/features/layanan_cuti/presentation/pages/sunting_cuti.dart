@@ -51,9 +51,11 @@ class SuntingCutiPage extends StatelessWidget {
                     width: Screen.kSize18,
                     height: Screen.kSize18,
                     decoration: BoxDecoration(
-                        color: kBlue,
-                        borderRadius:
-                            BorderRadiusDirectional.circular(Screen.kSize4)),
+                      color: kBlue,
+                      borderRadius: BorderRadiusDirectional.circular(
+                        Screen.kSize4,
+                      ),
+                    ),
                   ),
                   SizedBox(
                     width: Screen.kSize16,
@@ -104,8 +106,7 @@ class SuntingCutiPage extends StatelessWidget {
                     builder: (context, state) {
                       return ContainerDesigned(
                         widget: DatePickerCuti(
-                          pesan: tambahSuntingCutiCubit
-                              .dataCutiModel!.tanggalMulai,
+                          pesan: tambahSuntingCutiCubit.tglMulai,
                         ),
                       );
                     },
@@ -130,8 +131,7 @@ class SuntingCutiPage extends StatelessWidget {
                     builder: (context, state) {
                       return ContainerDesigned(
                         widget: DatePickerCuti(
-                          pesan: tambahSuntingCutiCubit
-                              .dataCutiModel!.tanggalSelesai,
+                          pesan: tambahSuntingCutiCubit.tglSelesai,
                           isMulai: false,
                         ),
                       );

@@ -31,7 +31,7 @@ class ItemAgenda extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushNamed('/agenda/detail');
+          Navigator.of(context).pushNamed(agendaDetailRoute);
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

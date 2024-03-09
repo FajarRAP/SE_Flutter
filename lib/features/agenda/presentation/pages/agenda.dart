@@ -119,7 +119,7 @@ class _AgendaPageState extends State<AgendaPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
-                              'assets/icons/libur-jadwal-perkuliahan.svg',
+                              emptyDataSvg,
                             ),
                             SizedBox(height: Screen.kSize24),
                             Text(

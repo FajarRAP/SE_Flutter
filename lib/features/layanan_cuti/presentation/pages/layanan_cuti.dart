@@ -5,6 +5,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../cubit/cuti_cubit.dart';
+import '../cubit/tambah_sunting_cuti_cubit.dart';
 import '../widgets/button_berjalan_selesai.dart';
 import '../widgets/item_cuti.dart';
 import '../widgets/item_rekap_cuti.dart';
@@ -15,6 +16,7 @@ class LayananCutiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CutiCubit cutiCubit = context.read<CutiCubit>();
+    final TambahSuntingCutiCubit tambahSuntingCutiCubit = context.read<TambahSuntingCutiCubit>();
 
     return Scaffold(
       backgroundColor: kBlue,
@@ -313,7 +315,8 @@ class LayananCutiPage extends StatelessWidget {
                     backgroundColor: kBlue,
                   ),
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/layananCuti/tambah');
+                    tambahSuntingCutiCubit.resetDataCuti();
+                    Navigator.of(context).pushNamed(layananCutiTambahRoute);
                   },
                   label: const Text(
                     'Tambah',

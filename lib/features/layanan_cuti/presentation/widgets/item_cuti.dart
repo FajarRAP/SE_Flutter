@@ -17,6 +17,7 @@ class ItemCuti extends StatelessWidget {
   Widget build(BuildContext context) {
     final TambahSuntingCutiCubit tambahSuntingCutiCubit =
         context.read<TambahSuntingCutiCubit>();
+
     return Container(
       decoration: ShapeDecoration(
         color: kWhite,
@@ -46,7 +47,7 @@ class ItemCuti extends StatelessWidget {
                   customBorder: const CircleBorder(),
                   onTap: () {
                     tambahSuntingCutiCubit.dataCutiModel = dataCutiModel;
-                    Navigator.of(context).pushNamed('/layananCuti/sunting');
+                    Navigator.of(context).pushNamed(layananCutiSuntingRoute);
                   },
                   child: SvgPicture.asset(
                     penEditSvg,

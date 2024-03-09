@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'core/constants_finals.dart';
-import 'features/agenda/presentation/pages/agenda.dart';
-
-import 'features/gaji/pages/informasi_gaji.dart';
-import 'features/layanan_cuti/presentation/pages/layanan_cuti.dart';
-import 'features/monitoring/pages/monitoring_page.dart';
-import 'features/shift/pages/jadwal_shift.dart';
-import 'features/tunjangan/pages/tunjangan_beras.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -19,11 +12,11 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            NavigateTo(namaPage: '/agenda'),
+            NavigateTo(namaPage: agendaRoute),
+            NavigateTo(namaPage: layananCutiRoute),
+            NavigateTo(namaPage: monitoringRoute),
             // NavigateTo(namaPage: 'Tunjangan', page: TunjanganBeras()),
             // NavigateTo(namaPage: 'Agenda', page: AgendaPage()),
-            NavigateTo(namaPage: '/layananCuti'),
-            // NavigateTo(namaPage: 'Monitoring', page: MonitoringPage()),
             // NavigateTo(namaPage: 'Gaji', page: InformasiGaji()),
             // NavigateTo(namaPage: 'Shift', page: JadwalShift()),
           ],

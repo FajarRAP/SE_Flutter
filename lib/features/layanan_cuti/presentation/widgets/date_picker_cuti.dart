@@ -21,9 +21,10 @@ class DatePickerCuti extends StatelessWidget {
     return InkWell(
       onTap: () async {
         final DateTime? date = await showDatePicker(
-            context: context,
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2100));
+          context: context,
+          firstDate: DateTime(2000),
+          lastDate: DateTime(2100),
+        );
         if (date != null) {
           if (isMulai) {
             tambahSuntingCutiCubit.ubahTanggalMulai(date);

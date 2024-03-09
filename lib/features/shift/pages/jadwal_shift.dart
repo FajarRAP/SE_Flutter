@@ -228,7 +228,7 @@ class _JadwalShiftState extends State<JadwalShift> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
                                 color: currentDay == index
-                                    ? const Color(0XffEE6C4D)
+                                    ? bgButton
                                     : kLightGrey,
                               ),
                               padding: const EdgeInsets.symmetric(

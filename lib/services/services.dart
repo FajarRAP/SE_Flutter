@@ -1,7 +1,6 @@
 import 'package:http/http.dart' as http;
 
-import '../features/gaji/models/detail_gaji_model.dart';
-import '../features/gaji/models/gaji_model.dart';
+import '../features/gaji/data/models/detail_gaji_model.dart';
 import '../features/shift/models/shift_model.dart';
 import '../features/tunjangan/models/detail_tunjangan_model.dart';
 import '../features/tunjangan/models/tunjangan_model.dart';
@@ -40,19 +39,6 @@ class Services {
     if (myResponse.statusCode == 200) {
       //cek apakah data sudah masuk ke console
       JadwalShiftKerja result = jadwalShiftKerjaFromJson(myResponse.body);
-      return result;
-    } else {
-      throw Exception("Gagal Mengambil Data");
-    }
-  }
-
-  //GAJI
-  //gaji secara keseluruhan
-  static Future<Gaji> fetchAPIGaji() async {
-    final myResponse =
-        await http.get(Uri.parse('https://dev.laz-almuthiin.com/api/gaji'));
-    if (myResponse.statusCode == 200) {
-      Gaji result = gajiFromJson(myResponse.body);
       return result;
     } else {
       throw Exception("Gagal Mengambil Data");

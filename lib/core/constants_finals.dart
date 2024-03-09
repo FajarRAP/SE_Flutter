@@ -14,12 +14,16 @@ const Map<String, String> endpoint = {
   'monitoring': 'monitoring',
   'rekapMonitoring': 'monitoring_rekap',
   'detailMonitoring': 'monitoring_detil',
+  'gaji': 'gaji',
+  'detailGaji': 'gaji_detil',
 };
 
 // Assets Location
 const String arrowBackSvg = 'assets/icons/arrow-left.svg';
 const String penEditSvg = 'assets/icons/edit-2.svg';
 const String emptyDataSvg = 'assets/icons/libur-jadwal-perkuliahan.svg';
+const String pemasukanSvg = 'assets/icons/pemasukan.svg';
+const String pengeluaranSvg = 'assets/icons/potongan.svg';
 
 // Colors
 const Color kWhite = Color(0xFFFFFFFF);
@@ -38,6 +42,7 @@ const Color kNeutral90 = Color(0xFF5F6570);
 const Color kNeutral100 = Color(0xFF293241);
 
 const Color bgColor = Color((0xFFF6F7F9));
+const Color bgButton = Color(0XffEE6C4D);
 const Color kBlue = Color(0xFF2B86C4);
 const Color kOrange = Color(0xFFFB7F54);
 const Color kYellow = Color(0xFFFFAC30);
@@ -122,7 +127,9 @@ const String homeRoute = '/';
 const String agendaRoute = '${homeRoute}agenda/';
 const String agendaDetailRoute = '${agendaRoute}detail/';
 const String layananCutiRoute = '${homeRoute}layananCuti/';
-const String layananCutiSuntingRoute = '${layananCutiRoute}sunting';
-const String layananCutiTambahRoute = '${layananCutiRoute}tambah';
+const String layananCutiSuntingRoute = '${layananCutiRoute}sunting/';
+const String layananCutiTambahRoute = '${layananCutiRoute}tambah/';
 const String monitoringRoute = '${homeRoute}monitoring/';
-const String monitoringDetailRoute = '${monitoringRoute}detail';
+const String monitoringDetailRoute = '${monitoringRoute}detail/';
+const String gajiRoute = '${homeRoute}gaji/';
+const String gajiDetailRoute = '${gajiRoute}detail/';

@@ -2,6 +2,8 @@ import 'package:get_it/get_it.dart';
 
 import 'features/agenda/data/data_sources/remote.dart';
 import 'features/agenda/data/repositories/agenda_repositories_impl.dart';
+import 'features/gaji/data/data_sources/remote.dart';
+import 'features/gaji/data/repositores/gaji_repositories_impl.dart';
 import 'features/layanan_cuti/data/data_sources/remote.dart';
 import 'features/layanan_cuti/data/repositories/cuti_repositories_impl.dart';
 import 'features/monitoring/data/data_sources/remote.dart';
@@ -34,9 +36,19 @@ void dependencyInjection() {
     () => MonitoringService(),
   );
 
-  locator.registerLazySingleton(
+  locator.registerLazySingleton<MonitoringRepositoriesImpl>(
     () => MonitoringRepositoriesImpl(
       monitoringService: locator<MonitoringService>(),
+    ),
+  );
+
+  locator.registerLazySingleton<GajiService>(
+    () => GajiService(),
+  );
+
+  locator.registerLazySingleton<GajiRepositoriesImpl>(
+    () => GajiRepositoriesImpl(
+      gajiService: locator<GajiService>(),
     ),
   );
 }

@@ -31,7 +31,7 @@ class ButtonDanTanggal extends StatelessWidget {
                   child: ButtonBerjalanSelesai(
                     kata: 'Berjalan',
                     warnaBg: agendaCubit.isBerjalan
-                        ? const Color(0XffEE6C4D)
+                        ? bgButton
                         : kLightGrey,
                     warnaFont: agendaCubit.isBerjalan ? kWhite : kNeutral60,
                   ),
@@ -45,7 +45,7 @@ class ButtonDanTanggal extends StatelessWidget {
                   child: ButtonBerjalanSelesai(
                     kata: 'Selesai',
                     warnaBg: !agendaCubit.isBerjalan
-                        ? const Color(0XffEE6C4D)
+                        ? bgButton
                         : kLightGrey,
                     warnaFont: !agendaCubit.isBerjalan ? kWhite : kNeutral60,
                   ),

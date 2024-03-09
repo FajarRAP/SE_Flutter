@@ -4,27 +4,27 @@
 
 import 'dart:convert';
 
-Gaji gajiFromJson(String str) => Gaji.fromJson(json.decode(str));
+GajiModel gajiFromJson(String str) => GajiModel.fromJson(json.decode(str));
 
-String gajiToJson(Gaji data) => json.encode(data.toJson());
+String gajiToJson(GajiModel data) => json.encode(data.toJson());
 
-class Gaji {
+class GajiModel {
     bool status;
     String code;
-    List<DataGaji> data;
+    List<DataGajiModel> data;
     String message;
 
-    Gaji({
+    GajiModel({
         required this.status,
         required this.code,
         required this.data,
         required this.message,
     });
 
-    factory Gaji.fromJson(Map<String, dynamic> json) => Gaji(
+    factory GajiModel.fromJson(Map<String, dynamic> json) => GajiModel(
         status: json["status"],
         code: json["code"],
-        data: List<DataGaji>.from(json["data"].map((x) => DataGaji.fromJson(x))),
+        data: List<DataGajiModel>.from(json["data"].map((x) => DataGajiModel.fromJson(x))),
         message: json["message"],
     );
 
@@ -36,18 +36,18 @@ class Gaji {
     };
 }
 
-class DataGaji {
+class DataGajiModel {
     String nominal;
     String bulan;
     String bulanId;
 
-    DataGaji({
+    DataGajiModel({
         required this.nominal,
         required this.bulan,
         required this.bulanId,
     });
 
-    factory DataGaji.fromJson(Map<String, dynamic> json) => DataGaji(
+    factory DataGajiModel.fromJson(Map<String, dynamic> json) => DataGajiModel(
         nominal: json["nominal"],
         bulan: json["bulan"],
         bulanId: json["bulan_id"],

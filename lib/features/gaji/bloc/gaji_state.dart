@@ -8,7 +8,7 @@ final class GajiInitial extends GajiState {}
 //GAJI STATE
 class GajiLoading extends GajiState{}
 class GajiLoaded extends GajiState{
-  final Gaji data;
+  final GajiModel data;
 
   GajiLoaded(this.data);
 }

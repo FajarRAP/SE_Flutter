@@ -196,7 +196,7 @@ class LayananCutiPage extends StatelessWidget {
                                 child: ButtonBerjalanSelesai(
                                   kata: 'Berjalan',
                                   warnaBg: cutiCubit.isBerjalan
-                                      ? const Color(0XffEE6C4D)
+                                      ? bgButton
                                       : kLightGrey,
                                   warnaFont: cutiCubit.isBerjalan
                                       ? kWhite
@@ -215,7 +215,7 @@ class LayananCutiPage extends StatelessWidget {
                                   kata: 'Selesai',
                                   warnaBg: cutiCubit.isBerjalan
                                       ? kLightGrey
-                                      : const Color(0XffEE6C4D),
+                                      : bgButton,
                                   warnaFont: cutiCubit.isBerjalan
                                       ? kNeutral60
                                       : kWhite,

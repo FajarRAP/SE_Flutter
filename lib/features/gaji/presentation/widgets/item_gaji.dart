@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../../data/models/gaji.dart';
+import '../cubit/detail_gaji_cubit.dart';
 
 class ItemGaji extends StatelessWidget {
   final DataGajiModel dataGaji;
@@ -13,8 +15,10 @@ class ItemGaji extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DetailGajiCubit detailGajiCubit = context.read<DetailGajiCubit>();
     return InkWell(
       onTap: () {
+        detailGajiCubit.dataGaji = dataGaji;
         Navigator.of(context).pushNamed(gajiDetailRoute);
       },
       child: Container(

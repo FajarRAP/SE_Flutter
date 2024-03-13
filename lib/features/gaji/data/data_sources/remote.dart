@@ -8,4 +8,10 @@ class GajiService {
       Uri.parse('$url$route${endpoint['gaji']}'),
     );
   }
+
+  Future<Response> getDetailGaji() async {
+    return await get(
+      Uri.parse('$url$route${endpoint['detailGaji']}'),
+    );
+  }
 }

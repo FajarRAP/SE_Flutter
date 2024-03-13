@@ -22,6 +22,6 @@ class Routes {
     monitoringRoute: (context) => const MonitoringPage(),
     monitoringDetailRoute: (context) => const DetailMonitoringPage(),
     gajiRoute: (context) => const GajiPage(),
-    gajiDetailRoute: (context) => const DetailGaji(),
+    gajiDetailRoute: (context) => const DetailGajiPage(),
   };
 }

@@ -5,6 +5,7 @@ import 'core/constants_finals.dart';
 import 'core/routes.dart';
 import 'features/agenda/presentation/cubit/agenda_cubit.dart';
 import 'features/agenda/presentation/cubit/detail_agenda_cubit.dart';
+import 'features/gaji/presentation/cubit/detail_gaji_cubit.dart';
 import 'features/gaji/presentation/cubit/gaji_cubit.dart';
 import 'features/layanan_cuti/presentation/cubit/cuti_cubit.dart';
 import 'features/layanan_cuti/presentation/cubit/tambah_sunting_cuti_cubit.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => MonitoringCubit()),
         BlocProvider(create: (context) => DetailMonitoringCubit()),
         BlocProvider(create: (context) => GajiCubit()),
+        BlocProvider(create: (context) => DetailGajiCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: true,

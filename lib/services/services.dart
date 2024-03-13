@@ -46,11 +46,11 @@ class Services {
   }
 
   //Detail gaji kek pengeluaran dan pemasukan
-  static Future<DetailGaji> fetchAPIDetailGaji() async {
+  static Future<DetailGajiModel> fetchAPIDetailGaji() async {
     final myResponse = await http
         .get(Uri.parse('https://dev.laz-almuthiin.com/api/gaji_detil'));
     if (myResponse.statusCode == 200) {
-      DetailGaji result = detailGajiFromJson(myResponse.body);
+      DetailGajiModel result = detailGajiFromJson(myResponse.body);
       return result;
     } else {
       throw Exception('Gagal Mengambil Data');

@@ -8,6 +8,8 @@ import 'features/layanan_cuti/data/data_sources/remote.dart';
 import 'features/layanan_cuti/data/repositories/cuti_repositories_impl.dart';
 import 'features/monitoring/data/data_sources/remote.dart';
 import 'features/monitoring/data/repositories/monitoring_repositories_impl.dart';
+import 'features/shift/data/data_sources/remote.dart';
+import 'features/shift/data/repositories/shift_repositories_impl.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -49,6 +51,16 @@ void dependencyInjection() {
   locator.registerLazySingleton<GajiRepositoriesImpl>(
     () => GajiRepositoriesImpl(
       gajiService: locator<GajiService>(),
+    ),
+  );
+
+  locator.registerLazySingleton<ShiftService>(
+    () => ShiftService(),
+  );
+
+  locator.registerLazySingleton<ShiftRepositoriesImpl>(
+    () => ShiftRepositoriesImpl(
+      shiftService: locator<ShiftService>(),
     ),
   );
 }

@@ -16,6 +16,7 @@ const Map<String, String> endpoint = {
   'detailMonitoring': 'monitoring_detil',
   'gaji': 'gaji',
   'detailGaji': 'gaji_detil',
+  'shift': 'jadwal_shift',
 };
 
 // Assets Location
@@ -133,3 +134,14 @@ const String monitoringRoute = '${homeRoute}monitoring/';
 const String monitoringDetailRoute = '${monitoringRoute}detail/';
 const String gajiRoute = '${homeRoute}gaji/';
 const String gajiDetailRoute = '${gajiRoute}detail/';
+const String shiftRoute = '${homeRoute}shift/';
+
+// Hari
+const List<String> days = [
+  'Senin',
+  'Selasa',
+  'Rabu',
+  'Kamis',
+  "Jum'at",
+  'Sabtu',
+];

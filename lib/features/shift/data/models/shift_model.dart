@@ -1,30 +1,26 @@
-// To parse this JSON data, do
-//
-//     final jadwalShiftKerja = jadwalShiftKerjaFromJson(jsonString);
-
 import 'dart:convert';
 
-JadwalShiftKerja jadwalShiftKerjaFromJson(String str) => JadwalShiftKerja.fromJson(json.decode(str));
+ShiftModel shiftFromJson(String str) => ShiftModel.fromJson(json.decode(str));
 
-String jadwalShiftKerjaToJson(JadwalShiftKerja data) => json.encode(data.toJson());
+String shiftToJson(ShiftModel data) => json.encode(data.toJson());
 
-class JadwalShiftKerja {
+class ShiftModel {
     bool status;
     String code;
-    List<DataJadwalShiftKerja> data;
+    List<DataShiftModel> data;
     String message;
 
-    JadwalShiftKerja({
+    ShiftModel({
         required this.status,
         required this.code,
         required this.data,
         required this.message,
     });
 
-    factory JadwalShiftKerja.fromJson(Map<String, dynamic> json) => JadwalShiftKerja(
+    factory ShiftModel.fromJson(Map<String, dynamic> json) => ShiftModel(
         status: json["status"],
         code: json["code"],
-        data: List<DataJadwalShiftKerja>.from(json["data"].map((x) => DataJadwalShiftKerja.fromJson(x))),
+        data: List<DataShiftModel>.from(json["data"].map((x) => DataShiftModel.fromJson(x))),
         message: json["message"],
     );
 
@@ -36,18 +32,18 @@ class JadwalShiftKerja {
     };
 }
 
-class DataJadwalShiftKerja {
+class DataShiftModel {
     String namaShift;
     String lokasiShift;
     String waktuShift;
 
-    DataJadwalShiftKerja({
+    DataShiftModel({
         required this.namaShift,
         required this.lokasiShift,
         required this.waktuShift,
     });
 
-    factory DataJadwalShiftKerja.fromJson(Map<String, dynamic> json) => DataJadwalShiftKerja(
+    factory DataShiftModel.fromJson(Map<String, dynamic> json) => DataShiftModel(
         namaShift: json["nama_shift"],
         lokasiShift: json["lokasi_shift"],
         waktuShift: json["waktu_shift"],

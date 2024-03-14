@@ -11,6 +11,7 @@ import 'features/layanan_cuti/presentation/cubit/cuti_cubit.dart';
 import 'features/layanan_cuti/presentation/cubit/tambah_sunting_cuti_cubit.dart';
 import 'features/monitoring/presentation/cubit/detail_monitoring_cubit.dart';
 import 'features/monitoring/presentation/cubit/monitoring_cubit.dart';
+import 'features/shift/presentation/cubit/shift_cubit.dart';
 import 'injection_container.dart';
 
 void main() {
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => DetailMonitoringCubit()),
         BlocProvider(create: (context) => GajiCubit()),
         BlocProvider(create: (context) => DetailGajiCubit()),
+        BlocProvider(create: (context) => ShiftCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: true,

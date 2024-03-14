@@ -51,152 +51,158 @@ class DetailGajiPage extends StatelessWidget {
             ),
           ];
         },
-        body: Column(
-          children: [
-            // Bagian Atas
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 32,
-              ),
-              child: Container(
-                width: Screen.width,
-                padding: EdgeInsets.symmetric(
-                  horizontal: Screen.kSize20,
-                  vertical: Screen.kSize16,
-                ),
-                decoration: ShapeDecoration(
-                  color: kBlue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      detailGajiCubit.dataGaji!.nominal,
-                      style: Styles.kPoppinsSemiBold.copyWith(
-                        fontSize: 28,
-                        color: kWhite,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    Text(
-                      detailGajiCubit.dataGaji!.bulan,
-                      style: Styles.kNunitoRegular.copyWith(
-                        fontSize: 14,
-                        color: kNeutral20,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            Container(
-              height: 8,
-              color: const Color(0xFFEEF2F3),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-
-            // Bagian Bawah
-            Expanded(
-              child: Padding(
+        body: RefreshIndicator(
+          displacement: 10,
+          onRefresh: () async {
+            detailGajiCubit.getDetailGaji();
+          },
+          child: Column(
+            children: [
+              // Bagian Atas
+              Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
+                  vertical: 32,
                 ),
-                child: Column(
-                  children: [
-                    // Button
-                    BlocBuilder<DetailGajiCubit, DetailGajiState>(
-                      bloc: detailGajiCubit,
-                      builder: (context, state) {
-                        return Row(
-                          children: [
-                            ButtonDetailGaji(
-                              kata: 'Pemasukan',
-                              warnaBg: detailGajiCubit.isPemasukan
-                                  ? bgButton
-                                  : kLightGrey,
-                              warnaFont: detailGajiCubit.isPemasukan
-                                  ? kWhite
-                                  : kNeutral60,
-                              onTap: () {
-                                detailGajiCubit.clickPemasukan();
-                              },
-                            ),
-                            const SizedBox(
-                              width: 12,
-                            ),
-                            ButtonDetailGaji(
-                              kata: 'Pengeluaran',
-                              warnaBg: detailGajiCubit.isPemasukan
-                                  ? kLightGrey
-                                  : bgButton,
-                              warnaFont: detailGajiCubit.isPemasukan
-                                  ? kNeutral60
-                                  : kWhite,
-                              onTap: () {
-                                detailGajiCubit.clickPotongan();
-                              },
-                            ),
-                          ],
-                        );
-                      },
+                child: Container(
+                  width: Screen.width,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Screen.kSize20,
+                    vertical: Screen.kSize16,
+                  ),
+                  decoration: ShapeDecoration(
+                    color: kBlue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        detailGajiCubit.dataGaji!.nominal,
+                        style: Styles.kPoppinsSemiBold.copyWith(
+                          fontSize: 28,
+                          color: kWhite,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        detailGajiCubit.dataGaji!.bulan,
+                        style: Styles.kNunitoRegular.copyWith(
+                          fontSize: 14,
+                          color: kNeutral20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
 
-                    // Item
-                    Expanded(
-                      child: BlocBuilder<DetailGajiCubit, DetailGajiState>(
-                        bloc: detailGajiCubit..getDetailGaji(),
+              Container(
+                height: 8,
+                color: const Color(0xFFEEF2F3),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+
+              // Bagian Bawah
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
+                  child: Column(
+                    children: [
+                      // Button
+                      BlocBuilder<DetailGajiCubit, DetailGajiState>(
+                        bloc: detailGajiCubit,
                         builder: (context, state) {
-                          if (state is DetailGajiLoading) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-
-                          if (state is DetailGajiLoaded) {
-                            return ListView.separated(
-                              itemBuilder: (context, index) {
-                                return ItemDetailGaji(
-                                  gambar: detailGajiCubit.isPemasukan
-                                      ? pemasukanSvg
-                                      : pengeluaranSvg,
-                                  nominal: state.data[index].nominal,
-                                  keterangan: state.data[index].keterangan,
-                                );
-                              },
-                              separatorBuilder: (context, index) {
-                                return const SizedBox(
-                                  height: 12,
-                                );
-                              },
-                              itemCount: state.data.length,
-                            );
-                          }
-
-                          return Center(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                detailGajiCubit.getDetailGaji();
-                              },
-                              child: const Text('Ulangi'),
-                            ),
+                          return Row(
+                            children: [
+                              ButtonDetailGaji(
+                                kata: 'Pemasukan',
+                                warnaBg: detailGajiCubit.isPemasukan
+                                    ? bgButton
+                                    : kLightGrey,
+                                warnaFont: detailGajiCubit.isPemasukan
+                                    ? kWhite
+                                    : kNeutral60,
+                                onTap: () {
+                                  detailGajiCubit.clickPemasukan();
+                                },
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              ButtonDetailGaji(
+                                kata: 'Pengeluaran',
+                                warnaBg: detailGajiCubit.isPemasukan
+                                    ? kLightGrey
+                                    : bgButton,
+                                warnaFont: detailGajiCubit.isPemasukan
+                                    ? kNeutral60
+                                    : kWhite,
+                                onTap: () {
+                                  detailGajiCubit.clickPotongan();
+                                },
+                              ),
+                            ],
                           );
                         },
                       ),
-                    ),
-                  ],
+
+                      // Item
+                      Expanded(
+                        child: BlocBuilder<DetailGajiCubit, DetailGajiState>(
+                          bloc: detailGajiCubit..getDetailGaji(),
+                          builder: (context, state) {
+                            if (state is DetailGajiLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+
+                            if (state is DetailGajiLoaded) {
+                              return ListView.separated(
+                                itemBuilder: (context, index) {
+                                  return ItemDetailGaji(
+                                    gambar: detailGajiCubit.isPemasukan
+                                        ? pemasukanSvg
+                                        : pengeluaranSvg,
+                                    nominal: state.data[index].nominal,
+                                    keterangan: state.data[index].keterangan,
+                                  );
+                                },
+                                separatorBuilder: (context, index) {
+                                  return const SizedBox(
+                                    height: 12,
+                                  );
+                                },
+                                itemCount: state.data.length,
+                              );
+                            }
+
+                            return Center(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  detailGajiCubit.getDetailGaji();
+                                },
+                                child: const Text('Ulangi'),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

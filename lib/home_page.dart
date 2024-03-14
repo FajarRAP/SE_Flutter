@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
             NavigateTo(namaPage: monitoringRoute),
             NavigateTo(namaPage: gajiRoute),
             NavigateTo(namaPage: shiftRoute),
-            // NavigateTo(namaPage: 'Tunjangan', page: TunjanganBeras()),
+            NavigateTo(namaPage: tunjanganRoute),
           ],
         ),
       ),

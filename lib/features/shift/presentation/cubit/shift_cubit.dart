@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../injection_container.dart';

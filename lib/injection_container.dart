@@ -10,6 +10,8 @@ import 'features/monitoring/data/data_sources/remote.dart';
 import 'features/monitoring/data/repositories/monitoring_repositories_impl.dart';
 import 'features/shift/data/data_sources/remote.dart';
 import 'features/shift/data/repositories/shift_repositories_impl.dart';
+import 'features/tunjangan/data/data_sources/remote.dart';
+import 'features/tunjangan/data/repositories/tunjangan_repositories_impl.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -61,6 +63,16 @@ void dependencyInjection() {
   locator.registerLazySingleton<ShiftRepositoriesImpl>(
     () => ShiftRepositoriesImpl(
       shiftService: locator<ShiftService>(),
+    ),
+  );
+
+  locator.registerLazySingleton<TunjanganService>(
+    () => TunjanganService(),
+  );
+
+  locator.registerLazySingleton<TunjanganRepositoriesImpl>(
+    () => TunjanganRepositoriesImpl(
+      tunjanganService: locator<TunjanganService>(),
     ),
   );
 }

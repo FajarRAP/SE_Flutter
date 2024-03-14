@@ -9,6 +9,8 @@ import '../features/layanan_cuti/presentation/pages/tambah_cuti.dart';
 import '../features/monitoring/presentation/pages/detail_monitoring.dart';
 import '../features/monitoring/presentation/pages/monitoring.dart';
 import '../features/shift/presentation/pages/jadwal_shift.dart';
+import '../features/tunjangan/presentation/pages/detail_tunjangan_beras.dart';
+import '../features/tunjangan/presentation/pages/tunjangan_beras.dart';
 import '../home_page.dart';
 import 'constants_finals.dart';
 
@@ -25,5 +27,7 @@ class Routes {
     gajiRoute: (context) => const GajiPage(),
     gajiDetailRoute: (context) => const DetailGajiPage(),
     shiftRoute: (context) => const JadwalShiftPage(),
+    tunjanganRoute: (context) => const TunjanganBerasPage(),
+    tunjanganDetailRoute: (context) => const DetailTunjanganBerasPage(),
   };
 }

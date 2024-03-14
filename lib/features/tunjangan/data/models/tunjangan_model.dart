@@ -1,29 +1,25 @@
-// To parse this JSON data, do
-//
-//     final tunjangan = tunjanganFromJson(jsonString);
-
 import 'dart:convert';
 
-Tunjangan tunjanganFromJson(String str) => Tunjangan.fromJson(json.decode(str));
+TunjanganModel tunjanganFromJson(String str) => TunjanganModel.fromJson(json.decode(str));
 
-String tunjanganToJson(Tunjangan data) => json.encode(data.toJson());
+String tunjanganToJson(TunjanganModel data) => json.encode(data.toJson());
 
-class Tunjangan {
+class TunjanganModel {
     bool status;
-    List<DataTunjangan> data;
+    List<DataTunjanganModel> data;
     String code;
     String message;
 
-    Tunjangan({
+    TunjanganModel({
         required this.status,
         required this.data,
         required this.code,
         required this.message,
     });
 
-    factory Tunjangan.fromJson(Map<String, dynamic> json) => Tunjangan(
+    factory TunjanganModel.fromJson(Map<String, dynamic> json) => TunjanganModel(
         status: json["status"],
-        data: List<DataTunjangan>.from(json["data"].map((x) => DataTunjangan.fromJson(x))),
+        data: List<DataTunjanganModel>.from(json["data"].map((x) => DataTunjanganModel.fromJson(x))),
         code: json["code"],
         message: json["message"],
     );
@@ -36,20 +32,20 @@ class Tunjangan {
     };
 }
 
-class DataTunjangan {
+class DataTunjanganModel {
     String periode;
     String berat;
     String lokasiAmbil;
     String statusAmbil;
 
-    DataTunjangan({
+    DataTunjanganModel({
         required this.periode,
         required this.berat,
         required this.lokasiAmbil,
         required this.statusAmbil,
     });
 
-    factory DataTunjangan.fromJson(Map<String, dynamic> json) => DataTunjangan(
+    factory DataTunjanganModel.fromJson(Map<String, dynamic> json) => DataTunjanganModel(
         periode: json["periode"],
         berat: json["berat"],
         lokasiAmbil: json["lokasi_ambil"],

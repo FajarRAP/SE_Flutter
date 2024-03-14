@@ -17,6 +17,8 @@ const Map<String, String> endpoint = {
   'gaji': 'gaji',
   'detailGaji': 'gaji_detil',
   'shift': 'jadwal_shift',
+  'tunjangan': 'tunjangan_beras',
+  'detailTunjangan': 'detil_tunjangan_beras',
 };
 
 // Assets Location
@@ -51,6 +53,8 @@ const Color kGreen = Color(0xFF4AAF57);
 const Color kGreenComplete = Color(0xFF18C07A);
 const Color kRed = Color(0xFFE65768);
 
+
+// Box Shadow
 const List<BoxShadow> boxShadow = [
   BoxShadow(
     color: Color(0x087281DF),
@@ -135,6 +139,8 @@ const String monitoringDetailRoute = '${monitoringRoute}detail/';
 const String gajiRoute = '${homeRoute}gaji/';
 const String gajiDetailRoute = '${gajiRoute}detail/';
 const String shiftRoute = '${homeRoute}shift/';
+const String tunjanganRoute = '${homeRoute}tunjangan/';
+const String tunjanganDetailRoute = '${tunjanganRoute}detail/';
 
 // Hari
 const List<String> days = [
@@ -142,6 +148,6 @@ const List<String> days = [
   'Selasa',
   'Rabu',
   'Kamis',
-  "Jum'at",
+  'Jum\'at',
   'Sabtu',
 ];

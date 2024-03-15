@@ -12,18 +12,12 @@ class ContainerDesigned extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: ShapeDecoration(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: boxShadow,
         color: kWhite,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            Screen.kSize12,
-          ),
-        ),
-        shadows: boxShadow,
       ),
-      padding: EdgeInsets.all(
-        Screen.kSize16,
-      ),
+      padding: const EdgeInsets.all(16),
       child: widget,
     );
   }

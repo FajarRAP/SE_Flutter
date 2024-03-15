@@ -14,14 +14,14 @@ class TambahSuntingCutiCubit extends Cubit<TambahSuntingCutiState> {
     tanggalSelesai: 'Mau Ampe Kapan?',
   );
 
-  String get tglMulai => dataCutiModel.tanggalMulai;
-  String get tglSelesai => dataCutiModel.tanggalSelesai;
-  String get keterangan => dataCutiModel.keterangan;
+  String get getTglMulai => dataCutiModel.tanggalMulai;
+  String get getTglSelesai => dataCutiModel.tanggalSelesai;
+  String get getKeterangan => dataCutiModel.keterangan;
 
-  set tglMulai(final String tanggal) => dataCutiModel.tanggalMulai = tanggal;
-  set tglSelesai(final String tanggal) =>
+  set setTglMulai(final String tanggal) => dataCutiModel.tanggalMulai = tanggal;
+  set setTglSelesai(final String tanggal) =>
       dataCutiModel.tanggalSelesai = tanggal;
-  set keterangan(final String keterangan) =>
+  set setKeterangan(final String keterangan) =>
       dataCutiModel.keterangan = keterangan;
 
   void ubahTanggalMulai(final DateTime date) {

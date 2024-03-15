@@ -41,15 +41,13 @@ class _AgendaPageState extends State<AgendaPage> {
                     BlendMode.srcIn,
                   ),
                   fit: BoxFit.scaleDown,
-                  width: Screen.kSize24,
-                  height: Screen.kSize24,
                 ),
               ),
               title: Text(
                 'Agenda',
                 style: Styles.kPoppinsSemiBold.copyWith(
                   color: kWhite,
-                  fontSize: Screen.kSize20,
+                  fontSize: 20,
                 ),
               ),
             ),
@@ -59,30 +57,27 @@ class _AgendaPageState extends State<AgendaPage> {
           displacement: 10,
           onRefresh: () async {
             agendaController.text = '';
-            agendaCubit.kata = '';
-            agendaCubit.tanggal = '';
+            agendaCubit.clear();
             agendaCubit.getAgendas();
           },
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: bgColor,
               borderRadius: BorderRadius.vertical(
-                top: Radius.circular(
-                  Screen.kSize32,
-                ),
+                top: Radius.circular(32),
               ),
             ),
-            padding: EdgeInsets.symmetric(
-              horizontal: Screen.kSize20,
-              vertical: Screen.kSize32,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 32,
             ),
             child: Column(
               children: [
                 // Button dan Tanggal
                 const ButtonDanTanggal(),
 
-                SizedBox(
-                  height: Screen.kSize24,
+                const SizedBox(
+                  height: 24,
                 ),
 
                 // TextField Cari Agenda
@@ -90,8 +85,8 @@ class _AgendaPageState extends State<AgendaPage> {
                   agendaController: agendaController,
                 ),
 
-                SizedBox(
-                  height: Screen.kSize24,
+                const SizedBox(
+                  height: 24,
                 ),
 
                 // Data
@@ -99,21 +94,31 @@ class _AgendaPageState extends State<AgendaPage> {
                   child: BlocBuilder<AgendaCubit, AgendaState>(
                     bloc: agendaCubit..getAgendas(),
                     builder: (context, state) {
+                      // Loading
                       if (state is AgendaLoading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
+
+                      // Loaded
                       if (state is AgendaLoaded) {
-                        return ListView.builder(
+                        return ListView.separated(
                           itemBuilder: (context, index) {
                             return ItemAgenda(
-                              dataAgenda: agendaCubit.agenda!.data[index],
+                              dataAgenda: state.data[index],
                             );
                           },
-                          itemCount: agendaCubit.agenda!.data.length,
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(
+                              height: 12,
+                            );
+                          },
+                          itemCount: state.data.length,
                         );
                       }
+
+                      // Empty
                       if (state is AgendaEmpty) {
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -121,28 +126,32 @@ class _AgendaPageState extends State<AgendaPage> {
                             SvgPicture.asset(
                               emptyDataSvg,
                             ),
-                            SizedBox(height: Screen.kSize24),
+                            const SizedBox(
+                              height: 24,
+                            ),
                             Text(
                               'Saat ini tidak ada agenda',
                               style: Styles.kPoppinsSemiBold.copyWith(
-                                fontSize: Screen.kSize18,
                                 color: kBlack,
+                                fontSize: 18,
                               ),
                             ),
-                            SizedBox(
-                              height: Screen.kSize8,
+                            const SizedBox(
+                              height: 8,
                             ),
                             Text(
                               'Anda belum memiliki agenda',
                               textAlign: TextAlign.center,
                               style: Styles.kNunitoRegular.copyWith(
-                                fontSize: Screen.kSize14,
                                 color: kNeutral90,
+                                fontSize: 14,
                               ),
                             ),
                           ],
                         );
                       }
+
+                      // Default
                       return Center(
                         child: ElevatedButton(
                           onPressed: () {

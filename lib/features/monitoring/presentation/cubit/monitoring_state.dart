@@ -7,7 +7,11 @@ final class MonitoringInitial extends MonitoringState {}
 
 class MonitoringLoading extends MonitoringState {}
 
-class MonitoringLoaded extends MonitoringState {}
+class MonitoringLoaded extends MonitoringState {
+  final List<DataMonitoringModel> data;
+
+  MonitoringLoaded(this.data);
+}
 
 class MonitoringEmpty extends MonitoringState {}
 

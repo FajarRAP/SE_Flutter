@@ -15,6 +15,15 @@ class DetailGajiCubit extends Cubit<DetailGajiState> {
   DataGajiModel? dataGaji;
   bool isPemasukan = true;
 
+  // Setter
+  set setDataGaji(final DataGajiModel data) => dataGaji = data;
+
+  // Getter
+  String get getNominalGaji => dataGaji!.bulan;
+  String get getBulanGaji => dataGaji!.nominal;
+  String get getBulanId => dataGaji!.bulanId;
+  bool get getIsPemasukan => isPemasukan;
+
   Future<void> getDetailGaji() async {
     isPemasukan = true;
     emit(DetailGajiLoading());
@@ -22,11 +31,11 @@ class DetailGajiCubit extends Cubit<DetailGajiState> {
     final result = await locator<GajiRepositoriesImpl>().getDetailGaji();
 
     result.fold(
-      (l) {
-        emit(DetailGajiError(l.message));
+      (failure) {
+        emit(DetailGajiError(failure.message));
       },
-      (r) {
-        detailGaji = r;
+      (success) {
+        detailGaji = success;
         final List<DataDetailGajiModel> pemasukan = detailGaji!.data
             .where((element) => element.tipe != 'Potongan')
             .toList();

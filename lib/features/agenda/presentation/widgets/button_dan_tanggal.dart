@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../../../../core/functions.dart';
@@ -15,6 +14,7 @@ class ButtonDanTanggal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AgendaCubit agendaCubit = context.read<AgendaCubit>();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -25,25 +25,25 @@ class ButtonDanTanggal extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    agendaCubit.isBerjalan = true;
+                    agendaCubit.clickBerjalan();
                     agendaCubit.getAgendas();
                   },
                   child: ButtonBerjalanSelesai(
                     kata: 'Berjalan',
-                    warnaBg: agendaCubit.isBerjalan ? bgButton : kLightGrey,
-                    warnaFont: agendaCubit.isBerjalan ? kWhite : kNeutral60,
+                    isBerjalan: agendaCubit.getIsBerjalan,
                   ),
                 ),
-                SizedBox(width: Screen.kSize12),
+                const SizedBox(
+                  width: 12,
+                ),
                 InkWell(
                   onTap: () {
-                    agendaCubit.isBerjalan = false;
+                    agendaCubit.clickSelesai();
                     agendaCubit.getAgendas();
                   },
                   child: ButtonBerjalanSelesai(
                     kata: 'Selesai',
-                    warnaBg: !agendaCubit.isBerjalan ? bgButton : kLightGrey,
-                    warnaFont: !agendaCubit.isBerjalan ? kWhite : kNeutral60,
+                    isBerjalan: !agendaCubit.getIsBerjalan,
                   ),
                 ),
               ],
@@ -56,8 +56,8 @@ class ButtonDanTanggal extends StatelessWidget {
               onPressed: () async {
                 final DateTime? date = await ourMonthPicker(context);
                 if (date != null) {
-                  agendaCubit.tanggal = DateFormat('dd-MM-yyyy').format(date);
-                  agendaCubit.datePicked = DateFormat('M, yyyy').format(date);
+                  agendaCubit.setTanggal = date;
+                  agendaCubit.setDatePicked = date;
                   agendaCubit.getAgendas();
                 }
               },
@@ -65,10 +65,10 @@ class ButtonDanTanggal extends StatelessWidget {
                 bloc: agendaCubit,
                 builder: (context, state) {
                   return Text(
-                    'Bulan ${agendaCubit.datePicked}',
+                    'Bulan ${agendaCubit.getDatePicked}',
                     style: Styles.kPoppinsMedium.copyWith(
-                      fontSize: Screen.kSize14,
                       color: kNeutral80,
+                      fontSize: 14,
                     ),
                   );
                 },

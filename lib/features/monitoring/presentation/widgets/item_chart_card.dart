@@ -17,18 +17,14 @@ class ItemChartCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: Screen.kSize16,
-          vertical: Screen.kSize14,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
         ),
-        decoration: ShapeDecoration(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: boxShadow,
           color: kWhite,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              Screen.kSize12,
-            ),
-          ),
-          shadows: boxShadow,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -36,18 +32,18 @@ class ItemChartCard extends StatelessWidget {
             Text(
               kata,
               style: Styles.kNunitoMedium.copyWith(
-                fontSize: Screen.kSize14,
                 color: kNeutral90,
+                fontSize: 14,
               ),
             ),
-            SizedBox(
-              height: Screen.kSize4,
+            const SizedBox(
+              height: 4,
             ),
             Text(
               value.toString(),
               style: Styles.kPoppinsSemiBold.copyWith(
-                fontSize: Screen.kSize28,
                 color: warna,
+                fontSize: 28,
               ),
             )
           ],

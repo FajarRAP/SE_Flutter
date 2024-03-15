@@ -4,12 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/constants_finals.dart';
 
 class ItemDetailGaji extends StatelessWidget {
-  final String gambar;
+  final bool isPemasukan;
   final String nominal;
   final String keterangan;
   const ItemDetailGaji({
     super.key,
-    required this.gambar,
+    required this.isPemasukan,
     required this.nominal,
     required this.keterangan,
   });
@@ -28,7 +28,7 @@ class ItemDetailGaji extends StatelessWidget {
       child: Row(
         children: [
           SvgPicture.asset(
-            gambar,
+            isPemasukan ? pemasukanSvg : pengeluaranSvg,
             width: 40,
           ),
           const SizedBox(

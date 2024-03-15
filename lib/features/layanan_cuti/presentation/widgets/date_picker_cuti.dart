@@ -18,6 +18,7 @@ class DatePickerCuti extends StatelessWidget {
   Widget build(BuildContext context) {
     final TambahSuntingCutiCubit tambahSuntingCutiCubit =
         context.read<TambahSuntingCutiCubit>();
+
     return InkWell(
       onTap: () async {
         final DateTime? date = await showDatePicker(
@@ -36,15 +37,15 @@ class DatePickerCuti extends StatelessWidget {
       child: Row(
         children: [
           SvgPicture.asset('assets/icons/pilih-tanggal.svg'),
-          SizedBox(
-            width: Screen.kSize12,
+          const SizedBox(
+            width: 12,
           ),
           Expanded(
             child: Text(
               pesan,
               style: Styles.kNunitoRegular.copyWith(
                 color: kNeutral90,
-                fontSize: Screen.kSize16,
+                fontSize: 16,
               ),
             ),
           ),

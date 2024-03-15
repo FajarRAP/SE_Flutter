@@ -19,20 +19,12 @@ class ItemCuti extends StatelessWidget {
         context.read<TambahSuntingCutiCubit>();
 
     return Container(
-      decoration: ShapeDecoration(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: boxShadow,
         color: kWhite,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            Screen.kSize12,
-          ),
-        ),
-        shadows: boxShadow,
       ),
-      width: Screen.width,
-      height: Screen.width * .25,
-      padding: EdgeInsets.all(
-        Screen.kSize12,
-      ),
+      padding: const EdgeInsets.all(12),
       child: Column(
         children: [
           Row(
@@ -51,7 +43,7 @@ class ItemCuti extends StatelessWidget {
                   },
                   child: SvgPicture.asset(
                     penEditSvg,
-                    width: Screen.kSize24,
+                    width: 24,
                   ),
                 ),
               )
@@ -65,14 +57,14 @@ class ItemCuti extends StatelessWidget {
                 'Tanggal Cuti',
                 style: Styles.kNunitoRegular.copyWith(
                   color: kNeutral90,
-                  fontSize: Screen.kSize14,
+                  fontSize: 14,
                 ),
               ),
               Text(
                 'Selesai Cuti',
                 style: Styles.kNunitoRegular.copyWith(
                   color: kNeutral90,
-                  fontSize: Screen.kSize14,
+                  fontSize: 14,
                 ),
               ),
             ],
@@ -84,14 +76,14 @@ class ItemCuti extends StatelessWidget {
                 dataCutiModel.tanggalMulai,
                 style: Styles.kPoppinsMedium.copyWith(
                   color: kBlue,
-                  fontSize: Screen.kSize14,
+                  fontSize: 14,
                 ),
               ),
               Text(
                 dataCutiModel.tanggalSelesai,
                 style: Styles.kPoppinsMedium.copyWith(
                   color: kBlue,
-                  fontSize: Screen.kSize14,
+                  fontSize: 14,
                 ),
               ),
             ],

@@ -27,14 +27,14 @@ class DetailMonitoringPage extends StatelessWidget {
           return [
             SliverAppBar(
               backgroundColor: kBlue,
+              centerTitle: true,
               title: Text(
                 'Detail Monitoring',
                 style: Styles.kPoppinsSemiBold.copyWith(
                   color: kWhite,
-                  fontSize: Screen.kSize20,
+                  fontSize: 20,
                 ),
               ),
-              centerTitle: true,
               leading: InkWell(
                 onTap: () {
                   Navigator.pop(context);
@@ -46,8 +46,6 @@ class DetailMonitoringPage extends StatelessWidget {
                     BlendMode.srcIn,
                   ),
                   fit: BoxFit.scaleDown,
-                  width: Screen.kSize24,
-                  height: Screen.kSize24,
                 ),
               ),
             ),
@@ -60,36 +58,27 @@ class DetailMonitoringPage extends StatelessWidget {
             detailMonitoringCubit.getDetailMonitoring();
           },
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: bgColor,
               borderRadius: BorderRadius.vertical(
-                top: Radius.circular(
-                  Screen.kSize32,
-                ),
+                top: Radius.circular(32),
               ),
             ),
-            padding: EdgeInsets.symmetric(
-              horizontal: Screen.kSize20,
-              vertical: Screen.kSize32,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 32,
             ),
-            width: Screen.width,
             child: Column(
               children: [
                 // Rekap Monitoring
                 Container(
-                  decoration: ShapeDecoration(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: boxShadow,
                     color: kWhite,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        Screen.kSize20,
-                      ),
-                    ),
-                    shadows: boxShadow,
                   ),
-                  padding: EdgeInsets.all(
-                    Screen.kSize20,
-                  ),
-                  height: Screen.width * .75,
+                  padding: const EdgeInsets.all(20),
+                  height: 320,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -97,7 +86,7 @@ class DetailMonitoringPage extends StatelessWidget {
                         detailMonitoringCubit.getNama,
                         style: Styles.kPoppinsMedium.copyWith(
                           color: kBlue,
-                          fontSize: Screen.kSize16,
+                          fontSize: 16,
                         ),
                       ),
                       Row(
@@ -105,10 +94,10 @@ class DetailMonitoringPage extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () async {
-                              final DateTime? value =
+                              final DateTime? date =
                                   await ourMonthPicker(context);
-                              if (value != null) {
-                                detailMonitoringCubit.setTanggal = value;
+                              if (date != null) {
+                                detailMonitoringCubit.setTanggal = date;
                               }
                             },
                             child: BlocBuilder<DetailMonitoringCubit,
@@ -119,7 +108,7 @@ class DetailMonitoringPage extends StatelessWidget {
                                   'Bulan ${detailMonitoringCubit.getTanggal}',
                                   style: Styles.kPoppinsSemiBold.copyWith(
                                     color: kNeutral90,
-                                    fontSize: Screen.kSize24,
+                                    fontSize: 24,
                                   ),
                                 );
                               },
@@ -147,47 +136,41 @@ class DetailMonitoringPage extends StatelessWidget {
                           buildWhen: (previous, current) =>
                               current is RekapMonitoring,
                           builder: (context, state) {
+                            // Rekap Loading
                             if (state is RekapMonitoringLoading) {
                               return const Center(
                                 child: CircularProgressIndicator(),
                               );
                             }
 
+                            // Rekap Loaded
                             if (state is RekapMonitoringLoaded &&
                                 detailMonitoringCubit.isPie) {
                               final List<PieChartSectionData> piecesPie = [
                                 itemChartPie(
                                   'Tepat',
-                                  detailMonitoringCubit
-                                      .dataRekapMonitoring.onTime
-                                      .toDouble(),
+                                  detailMonitoringCubit.getOnTime.toDouble(),
                                   kGreen,
                                 ),
                                 itemChartPie(
                                   'Telat',
-                                  detailMonitoringCubit
-                                      .dataRekapMonitoring.telat
-                                      .toDouble(),
+                                  detailMonitoringCubit.getTelat.toDouble(),
                                   kYellow,
                                 ),
                                 itemChartPie(
                                   'Absen',
-                                  detailMonitoringCubit
-                                      .dataRekapMonitoring.absen
-                                      .toDouble(),
+                                  detailMonitoringCubit.getAbsen.toDouble(),
                                   kRed,
                                 ),
                               ];
-                              final int totalPresensi = detailMonitoringCubit
-                                      .dataRekapMonitoring.onTime +
-                                  detailMonitoringCubit
-                                      .dataRekapMonitoring.absen +
-                                  detailMonitoringCubit
-                                      .dataRekapMonitoring.telat;
+                              final int totalPresensi =
+                                  detailMonitoringCubit.getTotalPresensi;
+
                               return Stack(
                                 children: [
                                   PieChart(
                                     PieChartData(
+                                      centerSpaceRadius: 75,
                                       sections: piecesPie,
                                     ),
                                   ),
@@ -199,18 +182,18 @@ class DetailMonitoringPage extends StatelessWidget {
                                         Text(
                                           'Total Presensi',
                                           style: Styles.kNunitoRegular.copyWith(
-                                            fontSize: Screen.kSize14,
+                                            fontSize: 14,
                                             color: kNeutral70,
                                           ),
                                         ),
-                                        SizedBox(
-                                          height: Screen.kSize4,
+                                        const SizedBox(
+                                          height: 4,
                                         ),
                                         Text(
                                           '$totalPresensi',
                                           style:
                                               Styles.kPoppinsSemiBold.copyWith(
-                                            fontSize: Screen.kSize40,
+                                            fontSize: 40,
                                             color: kBlack,
                                           ),
                                         )
@@ -225,23 +208,24 @@ class DetailMonitoringPage extends StatelessWidget {
                                 !detailMonitoringCubit.isPie) {
                               final List<Widget> cardsView = [
                                 ItemChartCard(
-                                  kata: 'On Time',
-                                  value: detailMonitoringCubit
-                                      .dataRekapMonitoring.onTime,
+                                  kata: 'Tepat',
+                                  value: detailMonitoringCubit.getOnTime,
                                   warna: kGreen,
                                 ),
-                                SizedBox(width: Screen.kSize16),
+                                const SizedBox(
+                                  width: 16,
+                                ),
                                 ItemChartCard(
                                   kata: 'Telat',
-                                  value: detailMonitoringCubit
-                                      .dataRekapMonitoring.telat,
+                                  value: detailMonitoringCubit.getTelat,
                                   warna: kYellow,
                                 ),
-                                SizedBox(width: Screen.kSize16),
+                                const SizedBox(
+                                  width: 16,
+                                ),
                                 ItemChartCard(
                                   kata: 'Absen',
-                                  value: detailMonitoringCubit
-                                      .dataRekapMonitoring.absen,
+                                  value: detailMonitoringCubit.getAbsen,
                                   warna: kRed,
                                 ),
                               ];
@@ -258,15 +242,15 @@ class DetailMonitoringPage extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(
-                  height: Screen.kSize24,
+                const SizedBox(
+                  height: 24,
                 ),
                 Container(
-                  height: Screen.kSize8,
+                  height: 8,
                   color: const Color(0xFFEEF2F3),
                 ),
-                SizedBox(
-                  height: Screen.kSize12,
+                const SizedBox(
+                  height: 12,
                 ),
 
                 // Detail Monitoring
@@ -277,30 +261,31 @@ class DetailMonitoringPage extends StatelessWidget {
                     buildWhen: (previous, current) =>
                         current is DetailMonitoring,
                     builder: (context, state) {
+                      // Item Loading
                       if (state is DetailMonitoringLoading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
 
+                      // Item Loaded
                       if (state is DetailMonitoringLoaded) {
                         return ListView.separated(
                           itemBuilder: (context, index) {
                             return ItemDetailMonitoring(
-                              dataDetailMonitoringModel: detailMonitoringCubit
-                                  .dataDetailMonitoring[index],
+                              dataDetailMonitoring: state.data[index],
                             );
                           },
                           separatorBuilder: (context, index) {
-                            return SizedBox(
-                              height: Screen.kSize12,
+                            return const SizedBox(
+                              height: 12,
                             );
                           },
-                          itemCount:
-                              detailMonitoringCubit.dataDetailMonitoring.length,
+                          itemCount: state.data.length,
                         );
                       }
 
+                      // Default
                       return Center(
                         child: ElevatedButton(
                           onPressed: () {

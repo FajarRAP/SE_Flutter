@@ -15,19 +15,26 @@ class TunjanganCubit extends Cubit<TunjanganState> {
 
   String datePicked = DateFormat('M, yyyy').format(DateTime.now());
 
+  // Setter
+  set setDatePicked(final DateTime date) =>
+      datePicked = DateFormat('M, yyyy').format(date);
+
+  // Getter
+  String get getDatePicked => datePicked;
+
   Future<void> getTunjangans() async {
     emit(TunjanganLoading());
 
     final result = await locator<TunjanganRepositoriesImpl>().getTunjangans();
 
     result.fold(
-      (l) {
-        emit(TunjanganError(l.message));
+      (failure) {
+        emit(TunjanganError(failure.message));
       },
-      (r) {
-        tunjangan = r;
-        if (tunjangan!.data.isNotEmpty) {
-          emit(TunjanganLoaded(r.data));
+      (success) {
+        tunjangan = success;
+        if (success.data.isNotEmpty) {
+          emit(TunjanganLoaded(success.data));
         } else {
           emit(TunjanganEmpty());
         }

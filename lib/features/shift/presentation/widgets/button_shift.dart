@@ -21,7 +21,7 @@ class ButtonShift extends StatelessWidget {
       height: 32,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: current == shiftCubit.currentDay ? bgButton : kLightGrey,
+        color: current == shiftCubit.getCurrentDay ? bgButton : kLightGrey,
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -31,7 +31,7 @@ class ButtonShift extends StatelessWidget {
         child: Text(
           day,
           style: Styles.kPoppinsRegular.copyWith(
-            color: current == shiftCubit.currentDay ? kWhite : kNeutral60,
+            color: current == shiftCubit.getCurrentDay ? kWhite : kNeutral60,
             fontSize: 12,
           ),
         ),

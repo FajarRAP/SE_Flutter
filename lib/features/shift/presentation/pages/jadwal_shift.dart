@@ -31,13 +31,11 @@ class JadwalShiftPage extends StatelessWidget {
                 },
                 child: SvgPicture.asset(
                   arrowBackSvg,
-                  fit: BoxFit.scaleDown,
-                  width: 24,
-                  height: 24,
                   colorFilter: const ColorFilter.mode(
                     kWhite,
                     BlendMode.srcIn,
                   ),
+                  fit: BoxFit.scaleDown,
                 ),
               ),
               title: Text(
@@ -108,16 +106,19 @@ class JadwalShiftPage extends StatelessWidget {
                   ),
                 ),
 
+                // Item Shift
                 Expanded(
                   child: BlocBuilder<ShiftCubit, ShiftState>(
                     bloc: shiftCubit..getShifts(),
                     builder: (context, state) {
+                      // Loading
                       if (state is ShiftLoading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
 
+                      // Loaded
                       if (state is ShiftLoaded) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(
@@ -139,6 +140,7 @@ class JadwalShiftPage extends StatelessWidget {
                         );
                       }
 
+                      // Empty
                       if (state is ShiftEmpty) {
                         return Center(
                           child: Column(
@@ -153,8 +155,8 @@ class JadwalShiftPage extends StatelessWidget {
                               Text(
                                 'Tidak ada jadwal shift',
                                 style: Styles.kPoppinsSemiBold.copyWith(
-                                  fontSize: 18,
                                   color: kBlack,
+                                  fontSize: 18,
                                 ),
                               ),
                               const SizedBox(
@@ -164,8 +166,8 @@ class JadwalShiftPage extends StatelessWidget {
                                 'Hari ini anda tidak memiliki jadwal shift',
                                 textAlign: TextAlign.center,
                                 style: Styles.kNunitoRegular.copyWith(
-                                  fontSize: 14,
                                   color: kNeutral90,
+                                  fontSize: 14,
                                 ),
                               ),
                             ],
@@ -173,6 +175,7 @@ class JadwalShiftPage extends StatelessWidget {
                         );
                       }
 
+                      // Default
                       return Center(
                         child: ElevatedButton(
                           onPressed: () {

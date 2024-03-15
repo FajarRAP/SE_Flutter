@@ -4,14 +4,12 @@ import '../../../../core/constants_finals.dart';
 
 class ButtonDetailGaji extends StatelessWidget {
   final String kata;
-  final Color warnaBg;
-  final Color warnaFont;
+  final bool isPemasukan;
   final void Function() onTap;
   const ButtonDetailGaji({
     super.key,
     required this.kata,
-    required this.warnaBg,
-    required this.warnaFont,
+    required this.isPemasukan,
     required this.onTap,
   });
 
@@ -23,7 +21,7 @@ class ButtonDetailGaji extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: warnaBg,
+          color: isPemasukan ? bgButton : kLightGrey,
         ),
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
@@ -33,7 +31,7 @@ class ButtonDetailGaji extends StatelessWidget {
           child: Text(
             kata,
             style: Styles.kPoppinsRegular.copyWith(
-              color: warnaFont,
+              color: isPemasukan ? kWhite : kNeutral60,
               fontSize: 12,
             ),
           ),

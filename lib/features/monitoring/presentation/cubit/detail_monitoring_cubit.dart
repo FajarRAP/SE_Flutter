@@ -18,16 +18,20 @@ class DetailMonitoringCubit extends Cubit<DetailMonitoringState> {
   String tanggal = DateFormat('M, y').format(DateTime.now());
   String nama = '';
 
-  DataRekapMonitoringModel get dataRekapMonitoring => rekapMonitoring!.data;
-  List<DataDetailMonitoringModel> get dataDetailMonitoring =>
-      detailMonitoring!.data;
+  // Setter
+  set setNama(final String nama) => this.nama = nama;
+
+  // Getter
   String get getTanggal => tanggal;
   String get getNama => nama;
+  int get getOnTime => rekapMonitoring!.data.onTime;
+  int get getTelat => rekapMonitoring!.data.telat;
+  int get getAbsen => rekapMonitoring!.data.absen;
+  int get getTotalPresensi => getOnTime + getTelat + getAbsen;
 
-  set setNama(final String nama) => this.nama = nama;
   set setTanggal(final DateTime tanggal) {
-    emit(DatePicked());
     this.tanggal = DateFormat('M, y').format(tanggal);
+    emit(DatePicked());
   }
 
   Future<void> getRekapMonitoring() async {
@@ -37,11 +41,11 @@ class DetailMonitoringCubit extends Cubit<DetailMonitoringState> {
         await locator<MonitoringRepositoriesImpl>().getRekapMonitoring();
 
     result.fold(
-      (l) {
-        emit(RekapMonitoringError(l.message));
+      (failure) {
+        emit(RekapMonitoringError(failure.message));
       },
-      (r) {
-        rekapMonitoring = r;
+      (success) {
+        rekapMonitoring = success;
         emit(RekapMonitoringLoaded());
       },
     );
@@ -52,19 +56,20 @@ class DetailMonitoringCubit extends Cubit<DetailMonitoringState> {
 
     final result =
         await locator<MonitoringRepositoriesImpl>().getDetailMonitoring();
+
     result.fold(
-      (l) {
-        emit(DetailMonitoringError(l.message));
+      (failure) {
+        emit(DetailMonitoringError(failure.message));
       },
-      (r) {
-        detailMonitoring = r;
-        emit(DetailMonitoringLoaded());
+      (success) {
+        detailMonitoring = success;
+        emit(DetailMonitoringLoaded(success.data));
       },
     );
   }
 
   void changeChart() {
-    emit(RekapMonitoringLoaded());
     isPie = !isPie;
+    emit(RekapMonitoringLoaded());
   }
 }

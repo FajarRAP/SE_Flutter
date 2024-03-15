@@ -14,19 +14,22 @@ class ShiftCubit extends Cubit<ShiftState> {
 
   int currentDay = DateTime.now().weekday - 1;
 
+  // Getter
+  int get getCurrentDay => currentDay;
+
   Future<void> getShifts() async {
     emit(ShiftLoading());
 
     final result = await locator<ShiftRepositoriesImpl>().getShifts();
 
     result.fold(
-      (l) {
-        emit(ShiftError(l.message));
+      (failure) {
+        emit(ShiftError(failure.message));
       },
-      (r) {
-        shift = r;
-        if (shift!.data.isNotEmpty) {
-          emit(ShiftLoaded(r.data));
+      (success) {
+        shift = success;
+        if (success.data.isNotEmpty) {
+          emit(ShiftLoaded(success.data));
         } else {
           emit(ShiftEmpty());
         }

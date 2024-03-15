@@ -17,26 +17,25 @@ class ItemMonitoring extends StatelessWidget {
   Widget build(BuildContext context) {
     final DetailMonitoringCubit detailMonitoringCubit =
         context.read<DetailMonitoringCubit>();
+
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(monitoringDetailRoute);
         detailMonitoringCubit.setNama = dataMonitoring.nama;
+        Navigator.of(context).pushNamed(monitoringDetailRoute);
       },
       child: Container(
         width: double.infinity,
-        height: Screen.width * .18,
+        height: 75,
         decoration: ShapeDecoration(
           color: kWhite,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              Screen.kSize12,
-            ),
+            borderRadius: BorderRadius.circular(12),
           ),
           shadows: boxShadow,
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: Screen.kSize14,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14,
           ),
           child: Row(
             children: [
@@ -51,21 +50,21 @@ class ItemMonitoring extends StatelessWidget {
                         dataMonitoring.nama,
                         overflow: TextOverflow.ellipsis,
                         style: Styles.kPoppinsMedium.copyWith(
-                          fontSize: Screen.kSize14,
                           color: kBlack,
+                          fontSize: 14,
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: Screen.kSize4,
+                    const SizedBox(
+                      height: 4,
                     ),
                     Row(
                       children: [
                         SvgPicture.asset(
                           'assets/icons/tunjangan-beras-location.svg',
                         ),
-                        SizedBox(
-                          width: Screen.kSize4,
+                        const SizedBox(
+                          width: 4,
                         ),
                         Flexible(
                           child: Text(
@@ -73,7 +72,7 @@ class ItemMonitoring extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: Styles.kPoppinsRegular.copyWith(
                               color: kNeutral80,
-                              fontSize: Screen.kSize12,
+                              fontSize: 12,
                             ),
                           ),
                         ),
@@ -91,17 +90,17 @@ class ItemMonitoring extends StatelessWidget {
                       'Masuk',
                       style: Styles.kPoppinsRegular.copyWith(
                         color: kNeutral80,
-                        fontSize: Screen.kSize12,
+                        fontSize: 12,
                       ),
                     ),
-                    SizedBox(
-                      height: Screen.kSize4,
+                    const SizedBox(
+                      height: 4,
                     ),
                     Text(
                       dataMonitoring.masuk,
                       style: Styles.kPoppinsMedium.copyWith(
                         color: kGreen,
-                        fontSize: Screen.kSize16,
+                        fontSize: 16,
                       ),
                     ),
                   ],
@@ -116,17 +115,17 @@ class ItemMonitoring extends StatelessWidget {
                       'Pulang',
                       style: Styles.kPoppinsRegular.copyWith(
                         color: kGrey,
-                        fontSize: Screen.kSize12,
+                        fontSize: 12,
                       ),
                     ),
-                    SizedBox(
-                      height: Screen.kSize4,
+                    const SizedBox(
+                      height: 4,
                     ),
                     Text(
                       dataMonitoring.pulang,
                       style: Styles.kPoppinsMedium.copyWith(
                         color: kOrange,
-                        fontSize: Screen.kSize16,
+                        fontSize: 16,
                       ),
                     ),
                   ],

@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/constants_finals.dart';
 import '../cubit/detail_gaji_cubit.dart';
 import '../widgets/button_detail_gaji.dart';
+import '../widgets/card_top.dart';
 import '../widgets/item_detail_gaji.dart';
 
 class DetailGajiPage extends StatelessWidget {
@@ -36,16 +37,14 @@ class DetailGajiPage extends StatelessWidget {
                     BlendMode.srcIn,
                   ),
                   fit: BoxFit.scaleDown,
-                  width: 24,
-                  height: 24,
                 ),
               ),
               shadowColor: const Color(0x25293241).withOpacity(.5),
               title: Text(
                 'Detail Gaji',
                 style: Styles.kPoppinsMedium.copyWith(
-                  fontSize: 18,
                   color: kBlack,
+                  fontSize: 18,
                 ),
               ),
             ),
@@ -59,47 +58,7 @@ class DetailGajiPage extends StatelessWidget {
           child: Column(
             children: [
               // Bagian Atas
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 32,
-                ),
-                child: Container(
-                  width: Screen.width,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: Screen.kSize20,
-                    vertical: Screen.kSize16,
-                  ),
-                  decoration: ShapeDecoration(
-                    color: kBlue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        detailGajiCubit.dataGaji!.nominal,
-                        style: Styles.kPoppinsSemiBold.copyWith(
-                          fontSize: 28,
-                          color: kWhite,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        detailGajiCubit.dataGaji!.bulan,
-                        style: Styles.kNunitoRegular.copyWith(
-                          fontSize: 14,
-                          color: kNeutral20,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              const CardTop(),
 
               Container(
                 height: 8,
@@ -125,12 +84,7 @@ class DetailGajiPage extends StatelessWidget {
                             children: [
                               ButtonDetailGaji(
                                 kata: 'Pemasukan',
-                                warnaBg: detailGajiCubit.isPemasukan
-                                    ? bgButton
-                                    : kLightGrey,
-                                warnaFont: detailGajiCubit.isPemasukan
-                                    ? kWhite
-                                    : kNeutral60,
+                                isPemasukan: detailGajiCubit.getIsPemasukan,
                                 onTap: () {
                                   detailGajiCubit.clickPemasukan();
                                 },
@@ -140,12 +94,7 @@ class DetailGajiPage extends StatelessWidget {
                               ),
                               ButtonDetailGaji(
                                 kata: 'Pengeluaran',
-                                warnaBg: detailGajiCubit.isPemasukan
-                                    ? kLightGrey
-                                    : bgButton,
-                                warnaFont: detailGajiCubit.isPemasukan
-                                    ? kNeutral60
-                                    : kWhite,
+                                isPemasukan: !detailGajiCubit.getIsPemasukan,
                                 onTap: () {
                                   detailGajiCubit.clickPotongan();
                                 },
@@ -160,19 +109,19 @@ class DetailGajiPage extends StatelessWidget {
                         child: BlocBuilder<DetailGajiCubit, DetailGajiState>(
                           bloc: detailGajiCubit..getDetailGaji(),
                           builder: (context, state) {
+                            // Loading
                             if (state is DetailGajiLoading) {
                               return const Center(
                                 child: CircularProgressIndicator(),
                               );
                             }
 
+                            // Loaded
                             if (state is DetailGajiLoaded) {
                               return ListView.separated(
                                 itemBuilder: (context, index) {
                                   return ItemDetailGaji(
-                                    gambar: detailGajiCubit.isPemasukan
-                                        ? pemasukanSvg
-                                        : pengeluaranSvg,
+                                    isPemasukan: detailGajiCubit.getIsPemasukan,
                                     nominal: state.data[index].nominal,
                                     keterangan: state.data[index].keterangan,
                                   );
@@ -186,6 +135,7 @@ class DetailGajiPage extends StatelessWidget {
                               );
                             }
 
+                            // Default
                             return Center(
                               child: ElevatedButton(
                                 onPressed: () {

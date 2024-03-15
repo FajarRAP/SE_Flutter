@@ -9,9 +9,8 @@ part 'monitoring_state.dart';
 
 class MonitoringCubit extends Cubit<MonitoringState> {
   MonitoringCubit() : super(MonitoringInitial());
-  MonitoringModel? monitoringModel;
 
-  List<DataMonitoringModel> get dataMonitoring => monitoringModel!.data;
+  MonitoringModel? monitoringModel;
 
   Future<void> getMonitorings() async {
     emit(MonitoringLoading());
@@ -19,13 +18,13 @@ class MonitoringCubit extends Cubit<MonitoringState> {
     final result = await locator<MonitoringRepositoriesImpl>().getMonitorings();
 
     result.fold(
-      (l) {
-        emit(MonitoringError(l.message));
+      (failure) {
+        emit(MonitoringError(failure.message));
       },
-      (r) {
-        monitoringModel = r;
-        if (dataMonitoring.isNotEmpty) {
-          emit(MonitoringLoaded());
+      (success) {
+        monitoringModel = success;
+        if (success.data.isNotEmpty) {
+          emit(MonitoringLoaded(success.data));
         } else {
           emit(MonitoringEmpty());
         }

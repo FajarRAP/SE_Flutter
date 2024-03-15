@@ -15,36 +15,35 @@ class ItemRekapCuti extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: ShapeDecoration(
-        color: kWhite,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            Screen.kSize12,
-          ),
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: boxShadow,
+          color: kWhite,
         ),
-        shadows: boxShadow,
-      ),
-      width: Screen.width * .275,
-      height: Screen.kSize40 * 2 + 20,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            teks,
-            style: Styles.kNunitoMedium.copyWith(
-              color: kGrey,
-              fontSize: Screen.kSize14,
+        padding: const EdgeInsets.symmetric(
+          vertical: 16,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              teks,
+              style: Styles.kNunitoMedium.copyWith(
+                color: kGrey,
+                fontSize: 14,
+              ),
             ),
-          ),
-          Text(
-            angka,
-            style: Styles.kPoppinsSemiBold.copyWith(
-              color: warna,
-              fontSize: Screen.kSize32,
+            Text(
+              angka,
+              style: Styles.kPoppinsSemiBold.copyWith(
+                color: warna,
+                fontSize: 32,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -20,9 +20,11 @@ class ItemDetailAgenda extends StatelessWidget {
       children: [
         SvgPicture.asset(
           'assets/icons/agenda-${kata.toLowerCase()}.svg',
-          width: Screen.kSize40,
+          width: 40,
         ),
-        SizedBox(width: Screen.kSize16),
+        const SizedBox(
+          width: 16,
+        ),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,15 +32,15 @@ class ItemDetailAgenda extends StatelessWidget {
               Text(
                 kata,
                 style: Styles.kPoppinsRegular.copyWith(
-                  fontSize: Screen.kSize14,
                   color: kNeutral80,
+                  fontSize: 14,
                 ),
               ),
               Text(
                 keterangan,
                 style: Styles.kNunitoSemiBold.copyWith(
-                  fontSize: Screen.kSize14,
                   color: kBlack,
+                  fontSize: 14,
                 ),
               )
             ],

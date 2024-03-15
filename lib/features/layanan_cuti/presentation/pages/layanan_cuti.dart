@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../cubit/cuti_cubit.dart';
@@ -9,14 +8,18 @@ import '../cubit/tambah_sunting_cuti_cubit.dart';
 import '../widgets/button_berjalan_selesai.dart';
 import '../widgets/item_cuti.dart';
 import '../widgets/item_rekap_cuti.dart';
+import '../widgets/loading_rekap_shimmer.dart';
 
 class LayananCutiPage extends StatelessWidget {
-  const LayananCutiPage({super.key});
+  const LayananCutiPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final CutiCubit cutiCubit = context.read<CutiCubit>();
-    final TambahSuntingCutiCubit tambahSuntingCutiCubit = context.read<TambahSuntingCutiCubit>();
+    final TambahSuntingCutiCubit tambahSuntingCutiCubit =
+        context.read<TambahSuntingCutiCubit>();
 
     return Scaffold(
       backgroundColor: kBlue,
@@ -37,45 +40,38 @@ class LayananCutiPage extends StatelessWidget {
                     BlendMode.srcIn,
                   ),
                   fit: BoxFit.scaleDown,
-                  width: Screen.kSize24,
-                  height: Screen.kSize24,
                 ),
               ),
               title: Text(
                 'Layanan Cuti',
                 style: Styles.kPoppinsSemiBold.copyWith(
                   color: kWhite,
-                  fontSize: Screen.kSize20,
+                  fontSize: 20,
                 ),
               ),
             )
           ];
         },
         body: RefreshIndicator(
+          displacement: 10,
           onRefresh: () async {
-            cutiCubit.isBerjalan = true;
+            cutiCubit.clickBerjalan();
             cutiCubit.getRekapCuti();
             cutiCubit.getCutis();
           },
           child: Stack(
             children: [
               Container(
-                constraints: BoxConstraints(
-                  minHeight: Screen.height,
-                ),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: bgColor,
                   borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(
-                      Screen.kSize32,
-                    ),
+                    top: Radius.circular(32),
                   ),
                 ),
-                width: Screen.width,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: Screen.kSize20,
-                    vertical: Screen.kSize32,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 32,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,101 +81,63 @@ class LayananCutiPage extends StatelessWidget {
                         bloc: cutiCubit..getRekapCuti(),
                         buildWhen: (previous, current) => current is RekapCuti,
                         builder: (context, state) {
+                          // Rekap Cuti Loading
                           if (state is RekapCutiLoading) {
-                            return Shimmer.fromColors(
-                              baseColor: kWhite,
-                              highlightColor: kNeutral40,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  for (int i = 0; i < 3; i++)
-                                    Container(
-                                      decoration: ShapeDecoration(
-                                        color: kWhite,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            Screen.kSize12,
-                                          ),
-                                        ),
-                                        shadows: boxShadow,
-                                      ),
-                                      width: Screen.width * .275,
-                                      height: Screen.kSize40 * 2 + 20,
-                                    ),
-                                ],
-                              ),
-                            );
+                            return const LoadingRekapShimmer();
                           }
 
+                          // Rekap Cuti Loaded
                           if (state is RekapCutiLoaded) {
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 ItemRekapCuti(
                                   teks: 'Sisa Cuti',
-                                  angka:
-                                      cutiCubit.rekapCutiModel!.data.sisaCuti,
+                                  angka: state.data.sisaCuti,
                                   warna: kGreen,
+                                ),
+                                const SizedBox(
+                                  width: 16,
                                 ),
                                 ItemRekapCuti(
                                   teks: 'Cuti Diambil',
-                                  angka: cutiCubit
-                                      .rekapCutiModel!.data.cutiDiambil,
+                                  angka: state.data.cutiDiambil,
                                   warna: kOrange,
+                                ),
+                                const SizedBox(
+                                  width: 16,
                                 ),
                                 ItemRekapCuti(
                                   teks: 'Total Cuti',
-                                  angka:
-                                      cutiCubit.rekapCutiModel!.data.totalCuti,
+                                  angka: state.data.totalCuti,
                                   warna: kBlue,
                                 ),
                               ],
                             );
                           }
 
-                          return Shimmer.fromColors(
-                            baseColor: kWhite,
-                            highlightColor: kNeutral40,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                for (int i = 0; i < 3; i++)
-                                  Container(
-                                    decoration: ShapeDecoration(
-                                      color: kWhite,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          Screen.kSize12,
-                                        ),
-                                      ),
-                                      shadows: boxShadow,
-                                    ),
-                                    width: Screen.width * .275,
-                                    height: Screen.kSize40 * 2 + 20,
-                                  ),
-                              ],
-                            ),
-                          );
+                          // Default
+                          return const LoadingRekapShimmer();
                         },
                       ),
 
-                      SizedBox(
-                        height: Screen.kSize16,
+                      const SizedBox(
+                        height: 16,
                       ),
                       const Divider(),
-                      SizedBox(
-                        height: Screen.kSize16,
+                      const SizedBox(
+                        height: 16,
                       ),
+
                       Text(
                         'Layanan Cuti Tahunan',
                         style: Styles.kPoppinsMedium.copyWith(
                           color: kGrey,
-                          fontSize: Screen.kSize16,
+                          fontSize: 16,
                         ),
                       ),
-                      SizedBox(
-                        height: Screen.kSize16,
+                      const SizedBox(
+                        height: 16,
                       ),
 
                       // Button Berjalan Selesai
@@ -190,35 +148,25 @@ class LayananCutiPage extends StatelessWidget {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  cutiCubit.isBerjalan = true;
+                                  cutiCubit.clickBerjalan();
                                   cutiCubit.getCutis();
                                 },
                                 child: ButtonBerjalanSelesai(
                                   kata: 'Berjalan',
-                                  warnaBg: cutiCubit.isBerjalan
-                                      ? bgButton
-                                      : kLightGrey,
-                                  warnaFont: cutiCubit.isBerjalan
-                                      ? kWhite
-                                      : kNeutral60,
+                                  isBerjalan: cutiCubit.getIsBerjalan,
                                 ),
                               ),
-                              SizedBox(
-                                width: Screen.kSize16,
+                              const SizedBox(
+                                width: 16,
                               ),
                               InkWell(
                                 onTap: () {
-                                  cutiCubit.isBerjalan = false;
+                                  cutiCubit.clickSelesai();
                                   cutiCubit.getCutis();
                                 },
                                 child: ButtonBerjalanSelesai(
                                   kata: 'Selesai',
-                                  warnaBg: cutiCubit.isBerjalan
-                                      ? kLightGrey
-                                      : bgButton,
-                                  warnaFont: cutiCubit.isBerjalan
-                                      ? kNeutral60
-                                      : kWhite,
+                                  isBerjalan: !cutiCubit.getIsBerjalan,
                                 ),
                               ),
                             ],
@@ -226,8 +174,8 @@ class LayananCutiPage extends StatelessWidget {
                         },
                       ),
 
-                      SizedBox(
-                        height: Screen.kSize16,
+                      const SizedBox(
+                        height: 16,
                       ),
 
                       // Daftar Cuti
@@ -236,57 +184,60 @@ class LayananCutiPage extends StatelessWidget {
                           bloc: cutiCubit..getCutis(),
                           buildWhen: (previous, current) => current is Cuti,
                           builder: (context, state) {
+                            // Cuti Loading
                             if (state is CutiLoading) {
                               return const Center(
                                 child: CircularProgressIndicator(),
                               );
                             }
 
+                            // Cuti Loaded
                             if (state is CutiLoaded) {
                               return ListView.separated(
                                 itemBuilder: (context, index) {
                                   return ItemCuti(
-                                    dataCutiModel:
-                                        cutiCubit.cutiModel!.data[index],
+                                    dataCutiModel: state.data[index],
                                   );
                                 },
                                 separatorBuilder: (context, index) {
-                                  return SizedBox(
-                                    height: Screen.kSize16,
+                                  return const SizedBox(
+                                    height: 16,
                                   );
                                 },
-                                itemCount: cutiCubit.cutiModel!.data.length,
+                                itemCount: state.data.length,
                               );
                             }
 
+                            // Cuti Empty
                             if (state is CutiEmpty) {
                               return Center(
                                 child: Column(
                                   children: [
-                                    SizedBox(
-                                      height: Screen.kSize32,
+                                    const SizedBox(
+                                      height: 32,
                                     ),
                                     SvgPicture.asset(
-                                        'assets/icons/libur-jadwal-perkuliahan.svg'),
-                                    SizedBox(
-                                      height: Screen.kSize24,
+                                      emptyDataSvg,
+                                    ),
+                                    const SizedBox(
+                                      height: 24,
                                     ),
                                     Text(
                                       'Saat ini tidak ada cuti yang diambil',
                                       style: Styles.kPoppinsSemiBold.copyWith(
-                                        fontSize: Screen.kSize18,
                                         color: kBlack,
+                                        fontSize: 18,
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: Screen.kSize8,
+                                    const SizedBox(
+                                      height: 8,
                                     ),
                                     Text(
                                       'Anda belum memiliki cuti yang berjalan',
                                       textAlign: TextAlign.center,
                                       style: Styles.kNunitoRegular.copyWith(
-                                        fontSize: Screen.kSize14,
                                         color: kNeutral90,
+                                        fontSize: 14,
                                       ),
                                     ),
                                   ],
@@ -296,7 +247,10 @@ class LayananCutiPage extends StatelessWidget {
 
                             return Center(
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  cutiCubit.getRekapCuti();
+                                  cutiCubit.getCutis();
+                                },
                                 child: const Text('Ulangi'),
                               ),
                             );
@@ -307,9 +261,11 @@ class LayananCutiPage extends StatelessWidget {
                   ),
                 ),
               ),
+
+              // Tombol Tambah
               Positioned(
-                bottom: Screen.height * .035,
-                right: Screen.height * .035,
+                bottom: 20,
+                right: 20,
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kBlue,
@@ -320,7 +276,9 @@ class LayananCutiPage extends StatelessWidget {
                   },
                   label: const Text(
                     'Tambah',
-                    style: TextStyle(color: kWhite),
+                    style: TextStyle(
+                      color: kWhite,
+                    ),
                   ),
                   icon: SvgPicture.asset(
                     penEditSvg,

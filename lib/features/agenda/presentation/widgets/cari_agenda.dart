@@ -17,32 +17,26 @@ class CariAgenda extends StatelessWidget {
     final AgendaCubit agendaCubit = context.read<AgendaCubit>();
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          Screen.kSize12,
-        ),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: boxShadow,
         color: kWhite,
       ),
       child: TextField(
         controller: agendaController,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(
-            Screen.kSize16,
-          ),
+          contentPadding: const EdgeInsets.all(16),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(
-              Screen.kSize16,
-            ),
+            borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide.none,
           ),
           hintText: 'Cari Agenda',
           hintStyle: Styles.kNunitoRegular.copyWith(
-            fontSize: Screen.kSize16,
             color: kNeutral60,
+            fontSize: 16,
           ),
         ),
         onChanged: (value) {
-          agendaCubit.kata = value;
+          agendaCubit.setKata = value;
           agendaCubit.getAgendas();
         },
       ),

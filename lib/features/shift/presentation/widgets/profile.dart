@@ -46,15 +46,15 @@ class Profile extends StatelessWidget {
                       Text(
                         'Lalu Ramadhan',
                         style: Styles.kPoppinsMedium.copyWith(
-                          fontSize: 14,
                           color: kBlack,
+                          fontSize: 14,
                         ),
                       ),
                       Text(
                         '2100018128',
                         style: Styles.kPoppinsRegular.copyWith(
-                          fontSize: 14,
                           color: kBlue,
+                          fontSize: 14,
                         ),
                       ),
                     ],
@@ -80,15 +80,15 @@ class Profile extends StatelessWidget {
                       Text(
                         'Unit Kerja',
                         style: Styles.kPoppinsMedium.copyWith(
-                          fontSize: 14,
                           color: kNeutral70,
+                          fontSize: 14,
                         ),
                       ),
                       Text(
                         'Posisi',
                         style: Styles.kPoppinsMedium.copyWith(
-                          fontSize: 14,
                           color: kNeutral70,
+                          fontSize: 14,
                         ),
                       ),
                     ],
@@ -103,15 +103,15 @@ class Profile extends StatelessWidget {
                       Text(
                         ':',
                         style: Styles.kPoppinsMedium.copyWith(
-                          fontSize: 14,
                           color: kNeutral70,
+                          fontSize: 14,
                         ),
                       ),
                       Text(
                         ':',
                         style: Styles.kPoppinsMedium.copyWith(
-                          fontSize: 14,
                           color: kNeutral70,
+                          fontSize: 14,
                         ),
                       ),
                     ],
@@ -125,19 +125,17 @@ class Profile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        //nanti diisi sama data pengguna
                         'Keamanan',
                         style: Styles.kPoppinsMedium.copyWith(
-                          fontSize: 14,
                           color: kBlack,
+                          fontSize: 14,
                         ),
                       ),
                       Text(
-                        //nanti diisi
                         'Satpam',
                         style: Styles.kPoppinsMedium.copyWith(
-                          fontSize: 14,
                           color: kBlack,
+                          fontSize: 14,
                         ),
                       ),
                     ],

@@ -34,16 +34,14 @@ class GajiPage extends StatelessWidget {
                     BlendMode.srcIn,
                   ),
                   fit: BoxFit.scaleDown,
-                  width: 24,
-                  height: 24,
                 ),
               ),
               shadowColor: const Color(0x25293241).withOpacity(.5),
               title: Text(
                 'Informasi Gaji',
                 style: Styles.kPoppinsMedium.copyWith(
-                  fontSize: 18,
                   color: kBlack,
+                  fontSize: 18,
                 ),
               ),
             ),
@@ -73,7 +71,7 @@ class GajiPage extends StatelessWidget {
                   return ListView.separated(
                     itemBuilder: (context, index) {
                       return ItemGaji(
-                        dataGaji: gajiCubit.gajiModel!.data[index],
+                        dataGaji: state.data[index],
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -81,7 +79,7 @@ class GajiPage extends StatelessWidget {
                         height: 12,
                       );
                     },
-                    itemCount: gajiCubit.gajiModel!.data.length,
+                    itemCount: state.data.length,
                   );
                 }
 
@@ -123,6 +121,7 @@ class GajiPage extends StatelessWidget {
                   );
                 }
 
+                // Default
                 return Center(
                   child: ElevatedButton(
                     onPressed: () {

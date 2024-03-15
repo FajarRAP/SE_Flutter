@@ -5,6 +5,7 @@ import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../cubit/detail_tunjangan_cubit.dart';
+import '../widgets/item_detail_tunjangan.dart';
 
 class DetailTunjanganBerasPage extends StatelessWidget {
   const DetailTunjanganBerasPage({super.key});
@@ -55,8 +56,8 @@ class DetailTunjanganBerasPage extends StatelessWidget {
                   Text(
                     'Tunjangan Beras',
                     style: Styles.kPoppinsMedium.copyWith(
-                      fontSize: 24,
                       color: kBlack,
+                      fontSize: 24,
                     ),
                   ),
                 ],
@@ -70,12 +71,14 @@ class DetailTunjanganBerasPage extends StatelessWidget {
                 child: BlocBuilder<DetailTunjanganCubit, DetailTunjanganState>(
                   bloc: detailTunjanganCubit..getDetailTunjangan(),
                   builder: (context, state) {
+                    // Loading
                     if (state is DetailTunjanganLoading) {
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
 
+                    // Loaded
                     if (state is DetailTunjanganLoaded) {
                       return SingleChildScrollView(
                         child: Column(
@@ -97,8 +100,8 @@ class DetailTunjanganBerasPage extends StatelessWidget {
                             ),
 
                             Container(
-                              height: 8,
                               color: bgColor,
+                              height: 8,
                             ),
                             const SizedBox(
                               height: 32,
@@ -153,46 +156,3 @@ class DetailTunjanganBerasPage extends StatelessWidget {
   }
 }
 
-class ItemDetailTunjangan extends StatelessWidget {
-  final String title;
-  final String value;
-  const ItemDetailTunjangan({
-    super.key,
-    required this.title,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SvgPicture.asset(
-          'assets/icons/tunjangan-beras-${title.toLowerCase()}.svg',
-        ),
-        const SizedBox(
-          width: 16,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: Styles.kPoppinsRegular.copyWith(
-                fontSize: 14,
-                color: kNeutral80,
-              ),
-            ),
-            Text(
-              value,
-              style: Styles.kNunitoSemiBold.copyWith(
-                fontSize: 16,
-                color: kBlack,
-              ),
-            )
-          ],
-        )
-      ],
-    );
-  }
-}

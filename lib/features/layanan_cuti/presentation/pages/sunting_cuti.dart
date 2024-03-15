@@ -42,49 +42,47 @@ class SuntingCutiPage extends StatelessWidget {
           children: [
             // Section Atas
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: Screen.kSize20,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
               ),
               child: Row(
                 children: [
                   Container(
-                    width: Screen.kSize18,
-                    height: Screen.kSize18,
+                    width: 18,
+                    height: 18,
                     decoration: BoxDecoration(
                       color: kBlue,
-                      borderRadius: BorderRadiusDirectional.circular(
-                        Screen.kSize4,
-                      ),
+                      borderRadius: BorderRadius.circular(4),
                     ),
                   ),
-                  SizedBox(
-                    width: Screen.kSize16,
+                  const SizedBox(
+                    width: 16,
                   ),
                   Text(
                     'Sunting Cuti',
                     style: Styles.kPoppinsMedium.copyWith(
-                      fontSize: Screen.kSize24,
                       color: kBlack,
+                      fontSize: 24,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: Screen.kSize24,
+            const SizedBox(
+              height: 24,
             ),
             Container(
-              height: Screen.kSize8,
               color: const Color(0xFFF0F1F3),
+              height: 8,
             ),
-            SizedBox(
-              height: Screen.kSize32,
+            const SizedBox(
+              height: 32,
             ),
 
             // Section Bawah
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: Screen.kSize20,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,11 +91,11 @@ class SuntingCutiPage extends StatelessWidget {
                     'Mulai Cuti',
                     style: Styles.kPoppinsMedium.copyWith(
                       color: kBlack,
-                      fontSize: Screen.kSize14,
+                      fontSize: 14,
                     ),
                   ),
-                  SizedBox(
-                    height: Screen.kSize8,
+                  const SizedBox(
+                    height: 8,
                   ),
 
                   // Mulai Cuti
@@ -106,23 +104,23 @@ class SuntingCutiPage extends StatelessWidget {
                     builder: (context, state) {
                       return ContainerDesigned(
                         widget: DatePickerCuti(
-                          pesan: tambahSuntingCutiCubit.tglMulai,
+                          pesan: tambahSuntingCutiCubit.getTglMulai,
                         ),
                       );
                     },
                   ),
-                  SizedBox(
-                    height: Screen.kSize24,
+                  const SizedBox(
+                    height: 24,
                   ),
                   Text(
                     'Selesai Cuti',
                     style: Styles.kPoppinsMedium.copyWith(
                       color: kBlack,
-                      fontSize: Screen.kSize14,
+                      fontSize: 14,
                     ),
                   ),
-                  SizedBox(
-                    height: Screen.kSize8,
+                  const SizedBox(
+                    height: 8,
                   ),
 
                   // Selesai Cuti
@@ -131,24 +129,24 @@ class SuntingCutiPage extends StatelessWidget {
                     builder: (context, state) {
                       return ContainerDesigned(
                         widget: DatePickerCuti(
-                          pesan: tambahSuntingCutiCubit.tglSelesai,
+                          pesan: tambahSuntingCutiCubit.getTglSelesai,
                           isMulai: false,
                         ),
                       );
                     },
                   ),
-                  SizedBox(
-                    height: Screen.kSize24,
+                  const SizedBox(
+                    height: 24,
                   ),
                   Text(
                     'Keterangan Cuti',
                     style: Styles.kPoppinsMedium.copyWith(
                       color: kBlack,
-                      fontSize: Screen.kSize14,
+                      fontSize: 14,
                     ),
                   ),
-                  SizedBox(
-                    height: Screen.kSize8,
+                  const SizedBox(
+                    height: 8,
                   ),
 
                   // Keterangan
@@ -167,16 +165,14 @@ class SuntingCutiPage extends StatelessWidget {
           color: kWhite,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(.5), // Warna dan opasitas shadow
-              // Jarak penyebaran shadow
-              blurRadius: 4, // Radius blur shadow
+              color: Colors.grey.withOpacity(.5),
+              blurRadius: 4,
               offset: const Offset(0, -1),
-            ) // Posisi shadow (x, y)
+            ),
           ],
         ),
-        padding: EdgeInsets.all(
-          Screen.kSize16,
-        ),
+        padding: const EdgeInsets.all(16),
+        width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
             successDialog(
@@ -187,20 +183,15 @@ class SuntingCutiPage extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: kBlue,
-            fixedSize: Size(
-              Screen.width,
-              Screen.kSize40 + Screen.kSize10,
-            ),
+            fixedSize: const Size.fromHeight(50),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                Screen.kSize10,
-              ),
+              borderRadius: BorderRadius.circular(10),
             ),
           ),
           child: Text(
             'Sunting Cuti',
             style: Styles.kPoppinsMedium.copyWith(
-              fontSize: Screen.kSize16,
+              fontSize: 16,
               color: kWhite,
             ),
           ),

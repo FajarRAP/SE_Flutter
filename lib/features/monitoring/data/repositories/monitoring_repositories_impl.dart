@@ -42,7 +42,7 @@ class MonitoringRepositoriesImpl implements MonitoringRepositories {
   }
 
   @override
-  Future<Either<Failure, dynamic>> getDetailMonitoring() async {
+  Future<Either<Failure, DetailMonitoringModel>> getDetailMonitoring() async {
     try {
       final Response response = await monitoringService.getDetailMonitoring();
       if (response.statusCode == 200) {
@@ -51,7 +51,7 @@ class MonitoringRepositoriesImpl implements MonitoringRepositories {
         return Left(Failure(message: 'Ada Sesuatu Yang Salah'));
       }
     } catch (e) {
-      return Right(Failure(message: e.toString()));
+      return Left(Failure(message: e.toString()));
     }
   }
 }

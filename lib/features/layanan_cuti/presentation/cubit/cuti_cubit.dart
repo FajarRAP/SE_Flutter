@@ -11,9 +11,12 @@ part 'cuti_state.dart';
 class CutiCubit extends Cubit<CutiState> {
   CutiCubit() : super(CutiInitial());
 
-  CutiModel? cutiModel;
-  RekapCutiModel? rekapCutiModel;
+  CutiModel? cuti;
+  RekapCutiModel? rekapCuti;
   bool isBerjalan = true;
+
+  // Getter
+  bool get getIsBerjalan => isBerjalan;
 
   Future<void> getCutis() async {
     emit(CutiLoading());
@@ -21,13 +24,13 @@ class CutiCubit extends Cubit<CutiState> {
     final result = await locator<CutiRepositoriesImpl>().getCutis();
 
     result.fold(
-      (l) {
-        emit(CutiError(message: l.message));
+      (failure) {
+        emit(CutiError(message: failure.message));
       },
-      (r) {
-        cutiModel = r;
-        if (cutiModel!.data.isNotEmpty) {
-          emit(CutiLoaded());
+      (success) {
+        cuti = success;
+        if (success.data.isNotEmpty) {
+          emit(CutiLoaded(success.data));
         } else {
           emit(CutiEmpty());
         }
@@ -41,13 +44,21 @@ class CutiCubit extends Cubit<CutiState> {
     final result = await locator<CutiRepositoriesImpl>().getRekapCuti();
 
     result.fold(
-      (l) {
-        emit(RekapCutiError(message: l.message));
+      (failure) {
+        emit(RekapCutiError(message: failure.message));
       },
-      (r) {
-        rekapCutiModel = r;
-        emit(RekapCutiLoaded());
+      (success) {
+        rekapCuti = success;
+        emit(RekapCutiLoaded(success.data));
       },
     );
+  }
+
+  void clickBerjalan() {
+    isBerjalan = true;
+  }
+
+  void clickSelesai() {
+    isBerjalan = false;
   }
 }

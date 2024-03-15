@@ -4,35 +4,31 @@ import '../../../../core/constants_finals.dart';
 
 class ButtonBerjalanSelesai extends StatelessWidget {
   final String kata;
-  final Color warnaBg;
-  final Color warnaFont;
+  final bool isBerjalan;
   const ButtonBerjalanSelesai({
     super.key,
     required this.kata,
-    required this.warnaBg,
-    required this.warnaFont,
+    required this.isBerjalan,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Screen.kSize32,
+      height: 32,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          Screen.kSize12,
-        ),
-        color: warnaBg,
+        borderRadius: BorderRadius.circular(12),
+        color: isBerjalan ? bgButton : kLightGrey,
       ),
-      padding: EdgeInsets.symmetric(
-        horizontal: Screen.kSize16,
-        vertical: Screen.kSize8,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 8,
       ),
       child: Center(
         child: Text(
           kata,
           style: Styles.kPoppinsRegular.copyWith(
-            color: warnaFont,
-            fontSize: Screen.kSize12,
+            color: isBerjalan ? kWhite : kNeutral60,
+            fontSize: 12,
           ),
         ),
       ),

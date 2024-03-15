@@ -17,11 +17,11 @@ class DetailTunjanganCubit extends Cubit<DetailTunjanganState> {
         await locator<TunjanganRepositoriesImpl>().getDetailTunjangan();
 
     result.fold(
-      (l) {
-        emit(DetailTunjanganError(l.message));
+      (failure) {
+        emit(DetailTunjanganError(failure.message));
       },
-      (r) {
-        emit(DetailTunjanganLoaded(r.data));
+      (success) {
+        emit(DetailTunjanganLoaded(success.data));
       },
     );
   }

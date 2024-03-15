@@ -33,8 +33,8 @@ class ItemShift extends StatelessWidget {
               Text(
                 dataShift.namaShift,
                 style: Styles.kPoppinsSemiBold.copyWith(
-                  fontSize: 14,
                   color: kBlack,
+                  fontSize: 14,
                 ),
               ),
               Row(
@@ -42,8 +42,8 @@ class ItemShift extends StatelessWidget {
                   Text(
                     'Pukul',
                     style: Styles.kPoppinsRegular.copyWith(
-                      fontSize: 14,
                       color: kNeutral90,
+                      fontSize: 14,
                     ),
                   ),
                   const SizedBox(
@@ -52,8 +52,8 @@ class ItemShift extends StatelessWidget {
                   Text(
                     dataShift.waktuShift,
                     style: Styles.kPoppinsMedium.copyWith(
-                      fontSize: 14,
                       color: kBlue,
+                      fontSize: 14,
                     ),
                   )
                 ],
@@ -75,8 +75,8 @@ class ItemShift extends StatelessWidget {
               Text(
                 dataShift.lokasiShift,
                 style: Styles.kPoppinsMedium.copyWith(
-                  fontSize: 14,
                   color: kNeutral90,
+                  fontSize: 14,
                 ),
               )
             ],

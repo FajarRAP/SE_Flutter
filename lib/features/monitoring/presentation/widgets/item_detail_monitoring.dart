@@ -4,29 +4,27 @@ import '../../../../core/constants_finals.dart';
 import '../../data/models/detail_monitoring.dart';
 
 class ItemDetailMonitoring extends StatelessWidget {
-  final DataDetailMonitoringModel dataDetailMonitoringModel;
+  final DataDetailMonitoringModel dataDetailMonitoring;
   const ItemDetailMonitoring({
     super.key,
-    required this.dataDetailMonitoringModel,
+    required this.dataDetailMonitoring,
   });
 
   @override
   Widget build(BuildContext context) {
     final bool isOnTime =
-        dataDetailMonitoringModel.status.toLowerCase() == "on time";
-    final bool isTelat =
-        dataDetailMonitoringModel.status.toLowerCase() == "telat";
+        dataDetailMonitoring.status.toLowerCase() == "on time";
+    final bool isTelat = dataDetailMonitoring.status.toLowerCase() == "telat";
+
     return Container(
-      height: Screen.width * .18,
+      height: 75,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          Screen.kSize12,
-        ),
+        borderRadius: BorderRadius.circular(12),
         color: kWhite,
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: Screen.kSize14,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
         ),
         child: Row(
           children: [
@@ -38,24 +36,24 @@ class ItemDetailMonitoring extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
-                      dataDetailMonitoringModel.hari,
+                      dataDetailMonitoring.hari,
                       overflow: TextOverflow.ellipsis,
                       style: Styles.kPoppinsMedium.copyWith(
-                        fontSize: Screen.kSize14,
                         color: kBlack,
+                        fontSize: 14,
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: Screen.kSize4,
+                  const SizedBox(
+                    height: 4,
                   ),
                   Flexible(
                     child: Text(
-                      dataDetailMonitoringModel.tanggal,
+                      dataDetailMonitoring.tanggal,
                       overflow: TextOverflow.ellipsis,
                       style: Styles.kNunitoRegular.copyWith(
                         color: kNeutral80,
-                        fontSize: Screen.kSize14,
+                        fontSize: 14,
                       ),
                     ),
                   ),
@@ -72,17 +70,17 @@ class ItemDetailMonitoring extends StatelessWidget {
                     'Masuk',
                     style: Styles.kPoppinsRegular.copyWith(
                       color: kNeutral80,
-                      fontSize: Screen.kSize12,
+                      fontSize: 12,
                     ),
                   ),
-                  SizedBox(
-                    height: Screen.kSize4,
+                  const SizedBox(
+                    height: 4,
                   ),
                   Text(
-                    dataDetailMonitoringModel.masuk,
+                    dataDetailMonitoring.masuk,
                     style: Styles.kPoppinsMedium.copyWith(
                       color: kGreen,
-                      fontSize: Screen.kSize16,
+                      fontSize: 16,
                     ),
                   ),
                 ],
@@ -98,17 +96,17 @@ class ItemDetailMonitoring extends StatelessWidget {
                     'Pulang',
                     style: Styles.kPoppinsRegular.copyWith(
                       color: kGrey,
-                      fontSize: Screen.kSize12,
+                      fontSize: 12,
                     ),
                   ),
-                  SizedBox(
-                    height: Screen.kSize4,
+                  const SizedBox(
+                    height: 4,
                   ),
                   Text(
-                    dataDetailMonitoringModel.pulang,
+                    dataDetailMonitoring.pulang,
                     style: Styles.kPoppinsMedium.copyWith(
                       color: kOrange,
-                      fontSize: Screen.kSize16,
+                      fontSize: 16,
                     ),
                   ),
                 ],
@@ -124,21 +122,21 @@ class ItemDetailMonitoring extends StatelessWidget {
                     'Status',
                     style: Styles.kPoppinsRegular.copyWith(
                       color: kGrey,
-                      fontSize: Screen.kSize12,
+                      fontSize: 12,
                     ),
                   ),
-                  SizedBox(
-                    height: Screen.kSize4,
+                  const SizedBox(
+                    height: 4,
                   ),
                   Text(
-                    dataDetailMonitoringModel.status,
+                    dataDetailMonitoring.status,
                     style: Styles.kPoppinsMedium.copyWith(
                       color: isOnTime
                           ? kGreen
                           : isTelat
                               ? kYellow
                               : kRed,
-                      fontSize: Screen.kSize14,
+                      fontSize: 13,
                     ),
                   ),
                 ],

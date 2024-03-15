@@ -20,12 +20,10 @@ class ItemTunjangan extends StatelessWidget {
       },
       child: Container(
         height: 65,
-        decoration: ShapeDecoration(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          shadows: boxShadow,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: boxShadow,
+          color: kWhite,
         ),
         padding: const EdgeInsets.symmetric(
           horizontal: 12,
@@ -47,8 +45,8 @@ class ItemTunjangan extends StatelessWidget {
                     Text(
                       dataTunjangan.periode,
                       style: Styles.kPoppinsMedium.copyWith(
-                        fontSize: 14,
                         color: kBlack,
+                        fontSize: 14,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -88,15 +86,15 @@ class ItemTunjangan extends StatelessWidget {
                     Text(
                       'Beras',
                       style: Styles.kPoppinsRegular.copyWith(
-                        fontSize: 12,
                         color: kNeutral80,
+                        fontSize: 12,
                       ),
                     ),
                     Text(
                       dataTunjangan.berat,
                       style: Styles.kPoppinsMedium.copyWith(
-                        fontSize: 16,
                         color: kBlue,
+                        fontSize: 16,
                       ),
                     ),
                   ],

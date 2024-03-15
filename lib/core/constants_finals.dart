@@ -53,7 +53,6 @@ const Color kGreen = Color(0xFF4AAF57);
 const Color kGreenComplete = Color(0xFF18C07A);
 const Color kRed = Color(0xFFE65768);
 
-
 // Box Shadow
 const List<BoxShadow> boxShadow = [
   BoxShadow(

@@ -17,11 +17,14 @@ class DetailAgendaCubit extends Cubit<DetailAgendaState> {
 
     final result = await locator<AgendaRepositoriesImpl>().getDetailAgenda();
 
-    result.fold((failure) {
-      emit(DetailAgendaError(failure.message));
-    }, (data) {
-      detailAgenda = data;
-      emit(DetailAgendaLoaded());
-    });
+    result.fold(
+      (failure) {
+        emit(DetailAgendaError(failure.message));
+      },
+      (success) {
+        detailAgenda = success;
+        emit(DetailAgendaLoaded(success.data));
+      },
+    );
   }
 }

@@ -11,7 +11,11 @@ class RekapMonitoring extends DetailMonitoringState {}
 
 class DetailMonitoringLoading extends DetailMonitoring {}
 
-class DetailMonitoringLoaded extends DetailMonitoring {}
+class DetailMonitoringLoaded extends DetailMonitoring {
+  final List<DataDetailMonitoringModel> data;
+
+  DetailMonitoringLoaded(this.data);
+}
 
 class DetailMonitoringError extends DetailMonitoring {
   final String message;

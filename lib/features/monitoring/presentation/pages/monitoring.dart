@@ -7,7 +7,9 @@ import '../cubit/monitoring_cubit.dart';
 import '../widgets/item_monitoring.dart';
 
 class MonitoringPage extends StatelessWidget {
-  const MonitoringPage({super.key});
+  const MonitoringPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class MonitoringPage extends StatelessWidget {
                 'Monitoring',
                 style: Styles.kPoppinsSemiBold.copyWith(
                   color: kWhite,
-                  fontSize: Screen.kSize20,
+                  fontSize: 20,
                 ),
               ),
               backgroundColor: kBlue,
@@ -39,8 +41,6 @@ class MonitoringPage extends StatelessWidget {
                     BlendMode.srcIn,
                   ),
                   fit: BoxFit.scaleDown,
-                  width: Screen.kSize24,
-                  height: Screen.kSize24,
                 ),
               ),
             ),
@@ -52,73 +52,74 @@ class MonitoringPage extends StatelessWidget {
             monitoringCubit.getMonitorings();
           },
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: bgColor,
               borderRadius: BorderRadius.vertical(
-                top: Radius.circular(
-                  Screen.kSize32,
-                ),
+                top: Radius.circular(32),
               ),
             ),
-            padding: EdgeInsets.symmetric(
-              horizontal: Screen.kSize20,
-              vertical: Screen.kSize32,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 32,
             ),
             child: BlocBuilder<MonitoringCubit, MonitoringState>(
               bloc: monitoringCubit..getMonitorings(),
               builder: (context, state) {
+                // Loading
                 if (state is MonitoringLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
 
+                // Loaded
                 if (state is MonitoringLoaded) {
                   return ListView.separated(
                     itemBuilder: (context, index) {
                       return ItemMonitoring(
-                        dataMonitoring: monitoringCubit.dataMonitoring[index],
+                        dataMonitoring: state.data[index],
                       );
                     },
                     separatorBuilder: (context, index) {
-                      return SizedBox(
-                        height: Screen.kSize8,
+                      return const SizedBox(
+                        height: 8,
                       );
                     },
-                    itemCount: monitoringCubit.dataMonitoring.length,
+                    itemCount: state.data.length,
                   );
                 }
 
+                // Empty
                 if (state is MonitoringEmpty) {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          height: Screen.kSize32,
+                        const SizedBox(
+                          height: 32,
                         ),
                         SvgPicture.asset(
                           emptyDataSvg,
                         ),
-                        SizedBox(
-                          height: Screen.kSize24,
+                        const SizedBox(
+                          height: 24,
                         ),
                         Text(
                           'Saat ini tidak ada data monitoring',
                           style: Styles.kPoppinsSemiBold.copyWith(
-                            fontSize: Screen.kSize18,
                             color: kBlack,
+                            fontSize: 18,
                           ),
                         ),
-                        SizedBox(
-                          height: Screen.kSize8,
+                        const SizedBox(
+                          height: 8,
                         ),
                         Text(
                           'Belum ada orang yang masuk',
                           textAlign: TextAlign.center,
                           style: Styles.kNunitoRegular.copyWith(
-                            fontSize: Screen.kSize14,
                             color: kNeutral80,
+                            fontSize: 14,
                           ),
                         ),
                       ],

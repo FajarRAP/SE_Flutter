@@ -11,7 +11,11 @@ class Cuti extends CutiState {}
 
 class RekapCutiLoading extends RekapCuti {}
 
-class RekapCutiLoaded extends RekapCuti {}
+class RekapCutiLoaded extends RekapCuti {
+  final DataRekapCutiModel data;
+
+  RekapCutiLoaded(this.data);
+}
 
 class RekapCutiError extends RekapCuti {
   final String message;
@@ -21,7 +25,11 @@ class RekapCutiError extends RekapCuti {
 
 class CutiLoading extends Cuti {}
 
-class CutiLoaded extends Cuti {}
+class CutiLoaded extends Cuti {
+  final List<DataCutiModel> data;
+
+  CutiLoaded(this.data);
+}
 
 class CutiEmpty extends Cuti {}
 

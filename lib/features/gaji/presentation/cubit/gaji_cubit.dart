@@ -18,13 +18,13 @@ class GajiCubit extends Cubit<GajiState> {
     final result = await locator<GajiRepositoriesImpl>().getGajis();
 
     result.fold(
-      (l) {
-        emit(GajiError(l.message));
+      (failure) {
+        emit(GajiError(failure.message));
       },
-      (r) {
-        gajiModel = r;
-        if (r.data.isNotEmpty) {
-          emit(GajiLoaded());
+      (success) {
+        gajiModel = success;
+        if (success.data.isNotEmpty) {
+          emit(GajiLoaded(success.data));
         } else {
           emit(GajiEmpty());
         }

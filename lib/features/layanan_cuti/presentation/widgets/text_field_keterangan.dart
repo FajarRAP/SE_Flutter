@@ -15,30 +15,32 @@ class TextFieldKeterangan extends StatefulWidget {
 
 class _TextFieldKeteranganState extends State<TextFieldKeterangan> {
   final TextEditingController keteranganController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     final TambahSuntingCutiCubit tambahSuntingCutiCubit =
         context.read<TambahSuntingCutiCubit>();
-    keteranganController.text = tambahSuntingCutiCubit.keterangan;
+    keteranganController.text = tambahSuntingCutiCubit.getKeterangan;
+
     return TextField(
       controller: keteranganController,
       maxLines: 5,
       style: Styles.kNunitoRegular.copyWith(
-        fontSize: Screen.kSize16,
         color: kNeutral90,
+        fontSize: 16,
       ),
       decoration: InputDecoration(
-        isDense: true,
+        border: InputBorder.none,
+        contentPadding: const EdgeInsets.all(0),
         hintStyle: Styles.kNunitoRegular.copyWith(
-          fontSize: Screen.kSize16,
+          fontSize: 16,
           color: kNeutral70,
         ),
-        contentPadding: const EdgeInsets.all(0), // Menghilangkan padding
-        border: InputBorder.none, // Menghilangkan border
         hintText: 'Masukan alasan cuti',
+        isDense: true,
       ),
       onChanged: (value) {
-        tambahSuntingCutiCubit.keterangan = value;
+        tambahSuntingCutiCubit.setKeterangan = value;
       },
     );
   }

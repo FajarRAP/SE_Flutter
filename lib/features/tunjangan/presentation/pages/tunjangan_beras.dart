@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../../../../core/functions.dart';
@@ -36,8 +35,6 @@ class TunjanganBerasPage extends StatelessWidget {
                     BlendMode.srcIn,
                   ),
                   fit: BoxFit.scaleDown,
-                  width: 24,
-                  height: 24,
                 ),
               ),
               title: Text(
@@ -68,6 +65,7 @@ class TunjanganBerasPage extends StatelessWidget {
             ),
             child: Column(
               children: [
+                // Tanggal
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -75,18 +73,17 @@ class TunjanganBerasPage extends StatelessWidget {
                       onPressed: () async {
                         final DateTime? date = await ourMonthPicker(context);
                         if (date != null) {
-                          tunjanganCubit.datePicked =
-                              DateFormat('M, yyyy').format(date);
+                          tunjanganCubit.setDatePicked = date;
                           tunjanganCubit.getTunjangans();
                         }
                       },
                       child: BlocBuilder<TunjanganCubit, TunjanganState>(
                         builder: (context, state) {
                           return Text(
-                            'Bulan ${tunjanganCubit.datePicked}',
+                            'Bulan ${tunjanganCubit.getDatePicked}',
                             style: Styles.kPoppinsMedium.copyWith(
-                              fontSize: 14,
                               color: kNeutral80,
+                              fontSize: 14,
                             ),
                           );
                         },
@@ -98,12 +95,14 @@ class TunjanganBerasPage extends StatelessWidget {
                   child: BlocBuilder<TunjanganCubit, TunjanganState>(
                     bloc: tunjanganCubit..getTunjangans(),
                     builder: (context, state) {
+                      // Loading
                       if (state is TunjanganLoading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
 
+                      // Loaded
                       if (state is TunjanganLoaded) {
                         return ListView.separated(
                           itemBuilder: (context, index) {
@@ -120,6 +119,7 @@ class TunjanganBerasPage extends StatelessWidget {
                         );
                       }
 
+                      // Empty
                       if (state is TunjanganEmpty) {
                         return Center(
                           child: Column(
@@ -134,8 +134,8 @@ class TunjanganBerasPage extends StatelessWidget {
                               Text(
                                 'Tidak Ada Tunjangan',
                                 style: Styles.kPoppinsSemiBold.copyWith(
-                                  fontSize: 18,
                                   color: kBlack,
+                                  fontSize: 18,
                                 ),
                               ),
                               const SizedBox(
@@ -145,8 +145,8 @@ class TunjanganBerasPage extends StatelessWidget {
                                 'Tidak ada data tunjangan untuk ditampilkan',
                                 textAlign: TextAlign.center,
                                 style: Styles.kNunitoRegular.copyWith(
-                                  fontSize: 14,
                                   color: kNeutral90,
+                                  fontSize: 14,
                                 ),
                               ),
                             ],
@@ -154,6 +154,7 @@ class TunjanganBerasPage extends StatelessWidget {
                         );
                       }
 
+                      // Default
                       return Center(
                         child: ElevatedButton(
                           onPressed: () {

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:konsumsi_api_agenda/features/agenda/data/data_sources/remote.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../injection_container.dart';
@@ -19,6 +20,7 @@ class AgendaCubit extends Cubit<AgendaState> {
 
   Future<void> getAgendas() async {
     emit(AgendaLoading());
+    // final result =  await AgendaRepositoriesImpl(agendaService: AgendaService()).getAgendas(kata,tanggal, isBerjalan);
     final result = await locator<AgendaRepositoriesImpl>()
         .getAgendas(kata, tanggal, isBerjalan);
     result.fold(

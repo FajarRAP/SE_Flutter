@@ -7,7 +7,11 @@ final class DetailAgendaInitial extends DetailAgendaState {}
 
 class DetailAgendaLoading extends DetailAgendaState {}
 
-class DetailAgendaLoaded extends DetailAgendaState {}
+class DetailAgendaLoaded extends DetailAgendaState {
+  final DataDetailAgendaModel data;
+
+  DetailAgendaLoaded(this.data);
+}
 
 class DetailAgendaError extends DetailAgendaState {
   final String message;

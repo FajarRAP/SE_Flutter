@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:konsumsi_api_agenda/injection_container.dart';
+import '../../../../injection_container.dart';
 import 'package:meta/meta.dart';
 
 import '../../data/models/detail_agenda.dart';
@@ -17,11 +17,14 @@ class DetailAgendaCubit extends Cubit<DetailAgendaState> {
 
     final result = await locator<AgendaRepositoriesImpl>().getDetailAgenda();
 
-    result.fold((failure) {
-      emit(DetailAgendaError(failure.message));
-    }, (data) {
-      detailAgenda = data;
-      emit(DetailAgendaLoaded());
-    });
+    result.fold(
+      (failure) {
+        emit(DetailAgendaError(failure.message));
+      },
+      (success) {
+        detailAgenda = success;
+        emit(DetailAgendaLoaded(success.data));
+      },
+    );
   }
 }

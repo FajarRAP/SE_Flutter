@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'core/constants_finals.dart';
+import 'core/routes.dart';
 import 'features/agenda/presentation/cubit/agenda_cubit.dart';
 import 'features/agenda/presentation/cubit/detail_agenda_cubit.dart';
-import 'features/layanan_cuti/bloc/layanan_cuti_bloc.dart';
-import 'features/layanan_cuti/bloc/other_cuti_bloc.dart';
-import 'features/monitoring/bloc/detail_monitoring_bloc.dart';
-import 'features/monitoring/bloc/monitoring_bloc.dart';
-import 'home_page.dart';
+import 'features/gaji/presentation/cubit/detail_gaji_cubit.dart';
+import 'features/gaji/presentation/cubit/gaji_cubit.dart';
+import 'features/layanan_cuti/presentation/cubit/cuti_cubit.dart';
+import 'features/layanan_cuti/presentation/cubit/tambah_sunting_cuti_cubit.dart';
+import 'features/monitoring/presentation/cubit/detail_monitoring_cubit.dart';
+import 'features/monitoring/presentation/cubit/monitoring_cubit.dart';
+import 'features/shift/presentation/cubit/shift_cubit.dart';
+import 'features/tunjangan/presentation/cubit/detail_tunjangan_cubit.dart';
+import 'features/tunjangan/presentation/cubit/tunjangan_cubit.dart';
 import 'injection_container.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   dependencyInjection();
   runApp(const MyApp());
 }
@@ -24,19 +31,27 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => AgendaCubit()),
         BlocProvider(create: (context) => DetailAgendaCubit()),
-        BlocProvider(create: (context) => LayananCutiBloc()),
-        BlocProvider(create: (context) => OtherCutiBloc()),
-        BlocProvider(create: (context) => MonitoringBloc()),
-        BlocProvider(create: (context) => DetailMonitoringBloc()),
+        BlocProvider(create: (context) => CutiCubit()),
+        BlocProvider(create: (context) => TambahSuntingCutiCubit()),
+        BlocProvider(create: (context) => MonitoringCubit()),
+        BlocProvider(create: (context) => DetailMonitoringCubit()),
+        BlocProvider(create: (context) => GajiCubit()),
+        BlocProvider(create: (context) => DetailGajiCubit()),
+        BlocProvider(create: (context) => ShiftCubit()),
+        BlocProvider(create: (context) => TunjanganCubit()),
+        BlocProvider(create: (context) => DetailTunjanganCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: true,
         title: 'ADISTY',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: kBlue),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: kBlue,
+          ),
           useMaterial3: true,
         ),
-        home: const HomePage(),
+        initialRoute: homeRoute,
+        routes: Routes.routes,
       ),
     );
   }

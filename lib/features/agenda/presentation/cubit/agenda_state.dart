@@ -7,7 +7,11 @@ final class AgendaInitial extends AgendaState{}
 
 class AgendaLoading extends AgendaState {}
 
-class AgendaLoaded extends AgendaState {}
+class AgendaLoaded extends AgendaState {
+  final List<DataAgendaModel> data;
+
+  AgendaLoaded(this.data);
+}
 
 class AgendaEmpty extends AgendaState {}
 

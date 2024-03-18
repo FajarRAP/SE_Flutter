@@ -1,8 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
 
-import 'package:konsumsi_api_agenda/core/failure.dart';
-
+import '../../../../core/failure.dart';
 import '../../domain/repositories/agenda_repositories.dart';
 import '../data_sources/remote.dart';
 import '../models/agenda.dart';

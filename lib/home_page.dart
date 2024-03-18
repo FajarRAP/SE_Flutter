@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'agenda/pages/agenda_page.dart';
-import 'gaji/pages/informasi_gaji.dart';
-import 'layanan_cuti/pages/layanan_cuti.dart';
-import 'monitoring/pages/monitoring_page.dart';
-import 'shift/pages/jadwal_shift.dart';
-import 'tunjangan/pages/tunjangan_beras.dart';
+import 'features/agenda/presentation/pages/agenda.dart';
 
-import 'helper/size_config.dart';
+import 'features/gaji/pages/informasi_gaji.dart';
+import 'features/layanan_cuti/pages/layanan_cuti.dart';
+import 'features/monitoring/pages/monitoring_page.dart';
+import 'features/shift/pages/jadwal_shift.dart';
+import 'features/tunjangan/pages/tunjangan_beras.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

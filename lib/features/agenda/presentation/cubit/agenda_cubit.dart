@@ -18,23 +18,49 @@ class AgendaCubit extends Cubit<AgendaState> {
   String datePicked = DateFormat('M, yyyy').format(DateTime.now());
   bool isBerjalan = true;
 
+  // Setter
+  set setKata(final String kata) => this.kata = kata;
+  set setTanggal(final DateTime date) =>
+      tanggal = DateFormat('dd-MM-yyyy').format(date);
+  set setDatePicked(final DateTime date) =>
+      datePicked = DateFormat('M, yyyy').format(date);
+
+  // Getter
+  bool get getIsBerjalan => isBerjalan;
+  String get getDatePicked => datePicked;
+
+  // Fungsi
   Future<void> getAgendas() async {
     emit(AgendaLoading());
-    // final result =  await AgendaRepositoriesImpl(agendaService: AgendaService()).getAgendas(kata,tanggal, isBerjalan);
+
     final result = await locator<AgendaRepositoriesImpl>()
         .getAgendas(kata, tanggal, isBerjalan);
+
     result.fold(
       (failure) {
         emit(AgendaError(failure.message));
       },
-      (data) {
-        agenda = data;
-        if (agenda!.data.isNotEmpty) {
-          emit(AgendaLoaded());
+      (success) {
+        agenda = success;
+        if (success.data.isNotEmpty) {
+          emit(AgendaLoaded(success.data));
         } else {
           emit(AgendaEmpty());
         }
       },
     );
+  }
+
+  void clickBerjalan() {
+    isBerjalan = true;
+  }
+
+  void clickSelesai() {
+    isBerjalan = false;
+  }
+
+  void clear() {
+    kata = '';
+    tanggal = '';
   }
 }

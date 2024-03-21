@@ -5,13 +5,17 @@ sealed class TunjanganState {}
 
 final class TunjanganInitial extends TunjanganState {}
 
-final class TunjanganLoading extends TunjanganState{}
+class TunjanganLoading extends TunjanganState {}
 
-final class TunjanganLoaded extends TunjanganState {}
+class TunjanganLoaded extends TunjanganState {
+  final List<DataTunjanganModel> data;
 
-final class TunjanganEmpty extends TunjanganState {}
+  TunjanganLoaded(this.data);
+}
 
-final class TunjanganError extends TunjanganState{
+class TunjanganEmpty extends TunjanganState {}
+
+class TunjanganError extends TunjanganState {
   final String message;
 
   TunjanganError(this.message);

@@ -6,7 +6,6 @@ import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../cubit/detail_tunjangan_cubit.dart';
-import '../widgets/tunjangan_kosong.dart';
 
 class DetailTunjangan extends StatelessWidget {
   const DetailTunjangan({super.key});
@@ -87,7 +86,7 @@ class DetailTunjangan extends StatelessWidget {
                           vertical: Screen.kSize32,
                         ),
                         child: PrettyQrView.data(
-                          data: detailTunjangan.detailTunjangan!.data.qrcode,
+                          data: detailTunjangan.detailTunjanganModel!.data.qrcode,
                         ),
                       ),
                       Container(
@@ -117,7 +116,7 @@ class DetailTunjangan extends StatelessWidget {
                                     color: kNeutral80),
                               ),
                               Text(
-                                detailTunjangan.detailTunjangan!.data.berat,
+                                detailTunjangan.detailTunjanganModel!.data.berat,
                                 style: Styles.kNunitoSemiBold.copyWith(
                                     fontSize: Screen.kSize16, color: kBlack),
                               )
@@ -148,7 +147,7 @@ class DetailTunjangan extends StatelessWidget {
                                     color: kNeutral80),
                               ),
                               Text(
-                                detailTunjangan.detailTunjangan!.data.tglAmbil,
+                                detailTunjangan.detailTunjanganModel!.data.tglAmbil,
                                 style: Styles.kNunitoSemiBold.copyWith(
                                     fontSize: Screen.kSize16, color: kBlack),
                               )
@@ -180,8 +179,7 @@ class DetailTunjangan extends StatelessWidget {
                                       color: kNeutral80),
                                 ),
                                 Text(
-                                  detailTunjangan
-                                      .detailTunjangan!.data.lokasiAmbil,
+                                  detailTunjangan.detailTunjanganModel!.data.lokasiAmbil,
                                   style: Styles.kNunitoSemiBold.copyWith(
                                       fontSize: Screen.kSize16, color: kBlack),
                                 )
@@ -192,8 +190,6 @@ class DetailTunjangan extends StatelessWidget {
                       ),
                     ],
                   );
-                } else if (state is DetailTunjanganEmpty) {
-                  return const TunjanganKosong();
                 } else if (state is DetailTunjanganError) {
                   return const Center();
                 } else {

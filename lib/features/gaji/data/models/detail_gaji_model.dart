@@ -1,17 +1,13 @@
-// To parse this JSON data, do
-//
-//     final detailGaji = detailGajiFromJson(jsonString);
-
 import 'dart:convert';
 
 DetailGajiModel detailGajiFromJson(String str) => DetailGajiModel.fromJson(json.decode(str));
 
-String detailGajiToJson(DetailGajiModel data) => json.encode(data.toJson());
+String detailGajiModelToJson(DetailGajiModel data) => json.encode(data.toJson());
 
 class DetailGajiModel {
     bool status;
     String code;
-    List<DataDetailGaji> data;
+    List<DataDetailGajiModel> data;
     String message;
 
     DetailGajiModel({
@@ -24,7 +20,7 @@ class DetailGajiModel {
     factory DetailGajiModel.fromJson(Map<String, dynamic> json) => DetailGajiModel(
         status: json["status"],
         code: json["code"],
-        data: List<DataDetailGaji>.from(json["data"].map((x) => DataDetailGaji.fromJson(x))),
+        data: List<DataDetailGajiModel>.from(json["data"].map((x) => DataDetailGajiModel.fromJson(x))),
         message: json["message"],
     );
 
@@ -36,18 +32,18 @@ class DetailGajiModel {
     };
 }
 
-class DataDetailGaji {
+class DataDetailGajiModel {
     String nominal;
     String keterangan;
     String tipe;
 
-    DataDetailGaji({
+    DataDetailGajiModel({
         required this.nominal,
         required this.keterangan,
         required this.tipe,
     });
 
-    factory DataDetailGaji.fromJson(Map<String, dynamic> json) => DataDetailGaji(
+    factory DataDetailGajiModel.fromJson(Map<String, dynamic> json) => DataDetailGajiModel(
         nominal: json["nominal"],
         keterangan: json["keterangan"],
         tipe: json["tipe"],

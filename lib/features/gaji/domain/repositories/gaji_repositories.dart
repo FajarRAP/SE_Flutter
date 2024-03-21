@@ -1,8 +1,8 @@
-import "package:dartz/dartz.dart";
+import 'package:dartz/dartz.dart';
 
-import "../../../../core/failure.dart";
+import '../../../../core/failure.dart';
 
 abstract class GajiRepositories<T> {
-  Future<Either<Failure,T>> getGaji();
-  Future<Either<Failure,T>> getDetailGaji();
+  Future<Either<Failure, T>> getGajis();
+  Future<Either<Failure, T>> getDetailGaji();
 }

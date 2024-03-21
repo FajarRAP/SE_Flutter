@@ -5,17 +5,15 @@ sealed class DetailGajiState {}
 
 final class DetailGajiInitial extends DetailGajiState {}
 
-final class DetailGajiLoading extends DetailGajiState {}
+class DetailGajiLoading extends DetailGajiState {}
 
-final class DetailGajiLoaded extends DetailGajiState {
-  final List<DataDetailGaji> data;
+class DetailGajiLoaded extends DetailGajiState {
+  final List<DataDetailGajiModel> data;
 
   DetailGajiLoaded(this.data);
 }
 
-final class DetailGajiEmpty extends DetailGajiState {}
-
-final class DetailGajiError extends DetailGajiState {
+class DetailGajiError extends DetailGajiState {
   final String message;
 
   DetailGajiError(this.message);

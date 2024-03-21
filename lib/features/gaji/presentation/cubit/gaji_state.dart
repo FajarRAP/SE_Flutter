@@ -5,17 +5,18 @@ sealed class GajiState {}
 
 final class GajiInitial extends GajiState {}
 
-// Gaji
-final class GajiLoading extends GajiState{}
+class GajiLoading extends GajiState {}
 
-final class GajiLoaded extends GajiState{}
+class GajiLoaded extends GajiState {
+  final List<DataGajiModel> data;
 
-final class GajiEmpty extends GajiState{}
-
-final class GajiError extends GajiState{
-  final String message;
-  GajiError(this.message);
+  GajiLoaded(this.data);
 }
 
+class GajiEmpty extends GajiState {}
 
+class GajiError extends GajiState {
+  final String message;
 
+  GajiError(this.message);
+}

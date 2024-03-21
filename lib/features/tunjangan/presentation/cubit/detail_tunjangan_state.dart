@@ -5,13 +5,15 @@ sealed class DetailTunjanganState {}
 
 final class DetailTunjanganInitial extends DetailTunjanganState {}
 
-final class DetailTunjanganLoading extends DetailTunjanganState{}
+class DetailTunjanganLoading extends DetailTunjanganState {}
 
-final class DetailTunjanganLoaded extends DetailTunjanganState{}
+class DetailTunjanganLoaded extends DetailTunjanganState {
+  final DataDetailTunjanganModel data;
 
-final class DetailTunjanganEmpty extends DetailTunjanganState{}
+  DetailTunjanganLoaded(this.data);
+}
 
-final class DetailTunjanganError extends DetailTunjanganState{
+class DetailTunjanganError extends DetailTunjanganState {
   final String message;
 
   DetailTunjanganError(this.message);

@@ -3,17 +3,32 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// API
 const String url = 'https://dev.laz-almuthiin.com/';
 const String route = 'api/';
 const Map<String, String> endpoint = {
   'agenda': 'agenda?',
   'detailAgenda': 'detil_agenda',
-  'tunjanganBeras': 'tunjangan_beras?',
-  'detailTunjanganBeras': 'detil_tunjangan_beras',
+  'daftarCuti': 'daftar_cuti',
+  'rekapCuti': 'rekap_cuti',
+  'monitoring': 'monitoring',
+  'rekapMonitoring': 'monitoring_rekap',
+  'detailMonitoring': 'monitoring_detil',
   'gaji': 'gaji',
   'detailGaji': 'gaji_detil',
+  'shift': 'jadwal_shift',
+  'tunjangan': 'tunjangan_beras',
+  'detailTunjangan': 'detil_tunjangan_beras',
 };
 
+// Assets Location
+const String arrowBackSvg = 'assets/icons/arrow-left.svg';
+const String penEditSvg = 'assets/icons/edit-2.svg';
+const String emptyDataSvg = 'assets/icons/libur-jadwal-perkuliahan.svg';
+const String pemasukanSvg = 'assets/icons/pemasukan.svg';
+const String pengeluaranSvg = 'assets/icons/potongan.svg';
+
+// Colors
 const Color kWhite = Color(0xFFFFFFFF);
 const Color kBlack = Color(0xFF293241);
 const Color kGrey = Color(0xFF7A8089);
@@ -30,6 +45,7 @@ const Color kNeutral90 = Color(0xFF5F6570);
 const Color kNeutral100 = Color(0xFF293241);
 
 const Color bgColor = Color((0xFFF6F7F9));
+const Color bgButton = Color(0XffEE6C4D);
 const Color kBlue = Color(0xFF2B86C4);
 const Color kOrange = Color(0xFFFB7F54);
 const Color kYellow = Color(0xFFFFAC30);
@@ -37,6 +53,7 @@ const Color kGreen = Color(0xFF4AAF57);
 const Color kGreenComplete = Color(0xFF18C07A);
 const Color kRed = Color(0xFFE65768);
 
+// Box Shadow
 const List<BoxShadow> boxShadow = [
   BoxShadow(
     color: Color(0x087281DF),
@@ -110,3 +127,28 @@ class Styles {
   static final TextStyle kNunitoRegular =
       GoogleFonts.nunito(fontWeight: FontWeight.w400);
 }
+
+// Nama Rute
+const String homeRoute = '/';
+const String agendaRoute = '${homeRoute}agenda/';
+const String agendaDetailRoute = '${agendaRoute}detail/';
+const String layananCutiRoute = '${homeRoute}layananCuti/';
+const String layananCutiSuntingRoute = '${layananCutiRoute}sunting/';
+const String layananCutiTambahRoute = '${layananCutiRoute}tambah/';
+const String monitoringRoute = '${homeRoute}monitoring/';
+const String monitoringDetailRoute = '${monitoringRoute}detail/';
+const String gajiRoute = '${homeRoute}gaji/';
+const String gajiDetailRoute = '${gajiRoute}detail/';
+const String shiftRoute = '${homeRoute}shift/';
+const String tunjanganRoute = '${homeRoute}tunjangan/';
+const String tunjanganDetailRoute = '${tunjanganRoute}detail/';
+
+// Hari
+const List<String> days = [
+  'Senin',
+  'Selasa',
+  'Rabu',
+  'Kamis',
+  'Jum\'at',
+  'Sabtu',
+];

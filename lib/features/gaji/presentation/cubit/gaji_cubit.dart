@@ -1,27 +1,30 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../injection_container.dart';
-import '../../data/models/gaji_model.dart';
-import '../../data/repositories/gaji_repositories_impl.dart';
+import '../../data/models/gaji.dart';
+import '../../data/repositores/gaji_repositories_impl.dart';
 
 part 'gaji_state.dart';
 
 class GajiCubit extends Cubit<GajiState> {
   GajiCubit() : super(GajiInitial());
 
-  GajiModel? gaji;
+  GajiModel? gajiModel;
 
-  Future<void> getGaji() async {
+  Future<void> getGajis() async {
     emit(GajiLoading());
-    final result = await locator<GajiRepositoriesImpl>().getGaji();
+
+    final result = await locator<GajiRepositoriesImpl>().getGajis();
+
     result.fold(
-      (failure) => emit(GajiError(failure.message)),
-      (data) {
-        gaji = data;
-        if (gaji!.data.isNotEmpty) {
-          emit(GajiLoaded());
+      (failure) {
+        emit(GajiError(failure.message));
+      },
+      (success) {
+        gajiModel = success;
+        if (success.data.isNotEmpty) {
+          emit(GajiLoaded(success.data));
         } else {
           emit(GajiEmpty());
         }

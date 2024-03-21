@@ -26,7 +26,7 @@ class Tunjangan extends StatelessWidget {
         backgroundColor: kWhite,
         color: kBlue,
         onRefresh: () async {
-          tunjanganCubit.getTunjangan(selectedDate);
+          tunjanganCubit.getTunjangans(selectedDate);
         },
         child: Column(
           children: [
@@ -106,7 +106,7 @@ class Tunjangan extends StatelessWidget {
                                   selectedDate =
                                       DateFormat('dd MM y').format(date);
                                   tanggal = DateFormat('M, yyyy').format(date);
-                                  tunjanganCubit.getTunjangan(selectedDate);
+                                  tunjanganCubit.getTunjangans(selectedDate);
                                 }
                               },
                             );
@@ -127,7 +127,7 @@ class Tunjangan extends StatelessWidget {
                       ],
                     ),
                     BlocBuilder<TunjanganCubit, TunjanganState>(
-                      bloc: tunjanganCubit..getTunjangan(selectedDate),
+                      bloc: tunjanganCubit..getTunjangans(selectedDate),
                       builder: (context, state) {
                         print(state);
                         if (state is TunjanganLoading) {

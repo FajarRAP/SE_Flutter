@@ -14,9 +14,9 @@ class GajiRepositoriesImpl implements GajiRepositories {
   GajiRepositoriesImpl({required this.gajiService});
 
   @override
-  Future<Either<Failure, GajiModel>> getGaji() async {
+  Future<Either<Failure, GajiModel>> getGajis() async {
     try {
-      final Response response = await gajiService.getGaji();
+      final Response response = await gajiService.getGajis();
       if (response.statusCode == 200) {
         return Right(gajiFromJson(response.body));
       } else {

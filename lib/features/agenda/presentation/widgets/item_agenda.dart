@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../../data/models/agenda.dart';
-import '../pages/detail_agenda.dart';
 
 class ItemAgenda extends StatelessWidget {
   final DataAgendaModel dataAgenda;
@@ -14,20 +13,17 @@ class ItemAgenda extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: Screen.kSize12),
-      padding: EdgeInsets.all(Screen.kSize12),
+      padding: const EdgeInsets.all(12),
       width: double.infinity,
-      decoration: ShapeDecoration(
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Screen.kSize12),
-        ),
-        shadows: boxShadow,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: boxShadow,
+        color: kWhite,
       ),
       child: InkWell(
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const DetailAgendaPage()),
-        ),
+        onTap: () {
+          Navigator.of(context).pushNamed(agendaDetailRoute);
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -36,8 +32,8 @@ class ItemAgenda extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Styles.kPoppinsMedium.copyWith(
-                fontSize: Screen.kSize14,
                 color: kBlack,
+                fontSize: 14,
               ),
             ),
             RichText(
@@ -46,15 +42,15 @@ class ItemAgenda extends StatelessWidget {
                   TextSpan(
                     text: 'Dari: ',
                     style: Styles.kNunitoRegular.copyWith(
-                      fontSize: Screen.kSize14,
                       color: kNeutral80,
+                      fontSize: 14,
                     ),
                   ),
                   TextSpan(
                     text: dataAgenda.unitPengundang,
                     style: Styles.kNunitoRegular.copyWith(
-                      fontSize: Screen.kSize14,
                       color: kBlue,
+                      fontSize: 14,
                     ),
                   ),
                 ],
@@ -65,8 +61,8 @@ class ItemAgenda extends StatelessWidget {
               child: Text(
                 dataAgenda.tanggal,
                 style: Styles.kNunitoRegular.copyWith(
-                  fontSize: Screen.kSize12,
                   color: kNeutral70,
+                  fontSize: 12,
                 ),
               ),
             ),

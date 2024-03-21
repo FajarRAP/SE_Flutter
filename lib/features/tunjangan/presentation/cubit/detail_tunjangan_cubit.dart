@@ -10,21 +10,20 @@ part 'detail_tunjangan_state.dart';
 class DetailTunjanganCubit extends Cubit<DetailTunjanganState> {
   DetailTunjanganCubit() : super(DetailTunjanganInitial());
 
-  DetailTunjanganModel? detailTunjangan;
+  DetailTunjanganModel? detailTunjanganModel;
 
   Future<void> getDetailTunjangan() async {
     emit(DetailTunjanganLoading());
+
     final result =
         await locator<TunjanganRepositoriesImpl>().getDetailTunjangan();
+
     result.fold(
-      (failure) => emit(DetailTunjanganError(failure.message)),
-      (data) {
-        detailTunjangan = data;
-        if (detailTunjangan!.data.isNotEmpty) {
-          emit(DetailTunjanganLoaded());
-        } else {
-          emit(DetailTunjanganEmpty());
-        }
+      (failure) {
+        emit(DetailTunjanganError(failure.message));
+      },
+      (success) {
+        emit(DetailTunjanganLoaded(success.data));
       },
     );
   }

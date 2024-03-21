@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -13,17 +12,17 @@ class TunjanganCubit extends Cubit<TunjanganState> {
 
   TunjanganModel? tunjangan;
 
-  Future<void> getTunjangan(String date) async {
+  Future<void> getTunjangans(String date) async {
     emit(TunjanganLoading());
     final result =
-        await locator<TunjanganRepositoriesImpl>().getTunjangan(date);
+        await locator<TunjanganRepositoriesImpl>().getTunjangans(date);
     result.fold(
       (failure) => emit(TunjanganError(failure.message)),
       (data) {
         tunjangan = data;
 
         if(tunjangan!.data.isNotEmpty){
-          emit(TunjanganLoaded());
+          emit(TunjanganLoaded(tunjangan!.data));
         }else{
           emit(TunjanganEmpty());
         }

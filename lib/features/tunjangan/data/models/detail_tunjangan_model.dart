@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final detailTunjangan = detailTunjanganFromJson(jsonString);
-
 import 'dart:convert';
 
 DetailTunjanganModel detailTunjanganFromJson(String str) => DetailTunjanganModel.fromJson(json.decode(str));
@@ -10,7 +6,7 @@ String detailTunjanganToJson(DetailTunjanganModel data) => json.encode(data.toJs
 
 class DetailTunjanganModel {
     bool status;
-    DataDetailTunjangan data;
+    DataDetailTunjanganModel data;
     String code;
     String message;
 
@@ -23,7 +19,7 @@ class DetailTunjanganModel {
 
     factory DetailTunjanganModel.fromJson(Map<String, dynamic> json) => DetailTunjanganModel(
         status: json["status"],
-        data: DataDetailTunjangan.fromJson(json["data"]),
+        data: DataDetailTunjanganModel.fromJson(json["data"]),
         code: json["code"],
         message: json["message"],
     );
@@ -36,14 +32,14 @@ class DetailTunjanganModel {
     };
 }
 
-class DataDetailTunjangan {
+class DataDetailTunjanganModel {
     String berat;
     String tglAmbil;
     String lokasiAmbil;
     String statusAmbil;
     String qrcode;
 
-    DataDetailTunjangan({
+    DataDetailTunjanganModel({
         required this.berat,
         required this.tglAmbil,
         required this.lokasiAmbil,
@@ -51,7 +47,7 @@ class DataDetailTunjangan {
         required this.qrcode,
     });
 
-    factory DataDetailTunjangan.fromJson(Map<String, dynamic> json) => DataDetailTunjangan(
+    factory DataDetailTunjanganModel.fromJson(Map<String, dynamic> json) => DataDetailTunjanganModel(
         berat: json["berat"],
         tglAmbil: json["tgl_ambil"],
         lokasiAmbil: json["lokasi_ambil"],

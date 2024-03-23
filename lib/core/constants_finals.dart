@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // API
-const String url = ' http://d3v.uad.id/ipm/index.php/';
+const String url = 'http://d3v.uad.id/ipm/index.php/';
 const String route = 'auth/';
 const Map<String, String> endpoint = {
   'agenda': 'agenda?',

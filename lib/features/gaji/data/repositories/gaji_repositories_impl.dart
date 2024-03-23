@@ -6,7 +6,7 @@ import '../../../../core/failure.dart';
 import '../../domain/repositories/gaji_repositories.dart';
 import '../data_sources/remote.dart';
 import '../models/detail_gaji_model.dart';
-import '../models/gaji_model.dart';
+import '../models/gaji.dart';
 
 class GajiRepositoriesImpl implements GajiRepositories {
   final GajiService gajiService;

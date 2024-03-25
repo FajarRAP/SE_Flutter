@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // API
-const String url = 'http://d3v.uad.id/ipm/index.php/';
-const String route = 'auth/';
+const String url = 'http://d3v.uad.id/ipm/index.php/'; //taruh di remote config
+const String route = 'auth/'; //taruh di remote config
 const Map<String, String> endpoint = {
   'agenda': 'agenda?',
   'detailAgenda': 'detil_agenda',

@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDyoFeLVEl9tGdGx4xZOtabKVJiECq4dFk',
-    appId: '1:318482072163:android:1e5bf0854a5336ba506e56',
-    messagingSenderId: '318482072163',
-    projectId: 'adisty-c2548',
-    storageBucket: 'adisty-c2548.appspot.com',
+    apiKey: 'AIzaSyCk4ktZTr0Zj8Vpp3KbSNIgEQrcGwPvxoA',
+    appId: '1:858441456135:android:eeb8865f22d85b57c7a8a2',
+    messagingSenderId: '858441456135',
+    projectId: 'flutter-notification-f880a',
+    storageBucket: 'flutter-notification-f880a.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAeEFCLIsA5mGWt2evlR3Lfxdt-xgW3_tQ',
-    appId: '1:318482072163:ios:195d56595dff0caa506e56',
-    messagingSenderId: '318482072163',
-    projectId: 'adisty-c2548',
-    storageBucket: 'adisty-c2548.appspot.com',
+    apiKey: 'AIzaSyCIBJqOlJqqO4qf4VzZcDiNopJDBJMrDyg',
+    appId: '1:858441456135:ios:0c87f0995c41c843c7a8a2',
+    messagingSenderId: '858441456135',
+    projectId: 'flutter-notification-f880a',
+    storageBucket: 'flutter-notification-f880a.appspot.com',
     iosBundleId: 'com.example.konsumsiApiAgenda',
   );
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,10 +15,17 @@ import 'features/monitoring/presentation/cubit/monitoring_cubit.dart';
 import 'features/shift/presentation/cubit/shift_cubit.dart';
 import 'features/tunjangan/presentation/cubit/detail_tunjangan_cubit.dart';
 import 'features/tunjangan/presentation/cubit/tunjangan_cubit.dart';
+import 'helper/firebase_options.dart';
+import 'helper/firebase_remote_config_services.dart';
 import 'injection_container.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await FirebaseRemoteConfigServices().initialize();
   dependencyInjection();
   runApp(const MyApp());
 }

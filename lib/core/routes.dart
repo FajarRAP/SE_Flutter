@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../features/agenda/presentation/pages/agenda.dart';
 import '../features/agenda/presentation/pages/detail_agenda.dart';
 import '../features/gaji/presentation/pages/detail_gaji.dart';
@@ -10,7 +11,7 @@ import '../features/monitoring/presentation/pages/detail_monitoring.dart';
 import '../features/monitoring/presentation/pages/monitoring.dart';
 import '../features/shift/presentation/pages/jadwal_shift.dart';
 import '../features/tunjangan/presentation/pages/detail_tunjangan_beras.dart';
-import '../features/tunjangan/presentation/pages/tunjangan_beras.dart';
+import '../features/tunjangan/presentation/pages/tunjangan.dart';
 import '../home_page.dart';
 import 'constants_finals.dart';
 
@@ -27,7 +28,7 @@ class Routes {
     gajiRoute: (context) => const GajiPage(),
     gajiDetailRoute: (context) => const DetailGajiPage(),
     shiftRoute: (context) => const JadwalShiftPage(),
-    tunjanganRoute: (context) => const TunjanganBerasPage(),
+    tunjanganRoute: (context) => const Tunjangan(),
     tunjanganDetailRoute: (context) => const DetailTunjanganBerasPage(),
   };
 }

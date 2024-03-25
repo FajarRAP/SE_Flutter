@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "858441456135",
+    "project_id": "flutter-notification-f880a",
+    "storage_bucket": "flutter-notification-f880a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858441456135:android:eeb8865f22d85b57c7a8a2",
+        "android_client_info": {
+          "package_name": "com.example.konsumsi_api_agenda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk4ktZTr0Zj8Vpp3KbSNIgEQrcGwPvxoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

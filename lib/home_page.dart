@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'core/constants_finals.dart';
 
 class HomePage extends StatelessWidget {

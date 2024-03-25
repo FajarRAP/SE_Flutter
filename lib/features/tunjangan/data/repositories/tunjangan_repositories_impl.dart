@@ -13,7 +13,7 @@ class TunjanganRepositoriesImpl implements TunjanganRepositories {
 
   TunjanganRepositoriesImpl({required this.tunjanganService});
   @override
-  Future<Either<Failure, TunjanganModel>> getTunjangans() async {
+  Future<Either<Failure, TunjanganModel>> getTunjangans(String date) async {
     try {
       final Response response = await tunjanganService.getTunjangans();
       if (response.statusCode == 200) {

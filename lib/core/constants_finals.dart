@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // API
-const String url = 'https://dev.laz-almuthiin.com/';
-const String route = 'api/';
+const String url = 'http://d3v.uad.id/ipm/index.php/'; //taruh di remote config
+const String route = 'auth/'; //taruh di remote config
 const Map<String, String> endpoint = {
   'agenda': 'agenda?',
   'detailAgenda': 'detil_agenda',
@@ -92,9 +92,11 @@ class Screen {
   static final double blockSizeHorizontal = width / 100;
   static final double blockSizeVertical = height / 100;
 
+  static final double kSize2 = blockSizeHorizontal * 0.5;
   static final double kSize4 = blockSizeHorizontal * 1;
   static final double kSize8 = blockSizeHorizontal * 1.87;
   static final double kSize10 = blockSizeHorizontal * 2.35;
+  static final double kSize11 = blockSizeHorizontal * 2.5;
   static final double kSize12 = blockSizeHorizontal * 2.85;
   static final double kSize14 = blockSizeHorizontal * 3.25;
   static final double kSize16 = blockSizeHorizontal * 3.75;

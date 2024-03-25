@@ -10,6 +10,8 @@ part 'detail_tunjangan_state.dart';
 class DetailTunjanganCubit extends Cubit<DetailTunjanganState> {
   DetailTunjanganCubit() : super(DetailTunjanganInitial());
 
+  DetailTunjanganModel? detailTunjanganModel;
+
   Future<void> getDetailTunjangan() async {
     emit(DetailTunjanganLoading());
 

@@ -62,4 +62,8 @@ class DataDetailTunjanganModel {
         "status_ambil": statusAmbil,
         "qrcode": qrcode,
     };
+
+    bool get isNotEmpty {
+        return [berat, tglAmbil, lokasiAmbil, statusAmbil, qrcode].any((element) => element.isNotEmpty);
+    }
 }

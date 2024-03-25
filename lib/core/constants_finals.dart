@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // API
-const String url = 'https://dev.laz-almuthiin.com/';
-const String route = 'api/';
+const String url = 'http://d3v.uad.id/';
+const String route = 'ipm/index.php/auth/';
 const Map<String, String> endpoint = {
   'agenda': 'agenda?',
   'detailAgenda': 'detil_agenda',

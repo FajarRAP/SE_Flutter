@@ -22,9 +22,7 @@ class ItemDetailAgenda extends StatelessWidget {
           'assets/icons/agenda-${kata.toLowerCase()}.svg',
           width: 40,
         ),
-        const SizedBox(
-          width: 16,
-        ),
+        const SizedBox(width: 16),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

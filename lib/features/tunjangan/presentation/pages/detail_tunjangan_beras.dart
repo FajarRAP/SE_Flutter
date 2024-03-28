@@ -43,16 +43,14 @@ class DetailTunjanganBerasPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: 18,
-                    height: 18,
                     decoration: BoxDecoration(
                       color: kBlue,
                       borderRadius: BorderRadiusDirectional.circular(4),
                     ),
+                    height: 18,
+                    width: 18,
                   ),
-                  const SizedBox(
-                    width: 16,
-                  ),
+                  const SizedBox(width: 16),
                   Text(
                     'Tunjangan Beras',
                     style: Styles.kPoppinsMedium.copyWith(
@@ -103,9 +101,8 @@ class DetailTunjanganBerasPage extends StatelessWidget {
                               color: bgColor,
                               height: 8,
                             ),
-                            const SizedBox(
-                              height: 32,
-                            ),
+
+                            const SizedBox(height: 32),
 
                             // Berat
                             ItemDetailTunjangan(
@@ -113,9 +110,7 @@ class DetailTunjanganBerasPage extends StatelessWidget {
                               value: state.data.berat,
                             ),
 
-                            const SizedBox(
-                              height: 24,
-                            ),
+                            const SizedBox(height: 24),
 
                             // Tanggal
                             ItemDetailTunjangan(
@@ -123,9 +118,7 @@ class DetailTunjanganBerasPage extends StatelessWidget {
                               value: state.data.tglAmbil,
                             ),
 
-                            const SizedBox(
-                              height: 24,
-                            ),
+                            const SizedBox(height: 24),
 
                             // Lokasi
                             ItemDetailTunjangan(
@@ -155,4 +148,3 @@ class DetailTunjanganBerasPage extends StatelessWidget {
     );
   }
 }
-

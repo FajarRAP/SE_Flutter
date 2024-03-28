@@ -28,7 +28,7 @@ class Routes {
     gajiRoute: (context) => const GajiPage(),
     gajiDetailRoute: (context) => const DetailGajiPage(),
     shiftRoute: (context) => const JadwalShiftPage(),
-    tunjanganRoute: (context) => const Tunjangan(),
+    tunjanganRoute: (context) => const TunjanganBerasPage(),
     tunjanganDetailRoute: (context) => const DetailTunjanganBerasPage(),
   };
 }

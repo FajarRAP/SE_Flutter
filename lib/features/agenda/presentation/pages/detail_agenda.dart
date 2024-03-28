@@ -51,9 +51,7 @@ class DetailAgendaPage extends StatelessWidget {
                 children: [
                   // Nama dan Tanggal
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: NamaDanTanggal(
                       nama: state.data.namaEvent,
                       tanggal: state.data.tanggal,
@@ -61,22 +59,16 @@ class DetailAgendaPage extends StatelessWidget {
                   ),
 
                   // Pembatas
-                  const SizedBox(
-                    height: 24,
-                  ),
+                  const SizedBox(height: 24),
                   Container(
                     height: 8,
                     color: const Color(0xFFF0F1F3),
                   ),
-                  const SizedBox(
-                    height: 32,
-                  ),
+                  const SizedBox(height: 32),
 
                   // Item Detail Agenda
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -84,34 +76,24 @@ class DetailAgendaPage extends StatelessWidget {
                           kata: 'Penyelenggara',
                           keterangan: state.data.unitPengundang,
                         ),
-                        const SizedBox(
-                          height: 24,
-                        ),
+                        const SizedBox(height: 24),
                         ItemDetailAgenda(
                           kata: 'Pukul',
                           keterangan: state.data.jam,
                         ),
-                        const SizedBox(
-                          height: 24,
-                        ),
+                        const SizedBox(height: 24),
                         ItemDetailAgenda(
                           kata: 'Lokasi',
                           keterangan: state.data.lokasi,
                         ),
-                        const SizedBox(
-                          height: 24,
-                        ),
+                        const SizedBox(height: 24),
                         ItemDetailAgenda(
                           kata: 'Peserta',
                           keterangan: state.data.peserta,
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
+                        const SizedBox(height: 16),
                         const Divider(),
-                        const SizedBox(
-                          height: 16,
-                        ),
+                        const SizedBox(height: 16),
                         Text(
                           'Deskripsi',
                           style: Styles.kPoppinsMedium.copyWith(
@@ -119,9 +101,7 @@ class DetailAgendaPage extends StatelessWidget {
                             color: kBlack,
                           ),
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
+                        const SizedBox(height: 8),
                         Text(
                           state.data.keterangan,
                           style: Styles.kNunitoRegular.copyWith(
@@ -198,4 +178,3 @@ class DetailAgendaPage extends StatelessWidget {
     );
   }
 }
-

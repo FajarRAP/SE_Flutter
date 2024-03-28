@@ -25,9 +25,7 @@ class ItemTunjangan extends StatelessWidget {
           boxShadow: boxShadow,
           color: kWhite,
         ),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -44,12 +42,12 @@ class ItemTunjangan extends StatelessWidget {
                   children: [
                     Text(
                       dataTunjangan.periode,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: Styles.kPoppinsMedium.copyWith(
                         color: kBlack,
                         fontSize: 14,
                       ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
                     ),
                     Row(
                       children: [
@@ -61,8 +59,8 @@ class ItemTunjangan extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Styles.kPoppinsRegular.copyWith(
-                            fontSize: 12,
                             color: kNeutral80,
+                            fontSize: 12,
                           ),
                         ),
                       ],

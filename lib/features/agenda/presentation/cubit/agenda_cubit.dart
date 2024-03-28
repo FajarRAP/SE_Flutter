@@ -41,6 +41,7 @@ class AgendaCubit extends Cubit<AgendaState> {
       },
       (success) {
         agenda = success;
+
         if (success.data.isNotEmpty) {
           emit(AgendaLoaded(success.data));
         } else {

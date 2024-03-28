@@ -75,6 +75,7 @@ class MonitoringPage extends StatelessWidget {
                 // Loaded
                 if (state is MonitoringLoaded) {
                   return ListView.separated(
+                    padding: EdgeInsets.zero,
                     itemBuilder: (context, index) {
                       return ItemMonitoring(
                         dataMonitoring: state.data[index],

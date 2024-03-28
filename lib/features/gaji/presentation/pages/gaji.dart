@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../cubit/gaji_cubit.dart';
+import '../widgets/gaji_not_exist.dart';
 import '../widgets/item_gaji.dart';
 
 class GajiPage extends StatelessWidget {
@@ -53,9 +54,7 @@ class GajiPage extends StatelessWidget {
             gajiCubit.getGajis();
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: BlocBuilder<GajiCubit, GajiState>(
               bloc: gajiCubit..getGajis(),
               builder: (context, state) {
@@ -70,14 +69,10 @@ class GajiPage extends StatelessWidget {
                 if (state is GajiLoaded) {
                   return ListView.separated(
                     itemBuilder: (context, index) {
-                      return ItemGaji(
-                        dataGaji: state.data[index],
-                      );
+                      return ItemGaji(dataGaji: state.data[index]);
                     },
                     separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        height: 12,
-                      );
+                      return const SizedBox(height: 12);
                     },
                     itemCount: state.data.length,
                   );
@@ -85,40 +80,7 @@ class GajiPage extends StatelessWidget {
 
                 // Loaded empty
                 if (state is GajiEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          height: 32,
-                        ),
-                        SvgPicture.asset(
-                          emptyDataSvg,
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        Text(
-                          'Tidak ada gaji',
-                          style: Styles.kPoppinsSemiBold.copyWith(
-                            fontSize: 18,
-                            color: kBlack,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        Text(
-                          'Tidak dapat menampilkan daftar gaji',
-                          textAlign: TextAlign.center,
-                          style: Styles.kNunitoRegular.copyWith(
-                            fontSize: 14,
-                            color: kNeutral90,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+                  return const GajiNotExist();
                 }
 
                 // Default

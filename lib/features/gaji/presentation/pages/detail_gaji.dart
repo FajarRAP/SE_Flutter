@@ -9,9 +9,7 @@ import '../widgets/card_top.dart';
 import '../widgets/item_detail_gaji.dart';
 
 class DetailGajiPage extends StatelessWidget {
-  const DetailGajiPage({
-    super.key,
-  });
+  const DetailGajiPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,16 +62,12 @@ class DetailGajiPage extends StatelessWidget {
                 height: 8,
                 color: const Color(0xFFEEF2F3),
               ),
-              const SizedBox(
-                height: 24,
-              ),
+              const SizedBox(height: 24),
 
               // Bagian Bawah
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
                       // Button
@@ -82,6 +76,7 @@ class DetailGajiPage extends StatelessWidget {
                         builder: (context, state) {
                           return Row(
                             children: [
+                              // Pemasukan
                               ButtonDetailGaji(
                                 kata: 'Pemasukan',
                                 isPemasukan: detailGajiCubit.getIsPemasukan,
@@ -89,9 +84,10 @@ class DetailGajiPage extends StatelessWidget {
                                   detailGajiCubit.clickPemasukan();
                                 },
                               ),
-                              const SizedBox(
-                                width: 12,
-                              ),
+
+                              const SizedBox(width: 12),
+
+                              // Pengeluaran
                               ButtonDetailGaji(
                                 kata: 'Pengeluaran',
                                 isPemasukan: !detailGajiCubit.getIsPemasukan,
@@ -127,9 +123,7 @@ class DetailGajiPage extends StatelessWidget {
                                   );
                                 },
                                 separatorBuilder: (context, index) {
-                                  return const SizedBox(
-                                    height: 12,
-                                  );
+                                  return const SizedBox(height: 12);
                                 },
                                 itemCount: state.data.length,
                               );

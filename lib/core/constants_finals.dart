@@ -17,7 +17,7 @@ const Map<String, String> endpoint = {
   'gaji': 'gaji',
   'detailGaji': 'gaji_detil',
   'shift': 'jadwal_shift',
-  'tunjangan': 'tunjangan_beras',
+  'tunjangan': 'tunjangan_beras?',
   'detailTunjangan': 'detil_tunjangan_beras',
 };
 

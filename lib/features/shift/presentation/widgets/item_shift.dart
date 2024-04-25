@@ -16,12 +16,10 @@ class ItemShift extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),
-      decoration: ShapeDecoration(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: boxShadow,
         color: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        shadows: boxShadow,
       ),
       child: Column(
         children: [
@@ -46,9 +44,7 @@ class ItemShift extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  const SizedBox(
-                    width: 4,
-                  ),
+                  const SizedBox(width: 4),
                   Text(
                     dataShift.waktuShift,
                     style: Styles.kPoppinsMedium.copyWith(
@@ -69,9 +65,9 @@ class ItemShift extends StatelessWidget {
               SvgPicture.asset(
                 'assets/icons/tunjangan-beras-location.svg',
               ),
-              const SizedBox(
-                width: 4,
-              ),
+
+              const SizedBox(width: 4),
+              
               Text(
                 dataShift.lokasiShift,
                 style: Styles.kPoppinsMedium.copyWith(

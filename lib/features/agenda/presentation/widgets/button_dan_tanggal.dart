@@ -7,9 +7,7 @@ import '../cubit/agenda_cubit.dart';
 import 'button_berjalan_selesai.dart';
 
 class ButtonDanTanggal extends StatelessWidget {
-  const ButtonDanTanggal({
-    super.key,
-  });
+  const ButtonDanTanggal({super.key});
 
   @override
   Widget build(BuildContext context) {

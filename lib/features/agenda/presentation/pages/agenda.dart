@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../cubit/agenda_cubit.dart';
+import '../widgets/agenda_not_exist.dart';
 import '../widgets/button_dan_tanggal.dart';
 import '../widgets/cari_agenda.dart';
 import '../widgets/item_agenda.dart';
@@ -21,7 +22,7 @@ class _AgendaPageState extends State<AgendaPage> {
   @override
   Widget build(BuildContext context) {
     final AgendaCubit agendaCubit = context.read<AgendaCubit>();
-
+    
     return Scaffold(
       backgroundColor: kBlue,
       body: NestedScrollView(
@@ -76,18 +77,12 @@ class _AgendaPageState extends State<AgendaPage> {
                 // Button dan Tanggal
                 const ButtonDanTanggal(),
 
-                const SizedBox(
-                  height: 24,
-                ),
+                const SizedBox(height: 24),
 
                 // TextField Cari Agenda
-                CariAgenda(
-                  agendaController: agendaController,
-                ),
+                CariAgenda(agendaController: agendaController),
 
-                const SizedBox(
-                  height: 24,
-                ),
+                const SizedBox(height: 24),
 
                 // Data
                 Expanded(
@@ -104,15 +99,14 @@ class _AgendaPageState extends State<AgendaPage> {
                       // Loaded
                       if (state is AgendaLoaded) {
                         return ListView.separated(
+                          padding: EdgeInsets.zero,
                           itemBuilder: (context, index) {
                             return ItemAgenda(
                               dataAgenda: state.data[index],
                             );
                           },
                           separatorBuilder: (context, index) {
-                            return const SizedBox(
-                              height: 12,
-                            );
+                            return const SizedBox(height: 12);
                           },
                           itemCount: state.data.length,
                         );
@@ -120,35 +114,7 @@ class _AgendaPageState extends State<AgendaPage> {
 
                       // Empty
                       if (state is AgendaEmpty) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              emptyDataSvg,
-                            ),
-                            const SizedBox(
-                              height: 24,
-                            ),
-                            Text(
-                              'Saat ini tidak ada agenda',
-                              style: Styles.kPoppinsSemiBold.copyWith(
-                                color: kBlack,
-                                fontSize: 18,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              'Anda belum memiliki agenda',
-                              textAlign: TextAlign.center,
-                              style: Styles.kNunitoRegular.copyWith(
-                                color: kNeutral90,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        );
+                        return const AgendaNotExist();
                       }
 
                       // Default

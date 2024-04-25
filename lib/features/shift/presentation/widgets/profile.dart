@@ -11,16 +11,12 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
-        decoration: ShapeDecoration(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14),
+          boxShadow: boxShadow,
           color: kWhite,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
-          ),
-          shadows: boxShadow,
         ),
         child: Column(
           children: [
@@ -36,9 +32,7 @@ class Profile extends StatelessWidget {
                   SvgPicture.asset(
                     'assets/icons/circled_user_female.svg',
                   ),
-                  const SizedBox(
-                    width: 18,
-                  ),
+                  const SizedBox(width: 18),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -94,10 +88,9 @@ class Profile extends StatelessWidget {
                     ],
                   ),
 
+                  const SizedBox(width: 8),
+
                   // Teks :
-                  const SizedBox(
-                    width: 8,
-                  ),
                   Column(
                     children: [
                       Text(
@@ -116,9 +109,8 @@ class Profile extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    width: 8,
-                  ),
+
+                  const SizedBox(width: 8),
 
                   // Teks Value dari Unit Kerja dan Posisi
                   Column(

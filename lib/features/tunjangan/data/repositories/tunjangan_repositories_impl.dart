@@ -12,10 +12,11 @@ class TunjanganRepositoriesImpl implements TunjanganRepositories {
   final TunjanganService tunjanganService;
 
   TunjanganRepositoriesImpl({required this.tunjanganService});
+  
   @override
-  Future<Either<Failure, TunjanganModel>> getTunjangans(String date) async {
+  Future<Either<Failure, TunjanganModel>> getTunjangans(final String tanggal) async {
     try {
-      final Response response = await tunjanganService.getTunjangans();
+      final Response response = await tunjanganService.getTunjangans(tanggal);
       if (response.statusCode == 200) {
         return Right(tunjanganFromJson(response.body));
       } else {

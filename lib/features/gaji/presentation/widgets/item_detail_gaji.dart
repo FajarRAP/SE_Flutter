@@ -17,38 +17,36 @@ class ItemDetailGaji extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: ShapeDecoration(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: boxShadow,
         color: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        shadows: boxShadow,
       ),
+      padding: const EdgeInsets.all(16),
       child: Row(
         children: [
           SvgPicture.asset(
             isPemasukan ? pemasukanSvg : pengeluaranSvg,
             width: 40,
           ),
-          const SizedBox(
-            width: 16,
-          ),
+
+          const SizedBox(width: 16),
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 nominal,
                 style: Styles.kPoppinsMedium.copyWith(
-                  fontSize: 18,
                   color: kBlack,
+                  fontSize: 18,
                 ),
               ),
               Text(
                 keterangan,
                 style: Styles.kNunitoRegular.copyWith(
-                  fontSize: 14,
                   color: kNeutral90,
+                  fontSize: 14,
                 ),
               )
             ],

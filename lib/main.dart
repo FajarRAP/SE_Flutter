@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        initialRoute: homeRoute,
+        initialRoute: splashRoute,
         routes: Routes.routes,
       ),
     );

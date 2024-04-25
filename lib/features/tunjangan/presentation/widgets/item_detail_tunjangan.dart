@@ -20,24 +20,24 @@ class ItemDetailTunjangan extends StatelessWidget {
         SvgPicture.asset(
           'assets/icons/tunjangan-beras-${title.toLowerCase()}.svg',
         ),
-        const SizedBox(
-          width: 16,
-        ),
+
+        const SizedBox(width: 16),
+
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
               style: Styles.kPoppinsRegular.copyWith(
-                fontSize: 14,
                 color: kNeutral80,
+                fontSize: 14,
               ),
             ),
             Text(
               value,
               style: Styles.kNunitoSemiBold.copyWith(
-                fontSize: 16,
                 color: kBlack,
+                fontSize: 16,
               ),
             )
           ],

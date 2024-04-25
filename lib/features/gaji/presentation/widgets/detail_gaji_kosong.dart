@@ -14,19 +14,19 @@ class DetailGajiKosong extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            height: Screen.kSize32,
+            height: 32,
           ),
           SvgPicture.asset(
               'assets/icons/libur-jadwal-perkuliahan.svg'),
           SizedBox(
-            height: Screen.kSize24,
+            height: 24,
           ),
           Text(
             'Tidak ada gaji',
             style: Styles.kPoppinsSemiBold
                 .copyWith(fontSize: 18, color: kBlack),
           ),
-          SizedBox(height: Screen.kSize24),
+          SizedBox(height: 24),
           Text(
             'Tidak dapat menampilkan daftar \n gaji',
             textAlign: TextAlign.center,
@@ -34,7 +34,7 @@ class DetailGajiKosong extends StatelessWidget {
                 .copyWith(fontSize: 14, color: kNeutral90),
           ),
           SizedBox(
-            height: Screen.kSize40,
+            height: 40,
           )
         ],
       ),

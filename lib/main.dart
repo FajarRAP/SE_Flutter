@@ -1,11 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:konsumsi_api_agenda/features/homescreen/home_screen.dart';
 import 'package:konsumsi_api_agenda/splash.dart';
 
 import 'core/constants_finals.dart';
-import 'core/routes.dart';
 import 'features/agenda/presentation/cubit/agenda_cubit.dart';
 import 'features/agenda/presentation/cubit/detail_agenda_cubit.dart';
 import 'features/gaji/presentation/cubit/detail_gaji_cubit.dart';
@@ -62,7 +60,7 @@ class MyApp extends StatelessWidget {
         ),
         //initialRoute: homeRoute,
         // routes: Routes.routes,
-        home: HomeScreen(),
+        home: const Splash(),
       ),
     );
   }

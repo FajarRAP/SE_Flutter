@@ -22,7 +22,7 @@ class _AgendaPageState extends State<AgendaPage> {
   @override
   Widget build(BuildContext context) {
     final AgendaCubit agendaCubit = context.read<AgendaCubit>();
-
+    
     return Scaffold(
       backgroundColor: kBlue,
       body: NestedScrollView(

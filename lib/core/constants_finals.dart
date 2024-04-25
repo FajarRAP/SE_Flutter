@@ -130,6 +130,13 @@ class Styles {
 
 // Nama Rute
 const String homeRoute = '/';
+const String splashRoute = '${homeRoute}splash/';
+const String authRoute = '${homeRoute}auth/';
+const String loginRoute = '${authRoute}login/';
+const String forgotPasswordRoute = '${authRoute}forgotPassword/';
+const String otpVerificationRoute = '${authRoute}otpVerification/';
+const String changeNewPasswordRoute = '${authRoute}changeNewPassword/';
+const String fragmentViewRoute = '${homeRoute}fragmentView/';
 const String agendaRoute = '${homeRoute}agenda/';
 const String agendaDetailRoute = '${agendaRoute}detail/';
 const String layananCutiRoute = '${homeRoute}layananCuti/';

@@ -1,13 +1,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:page_transition/page_transition.dart';
+import 'package:page_transition/page_transition.dart';
 
 
 import '../../core/constants_finals.dart';
-// import '../05-notifications/notifications.dart';
 import '../agenda/presentation/pages/agenda.dart';
+import '../dashboard/detail_presensi_hari_ini.dart';
+import '../dashboard/detail_rekap_presensi.dart';
 import '../layanan_cuti/presentation/pages/layanan_cuti.dart';
+import '../notification/notifications.dart';
 import '../shift/presentation/pages/jadwal_shift.dart';
 import '../tunjangan/presentation/pages/tunjangan.dart';
 import 'adisty_sevice.dart';
@@ -71,14 +73,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   PageTransition(
-                      //     duration: const Duration(milliseconds: 100),
-                      //     child: const NotifikasiKosong(),
-                      //     type: PageTransitionType.fade,
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          duration: const Duration(milliseconds: 100),
+                          child: const NotifikasiKosong(),
+                          type: PageTransitionType.fade,
+                        ),
+                      );
                     },
                     child: SvgPicture.asset(
                       'assets/icons/notif.svg',
@@ -174,14 +176,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           Expanded(
                             child: InkWell(
                               onTap: () {
-                                // Navigator.push(
-                                //   context,
-                                //   PageTransition(
-                                //     duration: const Duration(milliseconds: 100),
-                                //     child: const DetailRekapPresensi(),
-                                //     type: PageTransitionType.fade,
-                                //   ),
-                                // );
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    duration: const Duration(milliseconds: 100),
+                                    child: const DetailRekapPresensi(),
+                                    type: PageTransitionType.fade,
+                                  ),
+                                );
                               },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(Screen.kSize20),
@@ -228,14 +230,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           Expanded(
                             child: InkWell(
                               onTap: () {
-                                // Navigator.push(
-                                //   context,
-                                //   PageTransition(
-                                //     duration: const Duration(milliseconds: 100),
-                                //     child: const Agenda(),
-                                //     type: PageTransitionType.fade,
-                                //   ),
-                                // );
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    duration: const Duration(milliseconds: 100),
+                                    child: const AgendaPage(),
+                                    type: PageTransitionType.fade,
+                                  ),
+                                );
                               },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(Screen.kSize20),
@@ -287,14 +289,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     flex: 17,
                     child: InkWell(
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   PageTransition(
-                        //     duration: const Duration(milliseconds: 100),
-                        //     child: const DetailPresensiHariIni(),
-                        //     type: PageTransitionType.fade,
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            duration: const Duration(milliseconds: 100),
+                            child: const DetailPresensiHariIni(),
+                            type: PageTransitionType.fade,
+                          ),
+                        );
                       },
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(Screen.kSize20),

@@ -9,8 +9,8 @@ import '../cubit/tunjangan_cubit.dart';
 import '../widgets/item_tunjangan.dart';
 import '../widgets/tunjangan_kosong.dart';
 
-class Tunjangan extends StatelessWidget {
-  const Tunjangan({super.key});
+class TunjanganPage extends StatelessWidget {
+  const TunjanganPage({super.key});
 
   @override
   Widget build(BuildContext context) {

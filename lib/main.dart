@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:konsumsi_api_agenda/features/homescreen/home_screen.dart';
+import 'package:konsumsi_api_agenda/splash.dart';
 
 import 'core/constants_finals.dart';
 import 'core/routes.dart';
@@ -58,8 +60,9 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        initialRoute: homeRoute,
-        routes: Routes.routes,
+        //initialRoute: homeRoute,
+        // routes: Routes.routes,
+        home: HomeScreen(),
       ),
     );
   }

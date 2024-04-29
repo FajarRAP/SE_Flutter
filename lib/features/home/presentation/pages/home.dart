@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/constants_finals.dart';
+import '../../../agenda/presentation/pages/agenda.dart';
+import '../../../layanan_cuti/presentation/pages/layanan_cuti.dart';
+import '../../../shift/presentation/pages/jadwal_shift.dart';
+import '../../../tunjangan/presentation/pages/tunjangan.dart';
 import '../widgets/item_adisty_services.dart';
 import '../widgets/presensi.dart';
 import '../widgets/profile.dart';
@@ -105,32 +110,84 @@ class _HomePageState extends State<HomePage> {
 
                 const SizedBox(height: 12),
 
-                const ItemAdistyService(
-                  img: 'assets/images/shift-bulan.png',
-                  title: 'Jadwal Shift',
-                  subtitle: 'Tinjau jadwal shift tenaga pendidikan.',
-                  path: shiftRoute,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        duration: const Duration(milliseconds: 100),
+                        child: const JadwalShiftPage(),
+                        type: PageTransitionType.fade,
+                      ),
+                    );
+                  },
+                  child: const ItemAdistyService(
+                    img: 'assets/images/shift-bulan.png',
+                    title: 'Jadwal Shift',
+                    subtitle: 'Tinjau jadwal shift tenaga pendidikan.',
+                    path: shiftRoute,
+                  ),
+                ),
+                
+                const SizedBox(height: 16),
+
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        duration: const Duration(milliseconds: 100),
+                        child: const AgendaPage(),
+                        type: PageTransitionType.fade,
+                      ),
+                    );
+                  },
+                  child: const ItemAdistyService(
+                    img: 'assets/images/agenda.png',
+                    title: 'Agenda',
+                    subtitle: 'Tinjau setiap agenda yang anda ikuti.',
+                    path: agendaRoute,
+                  ),
                 ),
                 const SizedBox(height: 16),
-                const ItemAdistyService(
-                  img: 'assets/images/agenda.png',
-                  title: 'Agenda',
-                  subtitle: 'Tinjau setiap agenda yang anda ikuti.',
-                  path: agendaRoute,
+
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        duration: const Duration(milliseconds: 100),
+                        child: const TunjanganBerasPage(),
+                        type: PageTransitionType.fade,
+                      ),
+                    );
+                  },
+                  child: const ItemAdistyService(
+                    img: 'assets/images/tunjangan-beras.png',
+                    title: 'Tunjangan beras',
+                    subtitle: 'Tinjau tunjangan beras bulanan anda.',
+                    path: tunjanganRoute,
+                  ),
                 ),
                 const SizedBox(height: 16),
-                const ItemAdistyService(
-                  img: 'assets/images/tunjangan-beras.png',
-                  title: 'Tunjangan beras',
-                  subtitle: 'Tinjau tunjangan beras bulanan anda.',
-                  path: tunjanganRoute,
-                ),
-                const SizedBox(height: 16),
-                const ItemAdistyService(
-                  img: 'assets/images/layanan-cuti.png',
-                  title: 'Layanan Cuti',
-                  subtitle: 'Tinjau jatah layanan cuti anda.',
-                  path: layananCutiRoute,
+
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        duration: const Duration(milliseconds: 100),
+                        child: const LayananCutiPage(),
+                        type: PageTransitionType.fade,
+                      ),
+                    );
+                  },
+                  child: const ItemAdistyService(
+                    img: 'assets/images/layanan-cuti.png',
+                    title: 'Layanan Cuti',
+                    subtitle: 'Tinjau jatah layanan cuti anda.',
+                    path: layananCutiRoute,
+                  ),
                 ),
               ],
             ),

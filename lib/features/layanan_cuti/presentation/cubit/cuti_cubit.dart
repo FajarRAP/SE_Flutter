@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../injection_container.dart';
@@ -14,9 +15,11 @@ class CutiCubit extends Cubit<CutiState> {
   CutiModel? cuti;
   RekapCutiModel? rekapCuti;
   bool isBerjalan = true;
+  String tanggal = DateFormat('M, yyyy').format(DateTime.now());
 
   // Getter
   bool get getIsBerjalan => isBerjalan;
+  String get getTanggal => tanggal;
 
   Future<void> getCutis() async {
     emit(CutiLoading());

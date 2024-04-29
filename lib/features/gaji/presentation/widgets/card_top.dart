@@ -38,9 +38,9 @@ class CardTop extends StatelessWidget {
                 fontSize: 28,
               ),
             ),
-            const SizedBox(
-              height: 4,
-            ),
+
+            const SizedBox(height: 4),
+            
             Text(
               detailGajiCubit.getBulanGaji,
               style: Styles.kNunitoRegular.copyWith(

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // API
-const String url = 'http://d3v.uad.id/ipm/index.php/'; //taruh di remote config
-const String route = 'auth/'; //taruh di remote config
+const String url = 'http://d3v.uad.id/';
+const String route = 'ipm/index.php/auth/';
 const Map<String, String> endpoint = {
   'agenda': 'agenda?',
   'detailAgenda': 'detil_agenda',
@@ -17,7 +17,7 @@ const Map<String, String> endpoint = {
   'gaji': 'gaji',
   'detailGaji': 'gaji_detil',
   'shift': 'jadwal_shift',
-  'tunjangan': 'tunjangan_beras',
+  'tunjangan': 'tunjangan_beras?',
   'detailTunjangan': 'detil_tunjangan_beras',
 };
 
@@ -131,6 +131,13 @@ class Styles {
 
 // Nama Rute
 const String homeRoute = '/';
+const String splashRoute = '${homeRoute}splash/';
+const String authRoute = '${homeRoute}auth/';
+const String loginRoute = '${authRoute}login/';
+const String forgotPasswordRoute = '${authRoute}forgotPassword/';
+const String otpVerificationRoute = '${authRoute}otpVerification/';
+const String changeNewPasswordRoute = '${authRoute}changeNewPassword/';
+const String fragmentViewRoute = '${homeRoute}fragmentView/';
 const String agendaRoute = '${homeRoute}agenda/';
 const String agendaDetailRoute = '${agendaRoute}detail/';
 const String layananCutiRoute = '${homeRoute}layananCuti/';

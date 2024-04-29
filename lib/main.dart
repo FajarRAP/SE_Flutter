@@ -18,14 +18,15 @@ import 'features/tunjangan/presentation/cubit/tunjangan_cubit.dart';
 import 'helper/firebase_options.dart';
 import 'helper/firebase_remote_config_services.dart';
 import 'injection_container.dart';
+import 'core/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
-  await FirebaseRemoteConfigServices().initialize();
+  // await FirebaseRemoteConfigServices().initialize();
   dependencyInjection();
   runApp(const MyApp());
 }
@@ -58,9 +59,8 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        //initialRoute: homeRoute,
-        // routes: Routes.routes,
-        home: const Splash(),
+        initialRoute: splashRoute,
+        routes: Routes.routes,
       ),
     );
   }

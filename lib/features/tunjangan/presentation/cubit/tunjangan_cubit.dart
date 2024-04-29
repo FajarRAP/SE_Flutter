@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../injection_container.dart';
@@ -11,19 +12,33 @@ class TunjanganCubit extends Cubit<TunjanganState> {
   TunjanganCubit() : super(TunjanganInitial());
 
   TunjanganModel? tunjangan;
+  //variabel untuk waktu
+  String tanggal = '';
+  String datePicked = DateFormat('M, yyyy').format(DateTime.now());
 
-  Future<void> getTunjangans(String date) async {
+  // Getter
+  String get getDatePicked => datePicked;
+
+  // Setter
+  set setTanggal(final DateTime date) =>
+      tanggal = DateFormat('dd-MM-yyyy').format(date);
+  set setDatePicked(final DateTime date) =>
+      datePicked = DateFormat('M, yyyy').format(date);
+
+  Future<void> getTunjangans() async {
     emit(TunjanganLoading());
     final result =
-        await locator<TunjanganRepositoriesImpl>().getTunjangans(date);
+        await locator<TunjanganRepositoriesImpl>().getTunjangans(tanggal);
     result.fold(
-      (failure) => emit(TunjanganError(failure.message)),
-      (data) {
-        tunjangan = data;
+      (failure) {
+        emit(TunjanganError(failure.message));
+      },
+      (success) {
+        tunjangan = success;
 
-        if(tunjangan!.data.isNotEmpty){
-          emit(TunjanganLoaded(tunjangan!.data));
-        }else{
+        if (success.data.isNotEmpty) {
+          emit(TunjanganLoaded(success.data));
+        } else {
           emit(TunjanganEmpty());
         }
       },

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'core/constants_finals.dart';
-import 'features/homescreen/home_screen.dart';
-
+import 'features/home/presentation/pages/home.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -16,7 +15,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int indexPage = 0;
   List<Widget> pageList = [
-    const HomeScreen(),
+    const HomePage(),
     // const PresensiMasuk(),
     // const Profil()
   ];

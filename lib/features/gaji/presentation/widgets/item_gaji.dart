@@ -36,9 +36,9 @@ class ItemGaji extends StatelessWidget {
               'assets/icons/gaji.svg',
               width: 40,
             ),
-            const SizedBox(
-              width: 16,
-            ),
+
+            const SizedBox(width: 16),
+            
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

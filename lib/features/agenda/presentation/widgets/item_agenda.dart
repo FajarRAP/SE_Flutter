@@ -13,13 +13,13 @@ class ItemAgenda extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
-      width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         boxShadow: boxShadow,
         color: kWhite,
       ),
+      padding: const EdgeInsets.all(12),
+      width: double.infinity,
       child: InkWell(
         onTap: () {
           Navigator.of(context).pushNamed(agendaDetailRoute);

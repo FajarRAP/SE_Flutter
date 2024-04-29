@@ -33,7 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   firebase_analytics: ^10.8.7
-  firebase_core: ^2.25.5
+  firebase_core: ^2.27.0
   firebase_messaging: ^14.7.16
   firebase_remote_config: ^4.3.15
   fl_chart: ^0.66.0
@@ -67,12 +67,12 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/
     - assets/icons/
     - assets/images/
     - assets/tendik/
     - assets/tendik/icons/
     - assets/tendik/images/
+
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

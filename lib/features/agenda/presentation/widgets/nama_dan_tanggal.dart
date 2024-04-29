@@ -17,16 +17,14 @@ class NamaDanTanggal extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          width: 18,
-          height: 18,
           decoration: BoxDecoration(
-            color: kBlue,
             borderRadius: BorderRadiusDirectional.circular(4),
+            color: kBlue,
           ),
+          height: 18,
+          width: 18,
         ),
-        const SizedBox(
-          width: 16,
-        ),
+        const SizedBox(width: 16),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,18 +32,16 @@ class NamaDanTanggal extends StatelessWidget {
               Text(
                 nama,
                 style: Styles.kPoppinsMedium.copyWith(
-                  fontSize: 24,
                   color: kBlack,
+                  fontSize: 24,
                 ),
               ),
-              const SizedBox(
-                height: 4,
-              ),
+              const SizedBox(height: 4),
               Text(
                 tanggal,
                 style: Styles.kNunitoRegular.copyWith(
-                  fontSize: 16,
                   color: kNeutral80,
+                  fontSize: 16,
                 ),
               )
             ],

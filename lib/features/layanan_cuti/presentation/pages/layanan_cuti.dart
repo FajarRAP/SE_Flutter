@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:konsumsi_api_agenda/core/functions.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../cubit/cuti_cubit.dart';
@@ -145,28 +146,45 @@ class LayananCutiPage extends StatelessWidget {
                         bloc: cutiCubit,
                         builder: (context, state) {
                           return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              InkWell(
-                                onTap: () {
-                                  cutiCubit.clickBerjalan();
-                                  cutiCubit.getCutis();
-                                },
-                                child: ButtonBerjalanSelesai(
-                                  kata: 'Berjalan',
-                                  isBerjalan: cutiCubit.getIsBerjalan,
-                                ),
+                              Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      cutiCubit.clickBerjalan();
+                                      cutiCubit.getCutis();
+                                    },
+                                    child: ButtonBerjalanSelesai(
+                                      kata: 'Berjalan',
+                                      isBerjalan: cutiCubit.getIsBerjalan,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      cutiCubit.clickSelesai();
+                                      cutiCubit.getCutis();
+                                    },
+                                    child: ButtonBerjalanSelesai(
+                                      kata: 'Selesai',
+                                      isBerjalan: !cutiCubit.getIsBerjalan,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(
-                                width: 16,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  cutiCubit.clickSelesai();
-                                  cutiCubit.getCutis();
+                              TextButton(
+                                onPressed: () {
+                                  ourMonthPicker(context);
                                 },
-                                child: ButtonBerjalanSelesai(
-                                  kata: 'Selesai',
-                                  isBerjalan: !cutiCubit.getIsBerjalan,
+                                child: Text(
+                                  'Bulan ${cutiCubit.getTanggal}',
+                                  style: Styles.kPoppinsMedium.copyWith(
+                                    color: kNeutral80,
+                                    fontSize: 14,
+                                  ),
                                 ),
                               ),
                             ],
@@ -194,6 +212,7 @@ class LayananCutiPage extends StatelessWidget {
                             // Cuti Loaded
                             if (state is CutiLoaded) {
                               return ListView.separated(
+                                padding: EdgeInsets.zero,
                                 itemBuilder: (context, index) {
                                   return ItemCuti(
                                     dataCutiModel: state.data[index],

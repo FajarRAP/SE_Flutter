@@ -7,6 +7,7 @@ import '../cubit/shift_cubit.dart';
 import '../widgets/button_shift.dart';
 import '../widgets/item_shift.dart';
 import '../widgets/profile.dart';
+import '../widgets/shift_not_exist.dart';
 
 class JadwalShiftPage extends StatelessWidget {
   const JadwalShiftPage({
@@ -69,17 +70,13 @@ class JadwalShiftPage extends StatelessWidget {
                 // Profil
                 const Profile(),
 
-                const SizedBox(
-                  height: 18,
-                ),
+                const SizedBox(height: 18),
 
                 // Button Hari
                 SizedBox(
                   height: 32,
                   child: ListView.separated(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return InkWell(
@@ -98,9 +95,7 @@ class JadwalShiftPage extends StatelessWidget {
                       );
                     },
                     separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        width: 12,
-                      );
+                      return const SizedBox(width: 12);
                     },
                     itemCount: days.length,
                   ),
@@ -121,9 +116,7 @@ class JadwalShiftPage extends StatelessWidget {
                       // Loaded
                       if (state is ShiftLoaded) {
                         return Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: ListView.separated(
                             itemBuilder: (context, index) {
                               return ItemShift(
@@ -131,9 +124,7 @@ class JadwalShiftPage extends StatelessWidget {
                               );
                             },
                             separatorBuilder: (context, index) {
-                              return const SizedBox(
-                                height: 12,
-                              );
+                              return const SizedBox(height: 12);
                             },
                             itemCount: state.dataShift.length,
                           ),
@@ -142,37 +133,7 @@ class JadwalShiftPage extends StatelessWidget {
 
                       // Empty
                       if (state is ShiftEmpty) {
-                        return Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                emptyDataSvg,
-                              ),
-                              const SizedBox(
-                                height: 24,
-                              ),
-                              Text(
-                                'Tidak ada jadwal shift',
-                                style: Styles.kPoppinsSemiBold.copyWith(
-                                  color: kBlack,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              Text(
-                                'Hari ini anda tidak memiliki jadwal shift',
-                                textAlign: TextAlign.center,
-                                style: Styles.kNunitoRegular.copyWith(
-                                  color: kNeutral90,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
+                        return const ShiftNotExist();
                       }
 
                       // Default
@@ -195,3 +156,4 @@ class JadwalShiftPage extends StatelessWidget {
     );
   }
 }
+

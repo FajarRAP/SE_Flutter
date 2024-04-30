@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:konsumsi_api_agenda/splash.dart';
 
 import 'core/constants_finals.dart';
 import 'features/agenda/presentation/cubit/agenda_cubit.dart';
 import 'features/agenda/presentation/cubit/detail_agenda_cubit.dart';
+import 'features/dashboard/presentation/cubit/detail_presensi_today_cubit.dart';
 import 'features/gaji/presentation/cubit/detail_gaji_cubit.dart';
 import 'features/gaji/presentation/cubit/gaji_cubit.dart';
 import 'features/layanan_cuti/presentation/cubit/cuti_cubit.dart';
@@ -22,11 +22,11 @@ import 'core/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  // await FirebaseRemoteConfigServices().initialize();
+  await FirebaseRemoteConfigServices().initialize();
   dependencyInjection();
   runApp(const MyApp());
 }
@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ShiftCubit()),
         BlocProvider(create: (context) => TunjanganCubit()),
         BlocProvider(create: (context) => DetailTunjanganCubit()),
+        BlocProvider(create: (context) => DetailPresensiTodayCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: true,

@@ -1,11 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../core/constants_finals.dart';
-
-
+import 'presentation/cubit/detail_presensi_today_cubit.dart';
 
 class DetailPresensiHariIni extends StatefulWidget {
   const DetailPresensiHariIni({super.key});
@@ -17,15 +17,16 @@ class DetailPresensiHariIni extends StatefulWidget {
 class _DetailPresensiHariIniState extends State<DetailPresensiHariIni> {
   @override
   Widget build(BuildContext context) {
-    // SizeConfig().init(context);
+    final DetailPresensiTodayCubit data =
+        context.read<DetailPresensiTodayCubit>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: kBlue,
       body: ListView(
         children: [
           Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: Screen.kSize20, vertical: Screen.kSize16),
+            padding: EdgeInsets.symmetric(
+                horizontal: Screen.kSize20, vertical: Screen.kSize16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -43,8 +44,8 @@ class _DetailPresensiHariIniState extends State<DetailPresensiHariIni> {
                 ),
                 Text(
                   'Presensi Tendik',
-                  style: Styles.kPoppinsSemiBold.copyWith(
-                      color: kWhite, fontSize: Screen.kSize20),
+                  style: Styles.kPoppinsSemiBold
+                      .copyWith(color: kWhite, fontSize: Screen.kSize20),
                 ),
                 SizedBox(
                   width: Screen.kSize24,
@@ -59,8 +60,8 @@ class _DetailPresensiHariIniState extends State<DetailPresensiHariIni> {
             child: Container(
               width: Screen.width,
               height: Screen.height,
-              padding:
-                  EdgeInsets.symmetric(vertical: Screen.kSize32, horizontal: Screen.kSize20),
+              padding: EdgeInsets.symmetric(
+                  vertical: Screen.kSize32, horizontal: Screen.kSize20),
               color: const Color(0xFFF6F7F9),
               child: Column(
                 children: [
@@ -97,207 +98,250 @@ class _DetailPresensiHariIniState extends State<DetailPresensiHariIni> {
                         )
                       ],
                     ),
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/tendik/icons/presensi-tanggal.svg',
-                              width: Screen.kSize40,
-                            ),
-                            SizedBox(
-                              width: Screen.kSize16,
-                            ),
-                            Expanded(
-                              child: Column(
+                    child: BlocBuilder<DetailPresensiTodayCubit,
+                        DetailPresensiTodayState>(
+                      bloc: data..getDetailPresensiToday(),
+                      builder: (context, state) {
+                        if (state is DetailPresensiTodayLoading) {
+                          return const Center();
+                        } else if (state is DetailPresensiTodayLoaded) {
+                          return Column(
+                            children: [
+                              Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Penyelenggara',
-                                    style: Styles.kPoppinsRegular.copyWith(
-                                        fontSize: Screen.kSize14, color: kNeutral80),
+                                  SvgPicture.asset(
+                                    'assets/tendik/icons/presensi-tanggal.svg',
+                                    width: Screen.kSize40,
                                   ),
-                                  Text(
-                                    'Biro Sistem Informasi',
-                                    style: Styles.kNunitoSemiBold.copyWith(
-                                        fontSize: Screen.kSize16, color: kBlack),
+                                  SizedBox(
+                                    width: Screen.kSize16,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Tanggal',
+                                          style: Styles.kPoppinsRegular
+                                              .copyWith(
+                                                  fontSize: Screen.kSize14,
+                                                  color: kNeutral80),
+                                        ),
+                                        Text(
+                                          state.data.tanggal,
+                                          style: Styles.kNunitoSemiBold
+                                              .copyWith(
+                                                  fontSize: Screen.kSize16,
+                                                  color: kBlack),
+                                        )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                        const Divider(),
-                        SizedBox(
-                          height: Screen.kSize16,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/tendik/icons/presensi-status.svg',
-                              width: Screen.kSize40,
-                            ),
-                            SizedBox(
-                              width: Screen.kSize16,
-                            ),
-                            Expanded(
-                              child: Column(
+                              const Divider(),
+                              SizedBox(
+                                height: Screen.kSize16,
+                              ),
+                              Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Penyelenggara',
-                                    style: Styles.kPoppinsRegular.copyWith(
-                                        fontSize: Screen.kSize14, color: kNeutral80),
+                                  SvgPicture.asset(
+                                    'assets/tendik/icons/presensi-status.svg',
+                                    width: Screen.kSize40,
                                   ),
-                                  Text(
-                                    'Biro Sistem Informasi',
-                                    style: Styles.kNunitoSemiBold.copyWith(
-                                        fontSize: Screen.kSize16, color: kBlack),
+                                  SizedBox(
+                                    width: Screen.kSize16,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Status Presensi',
+                                          style: Styles.kPoppinsRegular
+                                              .copyWith(
+                                                  fontSize: Screen.kSize14,
+                                                  color: kNeutral80),
+                                        ),
+                                        Text(
+                                          state.data.statusPresensi,
+                                          style: Styles.kNunitoSemiBold
+                                              .copyWith(
+                                                  fontSize: Screen.kSize16,
+                                                  color: kBlack),
+                                        )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                        const Divider(),
-                        SizedBox(
-                          height: Screen.kSize16,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/tendik/icons/presensi-lokasi.svg',
-                              width: Screen.kSize40,
-                            ),
-                            SizedBox(
-                              width: Screen.kSize16,
-                            ),
-                            Expanded(
-                              child: Column(
+                              const Divider(),
+                              SizedBox(
+                                height: Screen.kSize16,
+                              ),
+                              Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Penyelenggara',
-                                    style: Styles.kPoppinsRegular.copyWith(
-                                        fontSize: Screen.kSize14, color: kNeutral80),
+                                  SvgPicture.asset(
+                                    'assets/tendik/icons/presensi-lokasi.svg',
+                                    width: Screen.kSize40,
                                   ),
-                                  Text(
-                                    'Biro Sistem Informasi',
-                                    style: Styles.kNunitoSemiBold.copyWith(
-                                        fontSize: Screen.kSize16, color: kBlack),
+                                  SizedBox(
+                                    width: Screen.kSize16,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Lokasi',
+                                          style: Styles.kPoppinsRegular
+                                              .copyWith(
+                                                  fontSize: Screen.kSize14,
+                                                  color: kNeutral80),
+                                        ),
+                                        Text(
+                                          '${state.data.lokasiKampus}, ${state.data.lokasiGedung}',
+                                          style: Styles.kNunitoSemiBold
+                                              .copyWith(
+                                                  fontSize: Screen.kSize16,
+                                                  color: kBlack),
+                                        )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                        const Divider(),
-                        SizedBox(
-                          height: Screen.kSize16,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/tendik/icons/presensi-biaya-perjalanan.svg',
-                              width: Screen.kSize40,
-                            ),
-                            SizedBox(
-                              width: Screen.kSize16,
-                            ),
-                            Expanded(
-                              child: Column(
+                              const Divider(),
+                              SizedBox(
+                                height: Screen.kSize16,
+                              ),
+                              Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Penyelenggara',
-                                    style: Styles.kPoppinsRegular.copyWith(
-                                        fontSize: Screen.kSize14, color: kNeutral80),
+                                  SvgPicture.asset(
+                                    'assets/tendik/icons/presensi-biaya-perjalanan.svg',
+                                    width: Screen.kSize40,
                                   ),
-                                  Text(
-                                    'Biro Sistem Informasi',
-                                    style: Styles.kNunitoSemiBold.copyWith(
-                                        fontSize: Screen.kSize16, color: kBlack),
+                                  SizedBox(
+                                    width: Screen.kSize16,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Insentif',
+                                          style: Styles.kPoppinsRegular
+                                              .copyWith(
+                                                  fontSize: Screen.kSize14,
+                                                  color: kNeutral80),
+                                        ),
+                                        Text(
+                                          state.data.nominalInsentif,
+                                          style: Styles.kNunitoSemiBold
+                                              .copyWith(
+                                                  fontSize: Screen.kSize16,
+                                                  color: kBlack),
+                                        )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                        const Divider(),
-                        SizedBox(
-                          height: Screen.kSize16,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/tendik/icons/presensi-masuk.svg',
-                              width: Screen.kSize40,
-                            ),
-                            SizedBox(
-                              width: Screen.kSize16,
-                            ),
-                            Expanded(
-                              child: Column(
+                              const Divider(),
+                              SizedBox(
+                                height: Screen.kSize16,
+                              ),
+                              Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Penyelenggara',
-                                    style: Styles.kPoppinsRegular.copyWith(
-                                        fontSize: Screen.kSize14, color: kNeutral80),
+                                  SvgPicture.asset(
+                                    'assets/tendik/icons/presensi-masuk.svg',
+                                    width: Screen.kSize40,
                                   ),
-                                  Text(
-                                    'Biro Sistem Informasi',
-                                    style: Styles.kNunitoSemiBold.copyWith(
-                                        fontSize: Screen.kSize16, color: kBlack),
+                                  SizedBox(
+                                    width: Screen.kSize16,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Jam Masuk',
+                                          style: Styles.kPoppinsRegular
+                                              .copyWith(
+                                                  fontSize: Screen.kSize14,
+                                                  color: kNeutral80),
+                                        ),
+                                        Text(
+                                          state.data.jamMasuk,
+                                          style: Styles.kNunitoSemiBold
+                                              .copyWith(
+                                                  fontSize: Screen.kSize16,
+                                                  color: kBlack),
+                                        )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                        const Divider(),
-                        SizedBox(
-                          height: Screen.kSize16,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/tendik/icons/presensi-keluar.svg',
-                              width: Screen.kSize40,
-                            ),
-                            SizedBox(
-                              width: Screen.kSize16,
-                            ),
-                            Expanded(
-                              child: Column(
+                              const Divider(),
+                              SizedBox(
+                                height: Screen.kSize16,
+                              ),
+                              Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Penyelenggara',
-                                    style: Styles.kPoppinsRegular.copyWith(
-                                        fontSize: Screen.kSize14, color: kNeutral80),
+                                  SvgPicture.asset(
+                                    'assets/tendik/icons/presensi-keluar.svg',
+                                    width: Screen.kSize40,
                                   ),
-                                  Text(
-                                    'Biro Sistem Informasi',
-                                    style: Styles.kNunitoSemiBold.copyWith(
-                                        fontSize: Screen.kSize16, color: kBlack),
+                                  SizedBox(
+                                    width: Screen.kSize16,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Jam Pulang',
+                                          style: Styles.kPoppinsRegular
+                                              .copyWith(
+                                                  fontSize: Screen.kSize14,
+                                                  color: kNeutral80),
+                                        ),
+                                        Text(
+                                          state.data.jamPulang,
+                                          style: Styles.kNunitoSemiBold
+                                              .copyWith(
+                                                  fontSize: Screen.kSize16,
+                                                  color: kBlack),
+                                        )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                        const Divider(),
-                        SizedBox(
-                          height: Screen.kSize16,
-                        ),
-                      ],
+                              const Divider(),
+                              SizedBox(
+                                height: Screen.kSize16,
+                              ),
+                            ],
+                          );
+                        } else if (state is DetailPresensiTodayError) {
+                          return const Center();
+                        }
+                        return const Center();
+                      },
                     ),
                   ),
                 ],

@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                     horizontal: 24,
                   ),
                   child: SizedBox(
-                    height: 300,
+                    height: 340,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                     path: shiftRoute,
                   ),
                 ),
-                
+
                 const SizedBox(height: 16),
 
                 GestureDetector(

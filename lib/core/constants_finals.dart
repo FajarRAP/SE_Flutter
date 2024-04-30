@@ -19,6 +19,7 @@ const Map<String, String> endpoint = {
   'shift': 'jadwal_shift',
   'tunjangan': 'tunjangan_beras?',
   'detailTunjangan': 'detil_tunjangan_beras',
+  'presensiToday': 'presensi_today',
 };
 
 // Assets Location

@@ -2,6 +2,8 @@ import 'package:get_it/get_it.dart';
 
 import 'features/agenda/data/data_sources/remote.dart';
 import 'features/agenda/data/repositories/agenda_repositories_impl.dart';
+import 'features/dashboard/data/data_sources/remote.dart';
+import 'features/dashboard/data/repositories/detail_presensi_hari_ini_impl.dart';
 import 'features/gaji/data/data_sources/remote.dart';
 import 'features/gaji/data/repositores/gaji_repositories_impl.dart';
 import 'features/layanan_cuti/data/data_sources/remote.dart';
@@ -73,6 +75,15 @@ void dependencyInjection() {
   locator.registerLazySingleton<TunjanganRepositoriesImpl>(
     () => TunjanganRepositoriesImpl(
       tunjanganService: locator<TunjanganService>(),
+    ),
+  );
+
+  locator.registerLazySingleton<DetailPresensiHariIniService>(
+    () => DetailPresensiHariIniService(),);
+
+  locator.registerLazySingleton<DetailPresensiHariIniImpl>(
+    () => DetailPresensiHariIniImpl(
+      detailPresensiService: locator<DetailPresensiHariIniService>(),
     ),
   );
 }

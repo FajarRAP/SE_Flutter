@@ -46,7 +46,7 @@ class TodayPresensi extends StatelessWidget {
                     Styles.kPoppinsMedium.copyWith(fontSize: 14, color: kWhite),
               ),
               SizedBox(
-                height: 4,
+                height: 12,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,7 +64,7 @@ class TodayPresensi extends StatelessWidget {
                       ),
                       Text(
                         'Kampus 4',
-                        style: Styles.kPoppinsMedium
+                        style: Styles.kPoppinsRegular
                             .copyWith(fontSize: 16, color: kWhite),
                       ),
                     ],
@@ -72,13 +72,13 @@ class TodayPresensi extends StatelessWidget {
                   Text(
                     'Laboratorium Terpadu UAD Kampus 4',
                     textAlign: TextAlign.center,
-                    style: Styles.kPoppinsMedium
+                    style: Styles.kPoppinsRegular
                         .copyWith(fontSize: 12, color: kWhite),
                   ),
                 ],
               ),
               SizedBox(
-                height: 5,
+                height: 12,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -149,7 +149,7 @@ class TodayPresensi extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 4,
+                height: 12,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

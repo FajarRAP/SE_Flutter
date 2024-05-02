@@ -2,7 +2,6 @@
 //
 //     final detailPresensiHariIniModel = detailPresensiHariIniModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 DetailPresensiHariIniModel detailPresensiHariIniModelFromJson(String str) => DetailPresensiHariIniModel.fromJson(json.decode(str));

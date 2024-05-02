@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/constants_finals.dart';
 import '../../../../core/functions.dart';
 import '../cubit/detail_monitoring_cubit.dart';
+import '../cubit/rekap_bulanan_cubit.dart';
 import '../widgets/item_chart_card.dart';
 import '../widgets/item_chart_pie.dart';
 import '../widgets/item_detail_monitoring.dart';
@@ -20,6 +21,8 @@ class DetailMonitoringPage extends StatelessWidget {
     final DetailMonitoringCubit detailMonitoringCubit =
         context.read<DetailMonitoringCubit>();
 
+    final RekapBulananCubit rekapBulananCubit =
+        context.read<RekapBulananCubit>();
     return Scaffold(
       backgroundColor: kBlue,
       body: NestedScrollView(
@@ -29,7 +32,7 @@ class DetailMonitoringPage extends StatelessWidget {
               backgroundColor: kBlue,
               centerTitle: true,
               title: Text(
-                'Detail Monitoring',
+                'Rekap Bulanan',
                 style: Styles.kPoppinsSemiBold.copyWith(
                   color: kWhite,
                   fontSize: 20,
@@ -83,9 +86,9 @@ class DetailMonitoringPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        detailMonitoringCubit.getNama,
-                        style: Styles.kPoppinsMedium.copyWith(
-                          color: kBlue,
+                        'Statistik Tendik',
+                        style: Styles.kPoppinsRegular.copyWith(
+                          color: kGrey,
                           fontSize: 16,
                         ),
                       ),
@@ -142,7 +145,6 @@ class DetailMonitoringPage extends StatelessWidget {
                                 child: CircularProgressIndicator(),
                               );
                             }
-
                             // Rekap Loaded
                             if (state is RekapMonitoringLoaded &&
                                 detailMonitoringCubit.isPie) {
@@ -243,14 +245,151 @@ class DetailMonitoringPage extends StatelessWidget {
                 ),
 
                 const SizedBox(
-                  height: 24,
+                  height: 15,
+                ),
+                BlocBuilder<RekapBulananCubit, RekapBulananState>(
+                  bloc: rekapBulananCubit..getRekapBulans(),
+                  builder: (context, state) {
+                    if (state is RekapBulananLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is RekapBulananLoaded) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: boxShadow,
+                              color: kWhite,
+                            ),
+                            height: 150,
+                            width: 180,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/tendik/icons/rekap-gaji.svg',
+                                        width: 45,
+                                      ),
+                                      const SizedBox(
+                                        width: 7,
+                                      ),
+                                      Text(
+                                        'Transport',
+                                        style: Styles.kPoppinsMedium.copyWith(
+                                          fontSize: 15,
+                                          color: kBlack,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    state.data.nominalInsentif,
+                                    style: Styles.kPoppinsSemiBold.copyWith(
+                                      fontSize: 20,
+                                      color: kBlack,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'Rupiah',
+                                    style: Styles.kPoppinsRegular.copyWith(
+                                      fontSize: 15,
+                                      color: kNeutral80,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: boxShadow,
+                              color: kWhite,
+                            ),
+                            height: 150,
+                            width: 180,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/tendik/icons/rekap-total-hari.svg',
+                                        width: 45,
+                                      ),
+                                      const SizedBox(
+                                        width: 7,
+                                      ),
+                                      Text(
+                                        'Total hari',
+                                        style: Styles.kPoppinsMedium.copyWith(
+                                          fontSize: 15,
+                                          color: kBlack,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    state.data.jumlahHari,
+                                    style: Styles.kPoppinsSemiBold.copyWith(
+                                      fontSize: 20,
+                                      color: kBlack,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'Hari kerja',
+                                    style: Styles.kPoppinsRegular.copyWith(
+                                      fontSize: 15,
+                                      color: kNeutral80,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    } else if (state is RekapBulananEmpty) {
+                      //LATER WILL DO
+                      return Center();
+                    } else if (state is RekapBulananError) {
+                      //LATER WILL DO
+                      return Center();
+                    }
+                    //LATER WILL DO
+                    return Center();
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
                 ),
                 Container(
                   height: 8,
                   color: const Color(0xFFEEF2F3),
                 ),
                 const SizedBox(
-                  height: 12,
+                  height: 0,
                 ),
 
                 // Detail Monitoring
@@ -267,7 +406,6 @@ class DetailMonitoringPage extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         );
                       }
-
                       // Item Loaded
                       if (state is DetailMonitoringLoaded) {
                         return ListView.separated(

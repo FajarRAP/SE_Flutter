@@ -20,6 +20,7 @@ const Map<String, String> endpoint = {
   'tunjangan': 'tunjangan_beras?',
   'detailTunjangan': 'detil_tunjangan_beras',
   'presensiToday': 'presensi_today',
+  'rekapBulanan':'rekap_presensi'
 };
 
 // Assets Location

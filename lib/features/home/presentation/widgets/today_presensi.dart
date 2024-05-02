@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../core/constants_finals.dart';
-import '../../../dashboard/detail_presensi_hari_ini.dart';
+import '../../../dashboard/presentation/pages/detail_presensi_hari_ini.dart';
 
 class TodayPresensi extends StatelessWidget {
   const TodayPresensi({super.key});

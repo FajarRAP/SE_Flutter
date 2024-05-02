@@ -12,6 +12,7 @@ import 'features/layanan_cuti/presentation/cubit/cuti_cubit.dart';
 import 'features/layanan_cuti/presentation/cubit/tambah_sunting_cuti_cubit.dart';
 import 'features/monitoring/presentation/cubit/detail_monitoring_cubit.dart';
 import 'features/monitoring/presentation/cubit/monitoring_cubit.dart';
+import 'features/monitoring/presentation/cubit/rekap_bulanan_cubit.dart';
 import 'features/shift/presentation/cubit/shift_cubit.dart';
 import 'features/tunjangan/presentation/cubit/detail_tunjangan_cubit.dart';
 import 'features/tunjangan/presentation/cubit/tunjangan_cubit.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => TunjanganCubit()),
         BlocProvider(create: (context) => DetailTunjanganCubit()),
         BlocProvider(create: (context) => DetailPresensiTodayCubit()),
+        BlocProvider(create: (context) => RekapBulananCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: true,

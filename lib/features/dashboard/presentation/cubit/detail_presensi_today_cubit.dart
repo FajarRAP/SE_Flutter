@@ -12,6 +12,7 @@ class DetailPresensiTodayCubit extends Cubit<DetailPresensiTodayState> {
   Data? dataPresensiToday; 
 
   Future<void> getDetailPresensiToday() async {
+    emit(DetailPresensiTodayLoading());
     final result = await locator<DetailPresensiHariIniImpl>().getDetailPresensiHariIni();
     
     result.fold(
@@ -20,7 +21,6 @@ class DetailPresensiTodayCubit extends Cubit<DetailPresensiTodayState> {
       },
       (success) {
         emit(DetailPresensiTodayLoaded(success.data));
-        print(success.data);
       },
     );
   }

@@ -2,9 +2,12 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../../../../core/functions.dart';
+import '../cubit/daftar_presensi_cubit.dart';
 import '../cubit/detail_monitoring_cubit.dart';
 import '../cubit/rekap_bulanan_cubit.dart';
 import '../widgets/item_chart_card.dart';
@@ -23,6 +26,8 @@ class DetailMonitoringPage extends StatelessWidget {
 
     final RekapBulananCubit rekapBulananCubit =
         context.read<RekapBulananCubit>();
+
+    final DaftarPresensiCubit daftarPresensiCubit = context.read<DaftarPresensiCubit>();
     return Scaffold(
       backgroundColor: kBlue,
       body: NestedScrollView(
@@ -395,23 +400,23 @@ class DetailMonitoringPage extends StatelessWidget {
                 // Detail Monitoring
                 Expanded(
                   child:
-                      BlocBuilder<DetailMonitoringCubit, DetailMonitoringState>(
-                    bloc: detailMonitoringCubit..getDetailMonitoring(),
-                    buildWhen: (previous, current) =>
-                        current is DetailMonitoring,
+                      BlocBuilder<DaftarPresensiCubit, DaftarPresensiState>(
+                    bloc: daftarPresensiCubit..getDaftarPresensis(),
+                    // buildWhen: (previous, current) =>
+                    //     current is DetailMonitoring,
                     builder: (context, state) {
                       // Item Loading
-                      if (state is DetailMonitoringLoading) {
+                      if (state is DaftarPresensiLoading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
                       // Item Loaded
-                      if (state is DetailMonitoringLoaded) {
+                      if (state is DaftarPresensiLoaded) {
                         return ListView.separated(
                           itemBuilder: (context, index) {
                             return ItemDetailMonitoring(
-                              dataDetailMonitoring: state.data[index],
+                              dataDaftarPresensi: state.data[index],
                             );
                           },
                           separatorBuilder: (context, index) {

@@ -7,4 +7,5 @@ abstract class MonitoringRepositories<T> {
   Future<Either<Failure, T>> getRekapMonitoring();
   Future<Either<Failure, T>> getDetailMonitoring();
   Future<Either<Failure,T>> getRekapBulanan();
+  Future<Either<Failure,T>> getDaftarPresensis();
 }

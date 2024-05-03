@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:konsumsi_api_agenda/features/monitoring/presentation/cubit/daftar_presensi_cubit.dart';
 
 import 'core/constants_finals.dart';
 import 'features/agenda/presentation/cubit/agenda_cubit.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => DetailTunjanganCubit()),
         BlocProvider(create: (context) => DetailPresensiTodayCubit()),
         BlocProvider(create: (context) => RekapBulananCubit()),
+        BlocProvider(create: (context) => DaftarPresensiCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: true,

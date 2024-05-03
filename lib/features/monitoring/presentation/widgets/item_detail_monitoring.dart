@@ -36,9 +36,11 @@ class ItemDetailMonitoring extends StatelessWidget {
         dataDaftarPresensi.statusPresensi.toLowerCase() == "tepat waktu";
     final bool isTelat =
         dataDaftarPresensi.statusPresensi.toLowerCase() == "telat";
+    
+    final bool isAbsen = dataDaftarPresensi.statusPresensi.toLowerCase() == "absen";
 
     return Container(
-      height: 120,
+      height: 130,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: kWhite,

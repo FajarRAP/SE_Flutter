@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants_finals.dart';
+import '../cubit/shift_berikutnya_cubit.dart';
 import '../widgets/card_location.dart';
 import '../widgets/card_masuk.dart';
 import '../widgets/card_pulang.dart';
 import '../widgets/item_next_shift.dart';
+import '../widgets/shift_empty.dart';
 import '../widgets/success_dialog.dart';
 
 class PresensiMasukPage extends StatelessWidget {
@@ -12,6 +16,9 @@ class PresensiMasukPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ShiftBerikutnyaCubit shiftBerikutnyaCubit =
+        context.read<ShiftBerikutnyaCubit>();
+
     // bool showAll = false;
     return Scaffold(
       backgroundColor: kBlue,
@@ -104,12 +111,32 @@ class PresensiMasukPage extends StatelessWidget {
                     horizontal: 20,
                   ),
                   // List Next Shift
-                  child: ListView.separated(
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) => const ItemNextShift(),
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 12),
-                    itemCount: 3,
+                  child:
+                      BlocBuilder<ShiftBerikutnyaCubit, ShiftBerikutnyaState>(
+                    bloc: shiftBerikutnyaCubit..getShiftBerikutnyas(),
+                    builder: (context, state) {
+                      if (state is ShiftBerikutnyaLoading) {
+                        return Center();
+                      } else if (state is ShiftBerikutnyaLoaded) {
+                        return ListView.separated(
+                          padding: EdgeInsets.zero,
+                          itemBuilder: (context, index) =>
+                              ItemNextShift(
+                                dataShift: state.data[index],
+                              ),
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 12),
+                          itemCount: state.data.length,
+                        );
+                      } else if (state is ShiftBerikutnyaEmpty) {
+                        return const ShiftEmpty();
+                      } else if (state is ShiftBerikutnyaError) {
+                        return const Center(
+                          child: Text('Ada Yang Salah'),
+                        );
+                      }
+                      return Center();
+                    },
                   ),
                 ),
               ),
@@ -164,3 +191,4 @@ class PresensiMasukPage extends StatelessWidget {
     );
   }
 }
+

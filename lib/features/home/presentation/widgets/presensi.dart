@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:konsumsi_api_agenda/core/constants_finals.dart';
 
+import '../../../presensi/presentation/cubit/presensi_cubit.dart';
+
 class Presensi extends StatelessWidget {
-  const Presensi({
-    super.key,
-  });
+  const Presensi({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final presensiCubit = context.read<PresensiCubit>();
     return Expanded(
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
-        onTap: () {
-          Navigator.pushNamed(context, monitoringRoute);
-        },
+        onTap: () => Navigator.pushNamed(context, rekapBulananRoute),
         child: Ink(
           padding: const EdgeInsets.symmetric(
             vertical: 16,
@@ -34,12 +34,21 @@ class Presensi extends StatelessWidget {
                   fontSize: 18,
                 ),
               ),
-              Text(
-                '19',
-                style: Styles.kPoppinsBold.copyWith(
-                  color: kBlack,
-                  fontSize: 40,
-                ),
+              BlocBuilder<PresensiCubit, PresensiState>(
+                bloc: presensiCubit..getRekapPresensi(),
+                buildWhen: (previous, current) => current is RekapPresensi,
+                builder: (context, state) {
+                  if (state is RekapPresensiLoaded) {
+                    return Text(
+                      state.data.jumlahHari,
+                      style: Styles.kPoppinsBold.copyWith(
+                        color: kBlack,
+                        fontSize: 40,
+                      ),
+                    );
+                  }
+                  return const CircularProgressIndicator(color: kBlack);
+                },
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

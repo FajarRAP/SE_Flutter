@@ -113,17 +113,6 @@ class PresensiMasukPage extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // TextButton(
-              //   onPressed: () => setState(() => showAll = !showAll),
-              //   child: Text(
-              //     'Lorem',
-              //     style: Styles.kPoppinsMedium.copyWith(
-              //       color: kBlue,
-              //       fontSize: 14,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),

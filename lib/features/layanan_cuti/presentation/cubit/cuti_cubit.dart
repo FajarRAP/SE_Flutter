@@ -23,6 +23,7 @@ class CutiCubit extends Cubit<CutiState> {
 
   Future<void> getCutis() async {
     emit(CutiLoading());
+    
 
     final result = await locator<CutiRepositoriesImpl>().getCutis();
 
@@ -43,6 +44,7 @@ class CutiCubit extends Cubit<CutiState> {
 
   Future<void> getRekapCuti() async {
     emit(RekapCutiLoading());
+    
 
     final result = await locator<CutiRepositoriesImpl>().getRekapCuti();
 

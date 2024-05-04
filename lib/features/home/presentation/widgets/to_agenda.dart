@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:konsumsi_api_agenda/core/constants_finals.dart';
 
+import '../../../agenda/presentation/cubit/agenda_cubit.dart';
+
 class ToAgenda extends StatelessWidget {
-  const ToAgenda({
-    super.key,
-  });
+  const ToAgenda({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = context.read<AgendaCubit>();
     return Expanded(
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
@@ -32,12 +34,22 @@ class ToAgenda extends StatelessWidget {
                   fontSize: 18,
                 ),
               ),
-              Text(
-                '2',
-                style: Styles.kPoppinsBold.copyWith(
-                  color: kWhite,
-                  fontSize: 40,
-                ),
+              BlocBuilder<AgendaCubit, AgendaState>(
+                bloc: authCubit..getAgendaRekap(),
+                buildWhen: (previous, current) => current is RekapAgenda,
+                builder: (context, state) {
+                  if (state is RekapAgendaLoaded) {
+                    return Text(
+                      state.data.jumlah,
+                      style: Styles.kPoppinsBold.copyWith(
+                        color: kWhite,
+                        fontSize: 40,
+                      ),
+                    );
+                  }
+
+                  return const CircularProgressIndicator(color: kWhite);
+                },
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -2,7 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
 
 import 'package:konsumsi_api_agenda/core/failure.dart';
+import 'package:konsumsi_api_agenda/features/monitoring/data/models/daftar_presensi_model.dart';
 import 'package:konsumsi_api_agenda/features/monitoring/data/models/detail_monitoring.dart';
+import 'package:konsumsi_api_agenda/features/monitoring/data/models/rekap_bulanan.dart';
 
 import '../../domain/repositories/monitoring_repositories.dart';
 import '../data_sources/remote.dart';
@@ -47,6 +49,34 @@ class MonitoringRepositoriesImpl implements MonitoringRepositories {
       final Response response = await monitoringService.getDetailMonitoring();
       if (response.statusCode == 200) {
         return Right(detailMonitoringFromJson(response.body));
+      } else {
+        return Left(Failure(message: 'Ada Sesuatu Yang Salah'));
+      }
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, RekapBulananModel>> getRekapBulanan() async {
+    try {
+      final Response response = await monitoringService.getRekapBulanan();
+      if (response.statusCode == 200) {
+        return Right(rekapBulananModelFromJson(response.body));
+      } else {
+        return Left(Failure(message: 'Ada Sesuatu Yang Salah'));
+      }
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, DaftarPresensiModel>> getDaftarPresensis() async {
+    try {
+      final Response response = await monitoringService.getDaftarPresensi();
+      if (response.statusCode == 200) {
+        return Right(daftarPresensiModelFromJson(response.body));
       } else {
         return Left(Failure(message: 'Ada Sesuatu Yang Salah'));
       }

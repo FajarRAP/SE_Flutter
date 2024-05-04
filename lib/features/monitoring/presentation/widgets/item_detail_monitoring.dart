@@ -1,150 +1,312 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart'; // Import library untuk inisialisasi lokalisasi
+import 'package:konsumsi_api_agenda/features/monitoring/data/models/daftar_presensi_model.dart';
 
 import '../../../../core/constants_finals.dart';
-import '../../data/models/detail_monitoring.dart';
 
 class ItemDetailMonitoring extends StatelessWidget {
-  final DataDetailMonitoringModel dataDetailMonitoring;
+  Future<void> initializeDateFormattingCustom() async {
+    await initializeDateFormatting('id_ID', null);
+  }
+
+  // Fungsi untuk memformat tanggal
+  String formatDate(String dateString) {
+    DateTime dateTime = DateFormat('d MMMM y', 'id_ID').parse(dateString);
+    String formattedDate = DateFormat('d').format(dateTime);
+    return formattedDate;
+  }
+
+  // Fungsi buat hilangin Rp
+  String removeRp(String input) {
+    return input.replaceFirst("Rp. ", "");
+  }
+
+  final DataDaftarPresensi dataDaftarPresensi;
   const ItemDetailMonitoring({
     super.key,
-    required this.dataDetailMonitoring,
+    required this.dataDaftarPresensi,
   });
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormattingCustom();
     final bool isOnTime =
-        dataDetailMonitoring.status.toLowerCase() == "on time";
-    final bool isTelat = dataDetailMonitoring.status.toLowerCase() == "telat";
+        dataDaftarPresensi.statusPresensi.toLowerCase() == "tepat waktu";
+    final bool isTelat =
+        dataDaftarPresensi.statusPresensi.toLowerCase() == "telat";
+    
+    final bool isAbsen = dataDaftarPresensi.statusPresensi.toLowerCase() == "absen";
 
     return Container(
-      height: 75,
+      height: 130,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: kWhite,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                    child: Text(
-                      dataDetailMonitoring.hari,
-                      overflow: TextOverflow.ellipsis,
-                      style: Styles.kPoppinsMedium.copyWith(
-                        color: kBlack,
-                        fontSize: 14,
-                      ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 10,
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            dataDaftarPresensi.hari,
+                            overflow: TextOverflow.ellipsis,
+                            style: Styles.kPoppinsMedium.copyWith(
+                              color: kNeutral80,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        Flexible(
+                          child: Text(
+                            formatDate(dataDaftarPresensi.tanggal),
+                            style: Styles.kNunitoBold.copyWith(
+                              color: kBlack,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      color: kNeutral30,
+                      width: 2,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          dataDaftarPresensi.statusPresensi,
+                          style: Styles.kPoppinsMedium.copyWith(
+                            color: isOnTime
+                                ? kGreen
+                                : isTelat
+                                    ? kYellow
+                                    : kRed,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icons/tunjangan-beras-location.svg',
+                            ),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                              dataDaftarPresensi.lokasi,
+                              style: Styles.kNunitoMedium.copyWith(
+                                color: kNeutral80,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 90,
+                    ),
+                    const VerticalDivider(),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Transport',
+                          style: Styles.kPoppinsRegular.copyWith(
+                            color: kGrey,
+                            fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          removeRp(dataDaftarPresensi.nominalInsentif),
+                          style: Styles.kPoppinsMedium.copyWith(
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              const Divider(),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/tendik/icons/riwayat-presensi-masuk.svg',
                   ),
                   const SizedBox(
-                    height: 4,
+                    width: 4,
                   ),
-                  Flexible(
-                    child: Text(
-                      dataDetailMonitoring.tanggal,
-                      overflow: TextOverflow.ellipsis,
-                      style: Styles.kNunitoRegular.copyWith(
-                        color: kNeutral80,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const VerticalDivider(),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
                   Text(
-                    'Masuk',
+                    'Masuk : ',
                     style: Styles.kPoppinsRegular.copyWith(
-                      color: kNeutral80,
+                      color: kNeutral90,
                       fontSize: 12,
                     ),
                   ),
                   const SizedBox(
-                    height: 4,
+                    width: 4,
                   ),
                   Text(
-                    dataDetailMonitoring.masuk,
-                    style: Styles.kPoppinsMedium.copyWith(
-                      color: kGreen,
-                      fontSize: 16,
+                    dataDaftarPresensi.jamMasuk,
+                    style: Styles.kPoppinsSemiBold.copyWith(
+                      color: kBlue,
+                      fontSize: 14,
                     ),
                   ),
-                ],
-              ),
-            ),
-            const VerticalDivider(),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                  SvgPicture.asset(
+                    'assets/tendik/icons/riwayat-presensi-pulang.svg',
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
                   Text(
-                    'Pulang',
+                    'Pulang : ',
                     style: Styles.kPoppinsRegular.copyWith(
-                      color: kGrey,
+                      color: kNeutral90,
                       fontSize: 12,
                     ),
                   ),
-                  const SizedBox(
-                    height: 4,
-                  ),
                   Text(
-                    dataDetailMonitoring.pulang,
-                    style: Styles.kPoppinsMedium.copyWith(
-                      color: kOrange,
-                      fontSize: 16,
+                    dataDaftarPresensi.jamPulang,
+                    style: Styles.kPoppinsSemiBold.copyWith(
+                      color: kBlue,
+                      fontSize: 14,
                     ),
                   ),
                 ],
-              ),
-            ),
-            const VerticalDivider(),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Status',
-                    style: Styles.kPoppinsRegular.copyWith(
-                      color: kGrey,
-                      fontSize: 12,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  Text(
-                    dataDetailMonitoring.status,
-                    style: Styles.kPoppinsMedium.copyWith(
-                      color: isOnTime
-                          ? kGreen
-                          : isTelat
-                              ? kYellow
-                              : kRed,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+              )
+            ],
+          )),
     );
   }
 }
+
+// child: Row(
+        //   children: [
+        //     Expanded(
+        //       flex: 1,
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         crossAxisAlignment: CrossAxisAlignment.center,
+        //         children: [
+        //           Flexible(
+        //             child: Text(
+        //               dataDaftarPresensi.hari,
+        //               overflow: TextOverflow.ellipsis,
+        //               style: Styles.kPoppinsMedium.copyWith(
+        //                 color: kNeutral80,
+        //                 fontSize: 14,
+        //               ),
+        //             ),
+        //           ),
+        //           Flexible(
+        //             child: Text(
+        //               formatDate(dataDaftarPresensi.tanggal),
+        //               style: Styles.kNunitoBold.copyWith(
+        //                 color: kBlack,
+        //                 fontSize: 20,
+        //               ),
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //     VerticalDivider(), // Divider pertama
+        //     Expanded(
+        //       flex: 3,
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         children: [
+        //           Text(
+        //             dataDaftarPresensi.statusPresensi,
+        //             style: Styles.kPoppinsMedium.copyWith(
+        //               color: isOnTime
+        //                   ? kGreen
+        //                   : isTelat
+        //                       ? kYellow
+        //                       : kRed,
+        //               fontSize: 16,
+        //             ),
+        //           ),
+        //           const SizedBox(
+        //             height: 4,
+        //           ),
+        //           Row(
+        //             children: [
+        //               SvgPicture.asset(
+        //                 'assets/icons/tunjangan-beras-location.svg',
+        //               ),
+        //               Flexible(
+        //                 child: Text(
+        //                   dataDaftarPresensi.lokasi,
+        //                   style: Styles.kNunitoMedium.copyWith(
+        //                     color: kNeutral80,
+        //                     fontSize: 12,
+        //                   ),
+        //                 ),
+        //               ),
+        //             ],
+        //           )
+        //         ],
+        //       ),
+        //     ),
+        //     VerticalDivider(), // Divider kedua
+        //     Expanded(
+        //       flex: 1,
+        //       child: Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         crossAxisAlignment: CrossAxisAlignment.center,
+        //         children: [
+        //           Text(
+        //             'Transport',
+        //             style: Styles.kPoppinsRegular.copyWith(
+        //               color: kGrey,
+        //               fontSize: 12,
+        //             ),
+        //           ),
+        //           const SizedBox(
+        //             height: 4,
+        //           ),
+        //           Text(
+        //             dataDaftarPresensi.nominalInsentif,
+        //             style: Styles.kPoppinsMedium.copyWith(
+        //               fontSize: 10,
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //   ],

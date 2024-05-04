@@ -20,4 +20,14 @@ class MonitoringService {
       Uri.parse('$url$route${endpoint['detailMonitoring']}'),
     );
   }
+  Future<Response> getRekapBulanan() async {
+    return await get(
+      Uri.parse('$url$route${endpoint['rekapBulanan']}')
+    );
+  }
+  Future<Response> getDaftarPresensi() async {
+    return await get(
+      Uri.parse('$url$route${endpoint['presensiDaftar']}')
+    );
+  }
 }

@@ -23,7 +23,7 @@ import 'constants_finals.dart';
 
 class Routes {
   static Map<String, Widget Function(BuildContext context)> routes = {
-    splashRoute:(context) => const SplashScreen(),
+    splashRoute:(context) => const SplashScreen(),  
     homeRoute: (context) => const HomePage(),
     loginRoute: (context) => const LoginPage(),
     forgotPasswordRoute: (context) => const ForgotPasswordPage(),

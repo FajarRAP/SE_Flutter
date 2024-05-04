@@ -27,7 +27,8 @@ class DetailMonitoringPage extends StatelessWidget {
     final RekapBulananCubit rekapBulananCubit =
         context.read<RekapBulananCubit>();
 
-    final DaftarPresensiCubit daftarPresensiCubit = context.read<DaftarPresensiCubit>();
+    final DaftarPresensiCubit daftarPresensiCubit =
+        context.read<DaftarPresensiCubit>();
     return Scaffold(
       backgroundColor: kBlue,
       body: NestedScrollView(
@@ -377,7 +378,40 @@ class DetailMonitoringPage extends StatelessWidget {
                       );
                     } else if (state is RekapBulananEmpty) {
                       //LATER WILL DO
-                      return Center();
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              height: 32,
+                            ),
+                            SvgPicture.asset(
+                              emptyDataSvg,
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            Text(
+                              'Saat ini tidak ada data detail monitoring',
+                              style: Styles.kPoppinsSemiBold.copyWith(
+                                color: kBlack,
+                                fontSize: 18,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              '',
+                              textAlign: TextAlign.center,
+                              style: Styles.kNunitoRegular.copyWith(
+                                color: kNeutral80,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
                     } else if (state is RekapBulananError) {
                       //LATER WILL DO
                       return Center();
@@ -399,8 +433,7 @@ class DetailMonitoringPage extends StatelessWidget {
 
                 // Detail Monitoring
                 Expanded(
-                  child:
-                      BlocBuilder<DaftarPresensiCubit, DaftarPresensiState>(
+                  child: BlocBuilder<DaftarPresensiCubit, DaftarPresensiState>(
                     bloc: daftarPresensiCubit..getDaftarPresensis(),
                     // buildWhen: (previous, current) =>
                     //     current is DetailMonitoring,

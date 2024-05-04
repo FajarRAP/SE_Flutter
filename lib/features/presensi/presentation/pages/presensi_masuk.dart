@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../../../core/constants_finals.dart';
 import '../cubit/shift_berikutnya_cubit.dart';
 import '../widgets/card_location.dart';
@@ -116,14 +114,15 @@ class PresensiMasukPage extends StatelessWidget {
                     bloc: shiftBerikutnyaCubit..getShiftBerikutnyas(),
                     builder: (context, state) {
                       if (state is ShiftBerikutnyaLoading) {
-                        return Center();
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
                       } else if (state is ShiftBerikutnyaLoaded) {
                         return ListView.separated(
                           padding: EdgeInsets.zero,
-                          itemBuilder: (context, index) =>
-                              ItemNextShift(
-                                dataShift: state.data[index],
-                              ),
+                          itemBuilder: (context, index) => ItemNextShift(
+                            dataShift: state.data[index],
+                          ),
                           separatorBuilder: (context, index) =>
                               const SizedBox(height: 12),
                           itemCount: state.data.length,
@@ -135,22 +134,15 @@ class PresensiMasukPage extends StatelessWidget {
                           child: Text('Ada Yang Salah'),
                         );
                       }
-                      return Center();
+                      return Center(
+                        child: ElevatedButton(onPressed: () {
+                          shiftBerikutnyaCubit..getShiftBerikutnyas();
+                        }, child: const Text('Ulang')),
+                      );
                     },
                   ),
                 ),
               ),
-
-              // TextButton(
-              //   onPressed: () => setState(() => showAll = !showAll),
-              //   child: Text(
-              //     'Lorem',
-              //     style: Styles.kPoppinsMedium.copyWith(
-              //       color: kBlue,
-              //       fontSize: 14,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
@@ -191,4 +183,3 @@ class PresensiMasukPage extends StatelessWidget {
     );
   }
 }
-

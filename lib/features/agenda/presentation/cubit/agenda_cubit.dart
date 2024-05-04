@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 
 import '../../../../injection_container.dart';
 import '../../data/models/agenda.dart';
+import '../../data/models/rekap_agenda.dart';
 import '../../data/repositories/agenda_repositories_impl.dart';
 
 part 'agenda_state.dart';
@@ -47,6 +48,21 @@ class AgendaCubit extends Cubit<AgendaState> {
         } else {
           emit(AgendaEmpty());
         }
+      },
+    );
+  }
+
+  Future<void> getAgendaRekap() async {
+    emit(RekapAgendaLoading());
+
+    final results = await locator<AgendaRepositoriesImpl>().getAgendaRekap();
+
+    results.fold(
+      (failure) {
+        emit(AgendaError(failure.message));
+      },
+      (success) {
+        emit(RekapAgendaLoaded(success.data));
       },
     );
   }

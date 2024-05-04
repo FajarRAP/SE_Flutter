@@ -9,6 +9,7 @@ const String route = 'ipm/index.php/auth/';
 const Map<String, String> endpoint = {
   'agenda': 'agenda?',
   'detailAgenda': 'detil_agenda',
+  'rekapAgenda': 'agenda_rekap',
   'daftarCuti': 'daftar_cuti',
   'rekapCuti': 'rekap_cuti',
   'monitoring': 'monitoring',
@@ -19,6 +20,10 @@ const Map<String, String> endpoint = {
   'shift': 'jadwal_shift',
   'tunjangan': 'tunjangan_beras?',
   'detailTunjangan': 'detil_tunjangan_beras',
+  'rekapPresensi': 'rekap_presensi',
+  'todayPresensi': 'presensi_today',
+  'daftarPresensi': 'presensi_daftar',
+  'profile': 'tendik_profile',
   'presensiToday': 'presensi_today',
   'rekapBulanan': 'rekap_presensi',
   'presensiDaftar': 'presensi_daftar',
@@ -153,6 +158,10 @@ const String gajiDetailRoute = '${gajiRoute}detail/';
 const String shiftRoute = '${homeRoute}shift/';
 const String tunjanganRoute = '${homeRoute}tunjangan/';
 const String tunjanganDetailRoute = '${tunjanganRoute}detail/';
+const String presensiRoute = '${homeRoute}presensi/';
+const String rekapBulananRoute = '${presensiRoute}bulanan/';
+const String detailTodayPresensiRoute = '${presensiRoute}detailToday/';
+const String detailPresensiRoute = '${presensiRoute}detail/';
 
 // Hari
 const List<String> days = [

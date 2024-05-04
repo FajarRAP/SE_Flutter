@@ -9,4 +9,5 @@ abstract class AgendaRepositories<T> {
     final bool isBerjalan,
   );
   Future<Either<Failure, T>> getDetailAgenda();
+  Future<Either<Failure, T>> getAgendaRekap();
 }

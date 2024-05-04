@@ -6,6 +6,7 @@ import 'package:konsumsi_api_agenda/features/monitoring/presentation/cubit/dafta
 import 'core/constants_finals.dart';
 import 'features/agenda/presentation/cubit/agenda_cubit.dart';
 import 'features/agenda/presentation/cubit/detail_agenda_cubit.dart';
+import 'features/auth/presentation/cubit/auth_cubit.dart';
 import 'features/dashboard/presentation/cubit/detail_presensi_today_cubit.dart';
 import 'features/gaji/presentation/cubit/detail_gaji_cubit.dart';
 import 'features/gaji/presentation/cubit/gaji_cubit.dart';
@@ -13,6 +14,8 @@ import 'features/layanan_cuti/presentation/cubit/cuti_cubit.dart';
 import 'features/layanan_cuti/presentation/cubit/tambah_sunting_cuti_cubit.dart';
 import 'features/monitoring/presentation/cubit/detail_monitoring_cubit.dart';
 import 'features/monitoring/presentation/cubit/monitoring_cubit.dart';
+import 'features/presensi/presentation/cubit/presensi_cubit.dart';
+import 'features/profile/presentation/cubit/profile_cubit.dart';
 import 'features/monitoring/presentation/cubit/rekap_bulanan_cubit.dart';
 import 'features/presensi/presentation/cubit/shift_berikutnya_cubit.dart';
 import 'features/shift/presentation/cubit/shift_cubit.dart';
@@ -41,6 +44,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => AuthCubit()),
         BlocProvider(create: (context) => AgendaCubit()),
         BlocProvider(create: (context) => DetailAgendaCubit()),
         BlocProvider(create: (context) => CutiCubit()),
@@ -52,6 +56,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ShiftCubit()),
         BlocProvider(create: (context) => TunjanganCubit()),
         BlocProvider(create: (context) => DetailTunjanganCubit()),
+        BlocProvider(create: (context) => PresensiCubit()),
+        BlocProvider(create: (context) => ProfileCubit()),
+        // Kodingan Eram
         BlocProvider(create: (context) => DetailPresensiTodayCubit()),
         BlocProvider(create: (context) => RekapBulananCubit()),
         BlocProvider(create: (context) => DaftarPresensiCubit()),

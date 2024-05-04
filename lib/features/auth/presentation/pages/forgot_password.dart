@@ -51,7 +51,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 child: TextFieldCustom(
                   controller: emailController,
                   labelText: 'Masukkan Email',
-                  // validator: formValidation,
+                  validator: formValidation,
                 ),
               ),
               const SizedBox(height: 40),

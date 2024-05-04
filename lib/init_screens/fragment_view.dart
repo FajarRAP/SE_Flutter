@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../core/constants_finals.dart';
 import '../features/home/presentation/pages/home.dart';
 import '../features/presensi/presentation/pages/presensi_masuk.dart';
+import '../features/profile/presentation/pages/profil.dart';
 
 class FragmentView extends StatefulWidget {
   const FragmentView({super.key});
@@ -18,12 +19,17 @@ class _FragmentViewState extends State<FragmentView> {
   List<Widget> pageList = [
     const HomePage(),
     const PresensiMasukPage(),
-    // const Profil(),
+    const Profil(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: PageView(
+        controller: pageController,
+        onPageChanged: (value) => setState(() => indexPage = value),
+        children: pageList,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: kWhite,
         currentIndex: indexPage,
@@ -56,11 +62,6 @@ class _FragmentViewState extends State<FragmentView> {
         unselectedLabelStyle: Styles.kPoppinsRegular.copyWith(
           color: const Color(0xFF959AA6),
         ),
-      ),
-      body: PageView(
-        controller: pageController,
-        onPageChanged: (value) => setState(() => indexPage = value),
-        children: pageList,
       ),
     );
   }

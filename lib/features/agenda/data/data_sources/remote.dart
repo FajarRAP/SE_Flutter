@@ -19,4 +19,10 @@ class AgendaService {
       Uri.parse('$url$route${endpoint['detailAgenda']}'),
     );
   }
+
+  Future<Response> getRekapAgenda() async {
+    return await get(
+      Uri.parse('$url$route${endpoint['rekapAgenda']}'),
+    );
+  }
 }

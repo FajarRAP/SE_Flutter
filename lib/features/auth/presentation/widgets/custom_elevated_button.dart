@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants_finals.dart';
+import '../cubit/auth_cubit.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
@@ -16,6 +18,8 @@ class CustomElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = context.read<AuthCubit>();
+
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
@@ -27,12 +31,25 @@ class CustomElevatedButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        child: Text(
-          text,
-          style: Styles.kPoppinsMedium.copyWith(
-            color: kWhite,
-            fontSize: 16,
-          ),
+        child: BlocConsumer<AuthCubit, AuthState>(
+          bloc: authCubit,
+          listener: (context, state) {
+            if (state is LoginAuthenticated) {
+              Navigator.pushNamed(context, fragmentViewRoute);
+            }
+          },
+          builder: (context, state) {
+            if (state is LoginAuthenticating) {
+              return const CircularProgressIndicator(color: kWhite);
+            }
+            return Text(
+              text,
+              style: Styles.kPoppinsMedium.copyWith(
+                color: kWhite,
+                fontSize: 16,
+              ),
+            );
+          },
         ),
       ),
     );

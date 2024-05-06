@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final shiftBerikutnyaModel = shiftBerikutnyaModelFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 ShiftBerikutnyaModel shiftBerikutnyaModelFromJson(String str) => ShiftBerikutnyaModel.fromJson(json.decode(str));

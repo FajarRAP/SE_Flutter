@@ -82,8 +82,6 @@ void dependencyInjection() {
     ),
   );
 
-  locator.registerLazySingleton<PresensiService>(() => PresensiService());
-
   locator.registerLazySingleton<PresensiRepositoriesImpl>(
     () => PresensiRepositoriesImpl(presensiService: locator<PresensiService>()),
   );
@@ -94,9 +92,7 @@ void dependencyInjection() {
     ),
   );
 
-  locator.registerLazySingleton<PresensiService>(
-    () => PresensiService()
-  );
+  locator.registerLazySingleton<PresensiService>(() => PresensiService());
 
   locator.registerLazySingleton<ShiftBerikutnyaRepositoriesImpl>(
     () => ShiftBerikutnyaRepositoriesImpl(

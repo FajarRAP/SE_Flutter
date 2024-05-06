@@ -22,7 +22,7 @@ class _AgendaPageState extends State<AgendaPage> {
   @override
   Widget build(BuildContext context) {
     final AgendaCubit agendaCubit = context.read<AgendaCubit>();
-    
+
     return Scaffold(
       backgroundColor: kBlue,
       body: NestedScrollView(
@@ -45,7 +45,7 @@ class _AgendaPageState extends State<AgendaPage> {
                 ),
               ),
               title: Text(
-                'Agenda',
+                'Agenda Hari Ini',
                 style: Styles.kPoppinsSemiBold.copyWith(
                   color: kWhite,
                   fontSize: 20,
@@ -74,15 +74,15 @@ class _AgendaPageState extends State<AgendaPage> {
             ),
             child: Column(
               children: [
-                // Button dan Tanggal
-                const ButtonDanTanggal(),
+                // // Button dan Tanggal
+                // const ButtonDanTanggal(),
 
-                const SizedBox(height: 24),
+                // const SizedBox(height: 24),
 
-                // TextField Cari Agenda
-                CariAgenda(agendaController: agendaController),
+                // // TextField Cari Agenda
+                // CariAgenda(agendaController: agendaController),
 
-                const SizedBox(height: 24),
+                // const SizedBox(height: 24),
 
                 // Data
                 Expanded(

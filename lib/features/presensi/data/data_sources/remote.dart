@@ -19,4 +19,10 @@ class PresensiService {
       Uri.parse('$url$route${endpoint['daftarPresensi']}'),
     );
   }
+
+  Future<Response> getShiftBerikutnyas() async {
+    return await get(
+      Uri.parse('$url$route${endpoint['presensiShift']}')
+    );
+  }
 }

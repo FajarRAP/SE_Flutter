@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../../data/models/shift_berikutnya_model.dart';
-import '../cubit/shift_berikutnya_cubit.dart';
 
 class ItemNextShift extends StatelessWidget {
   final DataShiftBerikutnya dataShift;
@@ -16,7 +14,6 @@ class ItemNextShift extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final ShiftBerikutnyaCubit shiftBerikutnyaCubit = context.read<ShiftBerikutnyaCubit>();
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(

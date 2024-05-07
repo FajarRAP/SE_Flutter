@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:konsumsi_api_agenda/features/monitoring/presentation/cubit/daftar_presensi_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/constants_finals.dart';
 import 'features/agenda/presentation/cubit/agenda_cubit.dart';
@@ -31,14 +32,19 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   await FirebaseRemoteConfigServices().initialize();
   dependencyInjection();
-  runApp(const MyApp());
+  final prefs = await SharedPreferences.getInstance();
+  final String? token = prefs.getString('token');
+  runApp(MyApp(initialRoute: token != null ? fragmentViewRoute : splashRoute));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String initialRoute;
+  const MyApp({
+    super.key,
+    required this.initialRoute,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +79,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        initialRoute: splashRoute,
+        initialRoute: initialRoute,
         routes: Routes.routes,
       ),
     );

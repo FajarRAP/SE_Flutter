@@ -28,7 +28,7 @@ class ItemAdistyService extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       width: double.infinity,
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, path),
+        onTap: () => Navigator.pushNamed(context, path, arguments: false),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [

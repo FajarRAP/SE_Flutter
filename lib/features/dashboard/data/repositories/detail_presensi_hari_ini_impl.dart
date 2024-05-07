@@ -16,7 +16,7 @@ class DetailPresensiHariIniImpl implements DetailPresensiHariIniRepositories{
     try {
       final Response response = await detailPresensiService.getDetailPresensiToday();
       if (response.statusCode == 200) {
-        print(response.body);
+        
         return Right(detailPresensiHariIniModelFromJson(response.body));
       } else {
         return Left(Failure(message: 'Ada Sesuatu Yang Salah'));

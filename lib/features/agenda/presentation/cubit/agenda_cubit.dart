@@ -52,7 +52,7 @@ class AgendaCubit extends Cubit<AgendaState> {
     );
   }
 
-  Future<void> getAgendaRekap() async {
+  Future<void> getRekapAgenda() async {
     emit(RekapAgendaLoading());
 
     final results = await locator<AgendaRepositoriesImpl>().getAgendaRekap();

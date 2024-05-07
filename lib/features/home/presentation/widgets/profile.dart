@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../profile/presentation/cubit/profile_cubit.dart';
 import '../../../../core/constants_finals.dart';
 
 class Profile extends StatelessWidget {
@@ -7,6 +9,8 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final profileCubit = context.read<ProfileCubit>();
+
     return Row(
       children: [
         Image.asset('assets/images/home-profil.png'),
@@ -16,14 +20,30 @@ class Profile extends StatelessWidget {
           children: [
             SizedBox(
               width: 225,
-              child: Text(
-                'Hallo Agung 👋',
-                style: Styles.kPoppinsSemiBold.copyWith(
-                  color: kBlack,
-                  fontSize: 20,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+              child: BlocBuilder<ProfileCubit, ProfileState>(
+                bloc: profileCubit..getProfile(),
+                builder: (context, state) {
+                  if (state is ProfileLoaded) {
+                    return Text(
+                      'Hallo ${state.data.nama} 👋',
+                      style: Styles.kPoppinsSemiBold.copyWith(
+                        color: kBlack,
+                        fontSize: 20,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    );
+                  }
+                  return Text(
+                    '...',
+                    style: Styles.kPoppinsSemiBold.copyWith(
+                      color: kBlack,
+                      fontSize: 20,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  );
+                },
               ),
             ),
             Text(

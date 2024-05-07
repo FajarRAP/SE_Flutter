@@ -17,7 +17,7 @@ class ShiftBerikutnyaRepositoriesImpl implements ShiftBerikutnyaRepositories {
     try {
       final Response response = await presensiService.getShiftBerikutnyas();
       if(response.statusCode == 200){
-        print(response.body);
+        
         return Right(shiftBerikutnyaModelFromJson(response.body));
       }else{
         return Left(Failure(message: 'Ada Sesuatu Yang Salah'));

@@ -3,6 +3,8 @@ import 'package:konsumsi_api_agenda/features/presensi/data/data_sources/remote.d
 
 import 'features/agenda/data/data_sources/remote.dart';
 import 'features/agenda/data/repositories/agenda_repositories_impl.dart';
+import 'features/auth/data/data_sources/remote.dart';
+import 'features/auth/data/repositories/auth_repositories_impl.dart';
 import 'features/dashboard/data/data_sources/remote.dart';
 import 'features/dashboard/data/repositories/detail_presensi_hari_ini_impl.dart';
 import 'features/gaji/data/data_sources/remote.dart';
@@ -11,9 +13,10 @@ import 'features/layanan_cuti/data/data_sources/remote.dart';
 import 'features/layanan_cuti/data/repositories/cuti_repositories_impl.dart';
 import 'features/monitoring/data/data_sources/remote.dart';
 import 'features/monitoring/data/repositories/monitoring_repositories_impl.dart';
-import 'features/presensi/data/data_sources/remote.dart';
 import 'features/presensi/data/repositories/presensi_repositories_impl.dart';
 import 'features/presensi/data/repositories/shift_berikutnya_repositories_impl.dart';
+import 'features/profile/data/data_sources/remote.dart';
+import 'features/profile/data/repositories/profile_repositories_impl.dart';
 import 'features/shift/data/data_sources/remote.dart';
 import 'features/shift/data/repositories/shift_repositories_impl.dart';
 import 'features/tunjangan/data/data_sources/remote.dart';
@@ -82,10 +85,14 @@ void dependencyInjection() {
     ),
   );
 
-  locator.registerLazySingleton<PresensiService>(() => PresensiService());
+  locator.registerLazySingleton<PresensiService>(
+    () => PresensiService(),
+  );
 
   locator.registerLazySingleton<PresensiRepositoriesImpl>(
-    () => PresensiRepositoriesImpl(presensiService: locator<PresensiService>()),
+    () => PresensiRepositoriesImpl(
+      presensiService: locator<PresensiService>(),
+    ),
   );
 
   locator.registerLazySingleton<DetailPresensiHariIniImpl>(
@@ -94,13 +101,29 @@ void dependencyInjection() {
     ),
   );
 
-  locator.registerLazySingleton<PresensiService>(
-    () => PresensiService()
-  );
-
   locator.registerLazySingleton<ShiftBerikutnyaRepositoriesImpl>(
     () => ShiftBerikutnyaRepositoriesImpl(
       presensiService: locator<PresensiService>(),
+    ),
+  );
+
+  locator.registerLazySingleton<ProfileService>(
+    () => ProfileService(),
+  );
+
+  locator.registerLazySingleton<ProfileRepositoriesImpl>(
+    () => ProfileRepositoriesImpl(
+      profileService: locator<ProfileService>(),
+    ),
+  );
+
+  locator.registerLazySingleton<AuthService>(
+    () => AuthService(),
+  );
+
+  locator.registerLazySingleton<AuthRepositoriesImpl>(
+    () => AuthRepositoriesImpl(
+      authService: locator<AuthService>(),
     ),
   );
 }

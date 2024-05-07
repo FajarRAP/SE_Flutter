@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../core/constants_finals.dart';
 import '../features/home/presentation/pages/home.dart';
 import '../features/presensi/presentation/pages/presensi_masuk.dart';
-import '../features/profile/presentation/pages/profil.dart';
+import '../features/profile/presentation/pages/profile.dart';
 
 class FragmentView extends StatefulWidget {
   const FragmentView({super.key});

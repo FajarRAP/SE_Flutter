@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants_finals.dart';
+import '../cubit/auth_cubit.dart';
 
 class TextFieldCustom extends StatelessWidget {
   const TextFieldCustom({
@@ -16,6 +18,8 @@ class TextFieldCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = context.read<AuthCubit>();
+
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
@@ -61,6 +65,10 @@ class TextFieldCustom extends StatelessWidget {
         ),
       ),
       validator: validator,
+      onChanged: (value) {
+        authCubit.setUsername = value;
+        authCubit.activateButton();
+      },
     );
   }
 }

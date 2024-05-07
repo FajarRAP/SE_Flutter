@@ -10,7 +10,11 @@ import '../widgets/cari_agenda.dart';
 import '../widgets/item_agenda.dart';
 
 class AgendaPage extends StatefulWidget {
-  const AgendaPage({super.key});
+  final bool isToday;
+  const AgendaPage({
+    super.key,
+    this.isToday = false,
+  });
 
   @override
   State<AgendaPage> createState() => _AgendaPageState();
@@ -22,7 +26,16 @@ class _AgendaPageState extends State<AgendaPage> {
   @override
   Widget build(BuildContext context) {
     final AgendaCubit agendaCubit = context.read<AgendaCubit>();
-    
+
+    final Widget isNotToday = Column(children: [
+      const ButtonDanTanggal(),
+      const SizedBox(height: 24),
+      CariAgenda(agendaController: agendaController),
+      const SizedBox(height: 24),
+    ]);
+
+    final bool argument = ModalRoute.of(context)!.settings.arguments as bool;
+
     return Scaffold(
       backgroundColor: kBlue,
       body: NestedScrollView(
@@ -32,9 +45,7 @@ class _AgendaPageState extends State<AgendaPage> {
               backgroundColor: kBlue,
               centerTitle: true,
               leading: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
+                onTap: () => Navigator.pop(context),
                 child: SvgPicture.asset(
                   arrowBackSvg,
                   colorFilter: const ColorFilter.mode(
@@ -74,20 +85,11 @@ class _AgendaPageState extends State<AgendaPage> {
             ),
             child: Column(
               children: [
-                // Button dan Tanggal
-                const ButtonDanTanggal(),
-
-                const SizedBox(height: 24),
-
-                // TextField Cari Agenda
-                CariAgenda(agendaController: agendaController),
-
-                const SizedBox(height: 24),
-
-                // Data
+                !argument ? isNotToday : const SizedBox(),
                 Expanded(
                   child: BlocBuilder<AgendaCubit, AgendaState>(
                     bloc: agendaCubit..getAgendas(),
+                    buildWhen: (previous, current) => current is Agenda,
                     builder: (context, state) {
                       // Loading
                       if (state is AgendaLoading) {

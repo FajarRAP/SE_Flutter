@@ -25,7 +25,15 @@ class _LoginPageState extends State<LoginPage> {
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        print(state);
+        if (state is LoginError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
+        }
+
+        if (state is LoginAuthenticated) {
+          Navigator.pushNamed(context, fragmentViewRoute);
+        }
       },
       child: Scaffold(
         backgroundColor: kWhite,
@@ -96,10 +104,18 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 40),
-                  CustomElevatedButton(
-                    isFilled: authCubit.getIsFilled,
-                    text: 'Masuk',
-                    onPressed: authCubit.loginAuth,
+                  BlocBuilder<AuthCubit, AuthState>(
+                    bloc: authCubit,
+                    builder: (context, state) {
+                      return CustomElevatedButton(
+                        isFilled: authCubit.getIsFilled,
+                        text: 'Masuk',
+                        onPressed: () => authCubit.loginAuth(
+                          usernameController.text,
+                          passwordController.text,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -115,45 +131,5 @@ class _LoginPageState extends State<LoginPage> {
     usernameController.dispose();
     passwordController.dispose();
     super.dispose();
-  }
-
-  bool get isFilled =>
-      passwordController.text.isNotEmpty && usernameController.text.isNotEmpty;
-
-  bool get isAuthenticated =>
-      usernameController.text == "tes" && passwordController.text == "tes";
-
-  void loginAuth() async {
-    if (!isFilled) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: const Duration(milliseconds: 1500),
-          backgroundColor: kRed,
-          content: Text(
-            'Username & Password Tidak Boleh Kosong',
-            style: Styles.kNunitoRegular.copyWith(
-              color: kWhite,
-            ),
-          ),
-        ),
-      );
-      return;
-    }
-    if (!isAuthenticated) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: const Duration(milliseconds: 1500),
-          backgroundColor: kRed,
-          content: Text(
-            'Username atau Password Salah',
-            style: Styles.kNunitoRegular.copyWith(
-              color: kWhite,
-            ),
-          ),
-        ),
-      );
-      return;
-    }
-    Navigator.pushNamed(context, fragmentViewRoute);
   }
 }

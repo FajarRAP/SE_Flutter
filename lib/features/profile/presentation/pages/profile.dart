@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants_finals.dart';
 import '../../../gaji/presentation/pages/gaji.dart';
+import '../cubit/profile_cubit.dart';
 import '../ganti_password/ganti_password.dart';
 import '../widgets/detail_profile.dart';
 import '../widgets/extra_profile.dart';
@@ -15,6 +17,8 @@ class Profil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final profileCubit = context.read<ProfileCubit>();
+
     return Scaffold(
       backgroundColor: kWhite,
       body: NestedScrollView(
@@ -52,20 +56,19 @@ class Profil extends StatelessWidget {
                 const SizedBox(height: 32),
 
                 // NIPM
-                const ExtraProfile(
+                ExtraProfile(
                   path: 'assets/icons/profil-NIPM.svg',
                   title: 'NIPM',
-                  subtitle: '19730710 200409 111 0951298',
+                  subtitle: profileCubit.getNim,
                 ),
 
                 const SizedBox(height: 16),
 
                 // Unit Kerja
-                const ExtraProfile(
+                ExtraProfile(
                   path: 'assets/icons/profil-NIDN.svg',
                   title: 'Unit kerja',
-                  subtitle:
-                      'FTI - laboran riset sistem cerdas dan rekayasa perangkat lunak dan data.',
+                  subtitle: profileCubit.getUnit,
                 ),
 
                 const SizedBox(height: 32),

@@ -34,9 +34,9 @@ class CustomElevatedButton extends StatelessWidget {
         child: BlocConsumer<AuthCubit, AuthState>(
           bloc: authCubit,
           listener: (context, state) {
-            if (state is LoginAuthenticated) {
-              Navigator.pushNamed(context, fragmentViewRoute);
-            }
+            // if (state is LoginAuthenticated) {
+            //   Navigator.pushNamed(context, fragmentViewRoute);
+            // }
           },
           builder: (context, state) {
             if (state is LoginAuthenticating) {

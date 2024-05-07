@@ -9,11 +9,11 @@ class ToAgenda extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = context.read<AgendaCubit>();
+    final agendaCubit = context.read<AgendaCubit>();
     return Expanded(
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
-        onTap: () => Navigator.pushNamed(context, agendaRoute),
+        onTap: () => Navigator.pushNamed(context, agendaRoute, arguments: true),
         child: Ink(
           padding: const EdgeInsets.symmetric(
             vertical: 16,
@@ -35,7 +35,7 @@ class ToAgenda extends StatelessWidget {
                 ),
               ),
               BlocBuilder<AgendaCubit, AgendaState>(
-                bloc: authCubit..getAgendaRekap(),
+                bloc: agendaCubit..getRekapAgenda(),
                 buildWhen: (previous, current) => current is RekapAgenda,
                 builder: (context, state) {
                   if (state is RekapAgendaLoaded) {

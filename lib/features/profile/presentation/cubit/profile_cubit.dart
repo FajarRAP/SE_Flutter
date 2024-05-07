@@ -1,17 +1,35 @@
-import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
-import 'package:http/http.dart';
-import 'package:konsumsi_api_agenda/features/profile/data/data_sources/remote.dart';
 import 'package:meta/meta.dart';
+
+import '../../../../injection_container.dart';
+import '../../data/models/profile.dart';
+import '../../data/repositories/profile_repositories_impl.dart';
 
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileInitial());
 
+  DataProfile? profile;
+
+  String get getNim => profile!.nim;
+  String get getNama => profile!.nama;
+  String get getUnit => profile!.unit;
+  String get getKodeUnit => profile!.kodeUnit;
+
   void getProfile() async {
-    final String response = (await ProfileService().getProfile()).body;
-    print(jsonDecode(response));
+    emit(ProfileLoading());
+
+    final results = await locator<ProfileRepositoriesImpl>().getProfile();
+
+    results.fold(
+      (failure) {
+        emit(ProfileError(failure.message));
+      },
+      (success) {
+        profile = success.data;
+        emit(ProfileLoaded(success.data));
+      },
+    );
   }
 }

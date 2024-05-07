@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants_finals.dart';
+import '../cubit/auth_cubit.dart';
 
 class TextFieldPassword extends StatelessWidget {
   const TextFieldPassword({
@@ -19,6 +21,8 @@ class TextFieldPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = context.read<AuthCubit>();
+
     return TextFormField(
       obscureText: isObsecure,
       controller: controller,
@@ -72,6 +76,10 @@ class TextFieldPassword extends StatelessWidget {
           ),
         ),
       ),
+      onChanged: (value) {
+        authCubit.setPassword = value;
+        authCubit.activateButton();
+      },
     );
   }
 }

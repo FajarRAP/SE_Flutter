@@ -17,7 +17,7 @@ class PresensiRepositoriesImpl implements PresensiRepositories {
   Future<Either<Failure, RekapPresensiModel>> getRekapPresensi() async {
     try {
       final Response response = await presensiService.getRekapPresensi();
-      print(response.body);
+
       if (response.statusCode == 200) {
         return Right(rekapPresensiFromJson(response.body));
       } else {
@@ -32,7 +32,7 @@ class PresensiRepositoriesImpl implements PresensiRepositories {
   Future<Either<Failure, TodayPresensiModel>> getTodayPresensi() async {
     try {
       final Response response = await presensiService.getTodayPresensi();
-      print(response.body);
+
       if (response.statusCode == 200) {
         return Right(todayPresensiFromJson(response.body));
       } else {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/constants_finals.dart';
 
@@ -42,8 +43,19 @@ Future<void> logoutModal(BuildContext context) {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () =>
-                      Navigator.popUntil(context, (route) => route.isFirst),
+                  onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    if (prefs.getString('token') != null) {
+                      await prefs.remove('token');
+                      await Future.delayed(const Duration(seconds: 1));
+                      if (!context.mounted) return;
+                      Navigator.pushReplacementNamed(context, loginRoute);
+                    } else {
+                      await Future.delayed(const Duration(seconds: 1));
+                      if (!context.mounted) return;
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kRed,
                     fixedSize: const Size.fromHeight(48),

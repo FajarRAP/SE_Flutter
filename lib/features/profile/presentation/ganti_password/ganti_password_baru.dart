@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../core/constants_finals.dart';
-import '../pages/profil.dart';
+import '../pages/profile.dart';
 
 class PasswordBaru extends StatefulWidget {
   const PasswordBaru({super.key});

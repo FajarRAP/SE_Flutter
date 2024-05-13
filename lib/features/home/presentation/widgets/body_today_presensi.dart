@@ -7,6 +7,10 @@ import '../../../presensi/data/models/today_presensi.dart';
 class BodyTodayPresensi extends StatelessWidget {
   final DataTodayPresensiModel data;
 
+  String removeRp(String input) {
+    return input.replaceFirst("Rp. ", "");
+  }
+
   const BodyTodayPresensi({
     super.key,
     required this.data,
@@ -27,6 +31,9 @@ class BodyTodayPresensi extends StatelessWidget {
           style: Styles.kNunitoSemiBold.copyWith(
             color: kWhite,
           ),
+        ),
+        const SizedBox(
+          height: 6,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -143,7 +150,8 @@ class BodyTodayPresensi extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  data.nominalInsentif,
+                  removeRp(data.nominalInsentif),
+                  maxLines: 1,
                   style: Styles.kPoppinsSemiBold.copyWith(
                     color: kWhite,
                     fontSize: 12,

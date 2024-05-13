@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../../../core/constants_finals.dart';
 import '../../../presensi/presentation/cubit/presensi_cubit.dart';
 import '../../../profile/presentation/cubit/profile_cubit.dart';
@@ -18,6 +19,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //tes geolocation
+  Position? currentPosition;
+  late bool servicePermission = false;
+  late LocationPermission permission;
+  double startLatitude = -7.834457555366181;
+  double startLongitude = 110.38298131027905;
+  double distance = 0.0;
+
+  Future<Position> getCurrentLocation() async {
+    servicePermission = await Geolocator.isLocationServiceEnabled();
+    if (!servicePermission) {
+      print('Service Disabled');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+    return await Geolocator.getCurrentPosition();
+  }
+
   @override
   Widget build(BuildContext context) {
     final profileCubit = context.read<ProfileCubit>();
@@ -114,8 +135,49 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 12),
 
                   ElevatedButton(
-                    onPressed: profileCubit.getProfile,
+                    onPressed: () async {
+                      profileCubit.getProfile;
+                      currentPosition = await getCurrentLocation();
+                      if (currentPosition != null) {
+                        distance = Geolocator.distanceBetween(
+                            startLatitude,
+                            startLongitude,
+                            currentPosition!.latitude,
+                            currentPosition!.longitude);
+                      }
+                      print(currentPosition);
+                      print(distance.toStringAsFixed(2));
+                    },
                     child: const Text('Klik Di sini'),
+                  ),
+                  Center(child: Text('Data Longitude dan Latitude')),
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${currentPosition?.longitude ?? "Loading..."}',
+                          style: Styles.kPoppinsSemiBold.copyWith(
+                            color: kBlack,
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          '${currentPosition?.latitude ?? "Loading..."}',
+                          style: Styles.kPoppinsSemiBold.copyWith(
+                            color: kBlack,
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          '${distance ?? "Loading..."}',
+                          style: Styles.kPoppinsSemiBold.copyWith(
+                            color: kBlack,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const ItemAdistyService(
                     img: 'assets/images/shift-bulan.png',

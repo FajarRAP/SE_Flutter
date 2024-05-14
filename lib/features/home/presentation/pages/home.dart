@@ -1,3 +1,4 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -19,6 +20,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //tes deviceinfo
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
   //tes geolocation
   Position? currentPosition;
   late bool servicePermission = false;
@@ -26,6 +30,11 @@ class _HomePageState extends State<HomePage> {
   double startLatitude = -7.834457555366181;
   double startLongitude = 110.38298131027905;
   double distance = 0.0;
+
+  Future<void> initDeviceInfo() async {
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    print('${androidInfo.id}'); //this id will eventually sent to verify the device while doing a presensi
+  }
 
   Future<Position> getCurrentLocation() async {
     servicePermission = await Geolocator.isLocationServiceEnabled();
@@ -37,6 +46,12 @@ class _HomePageState extends State<HomePage> {
       permission = await Geolocator.requestPermission();
     }
     return await Geolocator.getCurrentPosition();
+  }
+
+  @override
+  void initState() {
+    initDeviceInfo();
+    super.initState();
   }
 
   @override

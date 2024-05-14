@@ -33,10 +33,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> initDeviceInfo() async {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    print('${androidInfo.id}'); //this id will eventually sent to verify the device while doing a presensi
+    print(
+        'Device Info ID : ${androidInfo.id}'); //this id will eventually sent to verify the device while doing a presensi
   }
 
-  Future<Position> getCurrentLocation() async {
+  Future<void> getCurrentLocation() async {
     servicePermission = await Geolocator.isLocationServiceEnabled();
     if (!servicePermission) {
       print('Service Disabled');
@@ -45,12 +46,18 @@ class _HomePageState extends State<HomePage> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
     }
-    return await Geolocator.getCurrentPosition();
+    Position position = await Geolocator.getCurrentPosition();
+    setState(() {
+      currentPosition = position;
+      distance = Geolocator.distanceBetween(startLatitude, startLongitude,
+          currentPosition!.latitude, currentPosition!.longitude);
+    });
   }
 
   @override
   void initState() {
     initDeviceInfo();
+    getCurrentLocation();
     super.initState();
   }
 
@@ -152,20 +159,11 @@ class _HomePageState extends State<HomePage> {
                   ElevatedButton(
                     onPressed: () async {
                       profileCubit.getProfile;
-                      currentPosition = await getCurrentLocation();
-                      if (currentPosition != null) {
-                        distance = Geolocator.distanceBetween(
-                            startLatitude,
-                            startLongitude,
-                            currentPosition!.latitude,
-                            currentPosition!.longitude);
-                      }
-                      print(currentPosition);
-                      print(distance.toStringAsFixed(2));
+                      await getCurrentLocation();
                     },
                     child: const Text('Klik Di sini'),
                   ),
-                  Center(child: Text('Data Longitude dan Latitude')),
+                  const Center(child: Text('Data Longitude dan Latitude')),
                   Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -185,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Text(
-                          '${distance ?? "Loading..."}',
+                          '${distance.toStringAsFixed(2) ?? "Loading..."}',
                           style: Styles.kPoppinsSemiBold.copyWith(
                             color: kBlack,
                             fontSize: 12,

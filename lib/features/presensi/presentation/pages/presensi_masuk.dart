@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:konsumsi_api_agenda/features/presensi/presentation/cubit/presensi_cubit.dart';
 import '../../../../core/constants_finals.dart';
 import '../cubit/shift_berikutnya_cubit.dart';
 import '../widgets/card_location.dart';
@@ -16,7 +17,7 @@ class PresensiMasukPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ShiftBerikutnyaCubit shiftBerikutnyaCubit =
         context.read<ShiftBerikutnyaCubit>();
-
+    final PresensiCubit presensiCubit = context.read<PresensiCubit>();
     // bool showAll = false;
     return Scaffold(
       backgroundColor: kBlue,
@@ -49,60 +50,79 @@ class PresensiMasukPage extends StatelessWidget {
             vertical: 32,
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Lokasi
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: CardLocation(),
+              BlocBuilder<PresensiCubit, PresensiState>(
+                bloc: presensiCubit..getDetilPresensis(),
+                builder: (context, state) {
+                  if (state is DetilPresensiLoading) {
+                    return Center();
+                  } else if (state is DetilPresensiLoaded) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Lokasi
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          child: CardLocation(data: state.data),
+                        ),
+
+                        const SizedBox(height: 16),
+
+                        // Masuk and Pulang
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          child: Row(
+                            children: [
+                              // Masuk
+                              Expanded(
+                                child: CardMasuk(
+                                  data: state.data,
+                                ),
+                              ),
+                              SizedBox(width: 16),
+                              // // Pulang
+                              Expanded(
+                                child: CardPulang(
+                                  data: state.data,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(height: 24),
+                        Container(
+                          height: 8,
+                          color: const Color(0xFFEEF2F3),
+                        ),
+                        const SizedBox(height: 24),
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          child: Text(
+                            'Shift berikutnya',
+                            style: Styles.kPoppinsMedium.copyWith(
+                              color: kNeutral70,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 12),
+                      ],
+                    );
+                  } else if (state is DetilPresensiError) {
+                    return Center();
+                  }
+                  return Center();
+                },
               ),
-
-              const SizedBox(height: 16),
-
-              // Masuk and Pulang
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Row(
-                  children: [
-                    // Masuk
-                    Expanded(
-                      child: CardMasuk(),
-                    ),
-                    SizedBox(width: 16),
-                    // Pulang
-                    Expanded(
-                      child: CardPulang(),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 24),
-              Container(
-                height: 8,
-                color: const Color(0xFFEEF2F3),
-              ),
-              const SizedBox(height: 24),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Text(
-                  'Shift berikutnya',
-                  style: Styles.kPoppinsMedium.copyWith(
-                    color: kNeutral70,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 12),
-
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -135,9 +155,11 @@ class PresensiMasukPage extends StatelessWidget {
                         );
                       }
                       return Center(
-                        child: ElevatedButton(onPressed: () {
-                          shiftBerikutnyaCubit..getShiftBerikutnyas();
-                        }, child: const Text('Ulang')),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              shiftBerikutnyaCubit.getShiftBerikutnyas();
+                            },
+                            child: const Text('Ulang')),
                       );
                     },
                   ),

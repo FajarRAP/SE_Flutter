@@ -11,6 +11,8 @@ class TodayPresensi extends PresensiState {}
 
 class DaftarPresensi extends PresensiState {}
 
+class DetilPresensi extends PresensiState {}
+
 class RekapPresensiLoading extends RekapPresensi {}
 
 class RekapPresensiLoaded extends RekapPresensi {
@@ -50,4 +52,18 @@ class DaftarPresensiError extends DaftarPresensi {
   final String message;
 
   DaftarPresensiError(this.message);
+}
+
+class DetilPresensiLoading extends DetilPresensi{}
+
+class DetilPresensiLoaded extends DetilPresensi {
+  final DataPresensiDetil data;
+
+  DetilPresensiLoaded(this.data);
+}
+
+class DetilPresensiError extends DetilPresensi{
+  final String message;
+
+  DetilPresensiError(this.message);
 }

@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants_finals.dart';
+import '../../data/models/presensi_detil_model.dart';
 
 class CardLocation extends StatelessWidget {
-  const CardLocation({super.key});
+  final DataPresensiDetil data;
+  const CardLocation({super.key, required this.data});
+  String removeMataUang(String input) {
+    return input.replaceFirst('Rp.', '').trim();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +52,7 @@ class CardLocation extends StatelessWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'Lokasi di luar UAD',
+                    data.lokasi,
                     style: Styles.kPoppinsMedium.copyWith(
                       fontSize: 16,
                       color: kBlack,
@@ -69,7 +74,7 @@ class CardLocation extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Rp 20.000',
+                  removeMataUang(data.nominalInsentif),
                   style: Styles.kPoppinsMedium.copyWith(
                     color: kBlack,
                   ),

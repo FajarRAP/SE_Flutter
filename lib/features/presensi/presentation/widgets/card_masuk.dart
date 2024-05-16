@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants_finals.dart';
+import '../../data/models/presensi_detil_model.dart';
 
 class CardMasuk extends StatelessWidget {
-  const CardMasuk({super.key});
+  final DataPresensiDetil data;
+  const CardMasuk({
+    super.key,
+    required this.data,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +57,7 @@ class CardMasuk extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Text(
-            'Belum Presensi',
+            data.jamMasuk,
             style: Styles.kPoppinsSemiBold.copyWith(
               color: kRed,
               fontSize: 16,

@@ -11,6 +11,9 @@ class ItemRekapBulanan extends StatelessWidget {
     required this.dataPresensi,
   });
 
+  String removeMataUang(String input) {
+  return input.replaceFirst('Rp.', '').trim();
+}
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -109,7 +112,7 @@ class ItemRekapBulanan extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          dataPresensi.nominalInsentif,
+                          removeMataUang(dataPresensi.nominalInsentif),
                           style: Styles.kPoppinsMedium.copyWith(
                             color: kBlack,
                           ),

@@ -83,11 +83,11 @@ class PresensiCubit extends Cubit<PresensiState> {
 
     result.fold(
       (failure) {
-      emit(DetilPresensiError(failure.message));
-    }, (success) {
-      emit(DetilPresensiLoaded(success.data));
-    },
+        emit(DetilPresensiError(failure.message));
+      },
+      (success) {
+        emit(DetilPresensiLoaded(success.data));
+      },
     );
   }
-  
 }

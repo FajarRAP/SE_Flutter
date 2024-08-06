@@ -1,5 +1,8 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:network_info_plus/network_info_plus.dart';
 
 import '../core/constants_finals.dart';
 import '../features/home/presentation/pages/home.dart';
@@ -14,6 +17,45 @@ class FragmentView extends StatefulWidget {
 }
 
 class _FragmentViewState extends State<FragmentView> {
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission locationPermission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Lokasi Dimatikan');
+    }
+    locationPermission = await Geolocator.checkPermission();
+    if (locationPermission == LocationPermission.denied) {
+      locationPermission = await Geolocator.requestPermission();
+      if (locationPermission == LocationPermission.denied) {
+        return Future.error('Perizinan Lokasi Ditolak');
+      }
+    }
+    if (locationPermission == LocationPermission.deniedForever) {
+      return Future.error('Ditolak Selamanya');
+    }
+
+    return await Geolocator.getCurrentPosition();
+  }
+
+  Future<void> bokep() async {
+    final posisi = await _determinePosition();
+    final netInfo = NetworkInfo();
+    final devInfo = DeviceInfoPlugin();
+    final andInfo = await devInfo.androidInfo;
+    print(await netInfo.getWifiBSSID());
+    print(await netInfo.getWifiIP());
+    print(await netInfo.getWifiName());
+    print(andInfo.id);
+    print('${posisi.latitude} ${posisi.longitude}');
+  }
+
+  @override
+  void initState() {
+    bokep();
+    super.initState();
+  }
+
   final PageController pageController = PageController();
   int indexPage = 0;
   List<Widget> pageList = [

@@ -39,7 +39,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(LoginError(failure.message));
       },
       (success) async {
-        final prefs = await SharedPreferences.getInstance();
+        final prefs = locator<SharedPreferences>();
         await prefs.setString('token', success.data.accessToken);
         emit(LoginAuthenticated());
       },

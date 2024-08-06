@@ -33,8 +33,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FirebaseRemoteConfigServices().initialize();
-  dependencyInjection();
-  final prefs = await SharedPreferences.getInstance();
+  await dependencyInjection();
+  final prefs = locator<SharedPreferences>();
   final String? token = prefs.getString('token');
   runApp(MyApp(initialRoute: token != null ? fragmentViewRoute : splashRoute));
 }

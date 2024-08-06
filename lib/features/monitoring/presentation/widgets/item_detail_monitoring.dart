@@ -37,7 +37,7 @@ class ItemDetailMonitoring extends StatelessWidget {
     final bool isTelat =
         dataDaftarPresensi.statusPresensi.toLowerCase() == "telat";
     
-    final bool isAbsen = dataDaftarPresensi.statusPresensi.toLowerCase() == "absen";
+    // final bool isAbsen = dataDaftarPresensi.statusPresensi.toLowerCase() == "absen";
 
     return Container(
       height: 130,

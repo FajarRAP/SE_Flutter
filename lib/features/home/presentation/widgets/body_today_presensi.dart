@@ -114,7 +114,7 @@ class BodyTodayPresensi extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 12),
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(

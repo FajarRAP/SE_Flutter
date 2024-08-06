@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants_finals.dart';
 import '../../../agenda/presentation/cubit/agenda_cubit.dart';
-import '../../../auth/presentation/cubit/auth_cubit.dart';
 import '../../../presensi/presentation/cubit/presensi_cubit.dart';
 import '../widgets/item_adisty_services.dart';
 import '../widgets/presensi.dart';
@@ -118,7 +117,9 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 12),
 
                   // ElevatedButton(
-                  //   onPressed: profileCubit.getProfile,
+                  //   onPressed: () async {
+                  //     print(await DetectFakeLocation().detectFakeLocation());
+                  //   },
                   //   child: const Text('Klik Di sini'),
                   // ),
                   const ItemAdistyService(

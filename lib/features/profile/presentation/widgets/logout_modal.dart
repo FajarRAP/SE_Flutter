@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/constants_finals.dart';
+import '../../../../injection_container.dart';
 
 Future<void> logoutModal(BuildContext context) {
   return showModalBottomSheet<void>(
@@ -44,7 +45,7 @@ Future<void> logoutModal(BuildContext context) {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
-                    final prefs = await SharedPreferences.getInstance();
+                    final prefs = locator<SharedPreferences>();
                     if (prefs.getString('token') != null) {
                       await prefs.remove('token');
                       await Future.delayed(const Duration(seconds: 1));

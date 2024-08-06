@@ -110,10 +110,12 @@ class _LoginPageState extends State<LoginPage> {
                       return CustomElevatedButton(
                         isFilled: authCubit.getIsFilled,
                         text: 'Masuk',
-                        onPressed: () => authCubit.loginAuth(
-                          usernameController.text,
-                          passwordController.text,
-                        ),
+                        onPressed: authCubit.getIsFilled
+                            ? () => authCubit.loginAuth(
+                                  usernameController.text,
+                                  passwordController.text,
+                                )
+                            : () {},
                       );
                     },
                   ),

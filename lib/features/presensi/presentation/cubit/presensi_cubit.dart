@@ -1,11 +1,13 @@
 import 'package:bloc/bloc.dart';
-import 'package:konsumsi_api_agenda/features/presensi/data/models/presensi.dart';
-import 'package:konsumsi_api_agenda/features/presensi/data/models/today_presensi.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../injection_container.dart';
+
+import '../../data/models/presensi.dart';
+import '../../data/models/presensi_detil_model.dart';
 import '../../data/models/rekap_presensi.dart';
+import '../../data/models/today_presensi.dart';
 import '../../data/repositories/presensi_repositories_impl.dart';
+import '../../dependency_injection_presensi.dart';
 
 part 'presensi_state.dart';
 
@@ -72,6 +74,20 @@ class PresensiCubit extends Cubit<PresensiState> {
       },
       (success) {
         emit(DaftarPresensiLoaded(success.data));
+      },
+    );
+  }
+
+  Future<void> getDetilPresensis() async {
+    emit(DetilPresensiLoading());
+    final result = await locator<PresensiRepositoriesImpl>().getDetilPresensi();
+
+    result.fold(
+      (failure) {
+        emit(DetilPresensiError(failure.message));
+      },
+      (success) {
+        emit(DetilPresensiLoaded(success.data));
       },
     );
   }

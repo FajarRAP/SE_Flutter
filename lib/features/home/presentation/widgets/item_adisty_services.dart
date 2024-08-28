@@ -51,7 +51,7 @@ class ItemAdistyService extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     SizedBox(
-                      width: 225,
+                      width: 200,
                       child: Text(
                         subtitle,
                         style: Styles.kNunitoRegular.copyWith(

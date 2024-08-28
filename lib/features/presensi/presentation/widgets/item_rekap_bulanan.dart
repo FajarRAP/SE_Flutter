@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/constants_finals.dart';
+
+import '../../const_final_presensi.dart';
 import '../../data/models/presensi.dart';
 
 class ItemRekapBulanan extends StatelessWidget {
@@ -11,6 +12,9 @@ class ItemRekapBulanan extends StatelessWidget {
     required this.dataPresensi,
   });
 
+  String removeMataUang(String input) {
+  return input.replaceFirst('Rp.', '').trim();
+}
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -109,7 +113,7 @@ class ItemRekapBulanan extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          dataPresensi.nominalInsentif,
+                          removeMataUang(dataPresensi.nominalInsentif),
                           style: Styles.kPoppinsMedium.copyWith(
                             color: kBlack,
                           ),

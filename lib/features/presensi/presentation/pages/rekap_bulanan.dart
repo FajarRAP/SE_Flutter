@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/constants_finals.dart';
-import '../../../../core/functions.dart';
+
+
 import '../../../monitoring/presentation/cubit/detail_monitoring_cubit.dart';
+import '../../const_final_presensi.dart';
+import '../../presensi_function.dart';
 import '../cubit/presensi_cubit.dart';
+import '../widgets/card_below_chart.dart';
 import '../widgets/item_chart_pie.dart';
 import '../widgets/item_rekap_bulanan.dart';
 
@@ -219,7 +222,7 @@ class RekapBulananPage extends StatelessWidget {
               builder: (context, state) {
                 if (state is DaftarPresensiLoading) {
                   return const SliverToBoxAdapter(
-                    child: CircularProgressIndicator(),
+                    child: Center(child: CircularProgressIndicator()),
                   );
                 }
                 if (state is DaftarPresensiLoaded) {
@@ -233,73 +236,12 @@ class RekapBulananPage extends StatelessWidget {
                   );
                 }
                 return const SliverToBoxAdapter(
-                  child: Center(child: CircularProgressIndicator()),
+                  child: Expanded(
+                      child: Center(child: CircularProgressIndicator())),
                 );
               },
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 12)),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CardBelowChart extends StatelessWidget {
-  final String jenis;
-  final String path;
-  final String data;
-  final String keterangan;
-  const CardBelowChart({
-    super.key,
-    required this.jenis,
-    required this.path,
-    required this.data,
-    required this.keterangan,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: boxShadow,
-          color: kWhite,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                SvgPicture.asset('assets/icons/$path'),
-                const SizedBox(width: 8),
-                Text(
-                  jenis,
-                  style: Styles.kPoppinsMedium.copyWith(
-                    color: kBlack,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text(
-              data,
-              style: Styles.kPoppinsSemiBold.copyWith(
-                color: kBlack,
-                fontSize: 20,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              keterangan,
-              style: Styles.kNunitoRegular.copyWith(
-                color: kNeutral90,
-                fontSize: 16,
-              ),
-            ),
           ],
         ),
       ),

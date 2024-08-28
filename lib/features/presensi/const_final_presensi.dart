@@ -1,37 +1,9 @@
+// Assets Location
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// API
-const String url = 'http://d3v.uad.id/';
-const String route = 'ipm/index.php/auth/';
-const Map<String, String> endpoint = {
-  'agenda': 'agenda?',
-  'detailAgenda': 'detil_agenda',
-  'rekapAgenda': 'agenda_rekap',
-  'daftarCuti': 'daftar_cuti',
-  'rekapCuti': 'rekap_cuti',
-  'monitoring': 'monitoring',
-  'rekapMonitoring': 'monitoring_rekap',
-  'detailMonitoring': 'monitoring_detil',
-  'gaji': 'gaji',
-  'detailGaji': 'gaji_detil',
-  'shift': 'jadwal_shift',
-  'tunjangan': 'tunjangan_beras?',
-  'detailTunjangan': 'detil_tunjangan_beras',
-  'rekapPresensi': 'rekap_presensi',
-  'todayPresensi': 'presensi_today',
-  'daftarPresensi': 'presensi_daftar',
-  'profile': 'tendik_profile',
-  'presensiToday': 'presensi_today',
-  'rekapBulanan': 'rekap_presensi',
-  'presensiDaftar': 'presensi_daftar',
-  'presensiShift' : 'presensi_shift',
-  'presensiDetil' : 'presensi_detil',
-};
-
-// Assets Location
 const String arrowBackSvg = 'assets/icons/arrow-left.svg';
 const String penEditSvg = 'assets/icons/edit-2.svg';
 const String emptyDataSvg = 'assets/icons/libur-jadwal-perkuliahan.svg';

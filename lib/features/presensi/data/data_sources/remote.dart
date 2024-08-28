@@ -1,7 +1,17 @@
 import 'package:http/http.dart';
-import 'package:konsumsi_api_agenda/core/constants_finals.dart';
+
 
 class PresensiService {
+  final String url = 'http://d3v.uad.id/';
+  final String route = 'ipm/index.php/auth/';
+  final Map<String, String> endpoint = {
+    'rekapBulanan': 'rekap_presensi',
+    'todayPresensi': 'presensi_today',
+    'daftarPresensi': 'presensi_daftar',
+    'presensiShift': 'presensi_shift',
+    'presensiDetil': 'presensi_detil',
+  };
+
   Future<Response> getRekapPresensi() async {
     return await get(
       Uri.parse('$url$route${endpoint['rekapPresensi']}'),
@@ -21,13 +31,10 @@ class PresensiService {
   }
 
   Future<Response> getShiftBerikutnyas() async {
-    return await get(
-      Uri.parse('$url$route${endpoint['presensiShift']}')
-    );
+    return await get(Uri.parse('$url$route${endpoint['presensiShift']}'));
   }
+
   Future<Response> getPresensiDetil() async {
-    return await get(
-      Uri.parse('$url$route${endpoint['presensiDetil']}')
-    );
+    return await get(Uri.parse('$url$route${endpoint['presensiDetil']}'));
   }
 }

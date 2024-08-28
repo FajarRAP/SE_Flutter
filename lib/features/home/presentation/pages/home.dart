@@ -169,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '${currentPosition?.longitude ?? "Loading..."}', // will sent to API to do something 
+                          '${currentPosition?.longitude ?? "Loading..."}', // will sent to API to do something
                           style: Styles.kPoppinsSemiBold.copyWith(
                             color: kBlack,
                             fontSize: 12,
@@ -183,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Text(
-                          '${distance.toStringAsFixed(2) ?? "Loading..."}', // this too
+                          distance.toStringAsFixed(2), // this too
                           style: Styles.kPoppinsSemiBold.copyWith(
                             color: kBlack,
                             fontSize: 12,

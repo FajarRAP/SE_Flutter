@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
 
-import 'package:konsumsi_api_agenda/core/failure.dart';
 
 import '../../domain/repositories/shift_berikutnya_repositories.dart';
 import '../data_sources/remote.dart';

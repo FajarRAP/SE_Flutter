@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../core/constants_finals.dart';
+
+import '../../const_final_presensi.dart';
 import '../cubit/presensi_cubit.dart';
 import '../widgets/item_detail_today_presensi.dart';
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants_finals.dart';
+
 import '../../../../core/functions.dart';
 import '../cubit/detail_agenda_cubit.dart';
 import '../widgets/item_detail_agenda.dart';

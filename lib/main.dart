@@ -58,7 +58,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => DetailTunjanganCubit()),
         BlocProvider(create: (context) => PresensiCubit()),
         BlocProvider(create: (context) => ProfileCubit()),
-        // Kodingan Eram
         BlocProvider(create: (context) => DetailPresensiTodayCubit()),
         BlocProvider(create: (context) => RekapBulananCubit()),
         BlocProvider(create: (context) => DaftarPresensiCubit()),

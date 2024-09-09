@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-
+import 'package:konsumsi_api_agenda/features/presensi/presentation/pages/presensi_kamera.dart';
 
 import '../../const_final_presensi.dart';
 import '../cubit/presensi_cubit.dart';
@@ -14,7 +15,8 @@ import '../widgets/shift_empty.dart';
 import '../widgets/success_dialog.dart';
 
 class PresensiMasukPage extends StatelessWidget {
-  const PresensiMasukPage({super.key});
+  final String? imagePath;
+  const PresensiMasukPage({Key? key, this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +98,10 @@ class PresensiMasukPage extends StatelessWidget {
                             ],
                           ),
                         ),
+                        imagePath == null
+                            ? const SizedBox()
+                            : Image.file(File(imagePath!),
+                                width: 200, height: 200),
 
                         const SizedBox(height: 24),
                         Container(
@@ -116,7 +122,6 @@ class PresensiMasukPage extends StatelessWidget {
                             ),
                           ),
                         ),
-
                         const SizedBox(height: 12),
                       ],
                     );
@@ -185,8 +190,26 @@ class PresensiMasukPage extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(16),
         width: double.infinity,
+        // child: ElevatedButton(
+        //   onPressed: () => presensiMasuk(context),
+        //   style: ElevatedButton.styleFrom(
+        //     backgroundColor: kBlue,
+        //     fixedSize: const Size.fromHeight(48),
+        //     shape: RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.circular(10),
+        //     ),
+        //   ),
+        //   child: Text(
+        //     'Presensi Masuk',
+        //     style: Styles.kPoppinsMedium.copyWith(
+        //       color: kWhite,
+        //       fontSize: 16,
+        //     ),
+        //   ),
+        // ),
         child: ElevatedButton(
-          onPressed: () => presensiMasuk(context),
+          onPressed: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const PresensiCamera())),
           style: ElevatedButton.styleFrom(
             backgroundColor: kBlue,
             fixedSize: const Size.fromHeight(48),

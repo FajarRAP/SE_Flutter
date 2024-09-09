@@ -51,6 +51,7 @@ dependencies:
   intl: ^0.18.1
   month_picker_dialog: ^2.4.0
   page_transition: ^2.1.0
+  path_provider: ^2.1.4
   pretty_qr_code: ^3.1.0
   shimmer: ^3.0.0
 

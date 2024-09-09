@@ -5,11 +5,18 @@ import '../../const_final_presensi.dart';
 
 
 
-Future<void> presensiMasuk(BuildContext context) {
-  return showDialog<void>(
+Future<void> presensiMasukSuccessDialog(BuildContext context) async {
+  showDialog<void>(
     context: context,
     barrierColor: const Color(0xCC293241),
-    builder: (BuildContext context) {
+    builder: (BuildContext dialogContext) {
+      // Pastikan dialogContext digunakan untuk pop setelah delay
+      Future.delayed(const Duration(seconds: 3), () {
+        if (Navigator.of(dialogContext).canPop()) {
+          Navigator.of(dialogContext).pop();
+        }
+      });
+
       return AlertDialog(
         contentPadding: const EdgeInsets.all(40),
         shape: RoundedRectangleBorder(
@@ -29,26 +36,6 @@ Future<void> presensiMasuk(BuildContext context) {
               ),
             ),
             const SizedBox(height: 40),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: kBlue,
-                  fixedSize: const Size.fromHeight(48),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(64),
-                  ),
-                ),
-                child: Text(
-                  'Oke',
-                  style: Styles.kPoppinsMedium.copyWith(
-                    color: kWhite,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            )
           ],
         ),
       );

@@ -10,7 +10,6 @@ Future<void> presensiMasukSuccessDialog(BuildContext context) async {
     context: context,
     barrierColor: const Color(0xCC293241),
     builder: (BuildContext dialogContext) {
-      // Pastikan dialogContext digunakan untuk pop setelah delay
       Future.delayed(const Duration(seconds: 3), () {
         if (Navigator.of(dialogContext).canPop()) {
           Navigator.of(dialogContext).pop();

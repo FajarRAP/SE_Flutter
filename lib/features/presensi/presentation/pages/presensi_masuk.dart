@@ -12,7 +12,6 @@ import '../widgets/card_masuk.dart';
 import '../widgets/card_pulang.dart';
 import '../widgets/item_next_shift.dart';
 import '../widgets/shift_empty.dart';
-import '../widgets/success_dialog.dart';
 
 class PresensiMasukPage extends StatelessWidget {
   final String? imagePath;
@@ -60,14 +59,14 @@ class PresensiMasukPage extends StatelessWidget {
                 bloc: presensiCubit..getDetilPresensis(),
                 builder: (context, state) {
                   if (state is DetilPresensiLoading) {
-                    return Center();
+                    return const Center();
                   } else if (state is DetilPresensiLoaded) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Lokasi
                         Padding(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           child: CardLocation(data: state.data),
@@ -77,7 +76,7 @@ class PresensiMasukPage extends StatelessWidget {
 
                         // Masuk and Pulang
                         Padding(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           child: Row(
@@ -88,7 +87,7 @@ class PresensiMasukPage extends StatelessWidget {
                                   data: state.data,
                                 ),
                               ),
-                              SizedBox(width: 16),
+                              const SizedBox(width: 16),
                               // // Pulang
                               Expanded(
                                 child: CardPulang(
@@ -126,9 +125,9 @@ class PresensiMasukPage extends StatelessWidget {
                       ],
                     );
                   } else if (state is DetilPresensiError) {
-                    return Center();
+                    return const Center();
                   }
-                  return Center();
+                  return const Center();
                 },
               ),
               Expanded(

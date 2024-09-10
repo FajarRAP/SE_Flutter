@@ -47,6 +47,7 @@ dependencies:
   geolocator: ^11.0.0
   get_it: ^7.6.7
   google_fonts: 6.1.0
+  google_mlkit_face_detection: ^0.11.0
   http: ^1.1.2
   intl: ^0.18.1
   month_picker_dialog: ^2.4.0

@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:konsumsi_api_agenda/features/presensi/presentation/pages/presensi_masuk.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:konsumsi_api_agenda/core/constants_finals.dart';
+
+import '../../../../core/constants_finals.dart';
 
 class PresensiCamera extends StatefulWidget {
   const PresensiCamera({super.key});
@@ -93,7 +95,8 @@ class _PresensiCameraState extends State<PresensiCamera> {
                     if (!mounted) return;
                     final imagePath = await saveImageToLocalStorage(image);
                     if (imagePath.isNotEmpty) {
-                      Navigator.pop(context, image.path);
+                      // Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => PresensiMasukPage(imagePath: imagePath))));
+                      Navigator.pop(context, imagePath);
                     }
                   } catch (e) {
                     print(e);

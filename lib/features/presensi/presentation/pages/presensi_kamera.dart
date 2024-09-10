@@ -6,8 +6,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:konsumsi_api_agenda/core/constants_finals.dart';
 
-import 'presensi_masuk.dart';
-
 class PresensiCamera extends StatefulWidget {
   const PresensiCamera({super.key});
 
@@ -91,21 +89,10 @@ class _PresensiCameraState extends State<PresensiCamera> {
               child: ElevatedButton(
                 onPressed: () async {
                   try {
-                    // Ambil foto menggunakan kamera
                     final image = await cameraController!.takePicture();
                     if (!mounted) return;
-
-                    // Simpan gambar dan dapatkan path-nya
                     final imagePath = await saveImageToLocalStorage(image);
-
-                    // Kirim path gambar ke halaman berikutnya
                     if (imagePath.isNotEmpty) {
-                      // Navigator.pushReplacement(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => PresensiMasukPage(imagePath: imagePath),
-                      //   ),
-                      // );
                       Navigator.pop(context, image.path);
                     }
                   } catch (e) {

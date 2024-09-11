@@ -19,7 +19,7 @@ class TodayPresensiSection extends StatelessWidget {
         child: Ink(
           padding: const EdgeInsets.symmetric(
             horizontal: 20,
-            vertical: 16,
+            vertical: 26,
           ),
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(

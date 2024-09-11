@@ -22,7 +22,7 @@ class PresensiMasukPage extends StatefulWidget {
 }
 
 class _PresensiMasukPageState extends State<PresensiMasukPage> {
-  String? imagePath; // Tambahkan properti imagePath di dalam state
+  String? imagePath;
 
   @override
   void initState() {

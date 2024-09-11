@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants_finals.dart';
@@ -20,53 +21,72 @@ class BodyTodayPresensi extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          child: Image.asset(
-            'assets/images/tendik.png',
-            width: 125,
+        Text(
+          '${data.hari},',
+          style: Styles.kPoppinsBold.copyWith(
+            color: kWhite,
+            fontSize: 24,
           ),
         ),
+        // const SizedBox(
+        //   height: 2,
+        // ),
         Text(
-          '${data.hari}, ${data.tanggal}',
-          style: Styles.kNunitoSemiBold.copyWith(
+          '${data.tanggal}',
+          style: Styles.kPoppinsBold.copyWith(
             color: kWhite,
+            fontSize: 18,
           ),
         ),
         const SizedBox(
           height: 6,
         ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     const Icon(
+        //       Icons.pin_drop,
+        //       color: Color(0xFFF1416C),
+        //       size: 20.0,
+        //     ),
+        //     const SizedBox(width: 4),
+        //     Text(
+        //       data.lokasiKampus,
+        //       style: Styles.kPoppinsMedium.copyWith(
+        //         fontSize: 16,
+        //         color: kWhite,
+        //       ),
+        //     ),
+        //   ],
+        // ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
               Icons.pin_drop,
               color: Color(0xFFF1416C),
               size: 20.0,
             ),
-            const SizedBox(width: 4),
-            Text(
-              data.lokasiKampus,
-              style: Styles.kPoppinsMedium.copyWith(
-                fontSize: 16,
-                color: kWhite,
+            Expanded(
+              child: Text(
+                data.lokasiGedung,
+                textAlign: TextAlign.center,
+                style: Styles.kPoppinsMedium.copyWith(
+                  fontSize: 12,
+                  color: kWhite,
+                ),
+                overflow: TextOverflow.visible,
+                softWrap: true,
               ),
             ),
           ],
         ),
-        Text(
-          data.lokasiGedung,
-          textAlign: TextAlign.center,
-          style: Styles.kPoppinsMedium.copyWith(
-            fontSize: 12,
-            color: kWhite,
-          ),
-        ),
         const SizedBox(height: 12),
+        const Spacer(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +97,7 @@ class BodyTodayPresensi extends StatelessWidget {
                       'Masuk',
                       style: Styles.kNunitoRegular.copyWith(
                         color: kWhite,
-                        fontSize: 12,
+                        fontSize: 14,
                       ),
                     ),
                   ],
@@ -86,13 +106,13 @@ class BodyTodayPresensi extends StatelessWidget {
                   data.jamMasuk,
                   style: Styles.kPoppinsBold.copyWith(
                     color: kWhite,
-                    fontSize: 14,
+                    fontSize: 16,
                   ),
                 ),
               ],
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
                   children: [
@@ -104,7 +124,7 @@ class BodyTodayPresensi extends StatelessWidget {
                       'Pulang',
                       style: Styles.kNunitoRegular.copyWith(
                         color: kWhite,
-                        fontSize: 12,
+                        fontSize: 14,
                       ),
                     ),
                   ],
@@ -113,7 +133,7 @@ class BodyTodayPresensi extends StatelessWidget {
                   data.jamPulang,
                   style: Styles.kPoppinsBold.copyWith(
                     color: kWhite,
-                    fontSize: 14,
+                    fontSize: 16,
                   ),
                 ),
               ],
@@ -148,7 +168,9 @@ class BodyTodayPresensi extends StatelessWidget {
                   color: kWhite,
                   size: 18,
                 ),
-                const SizedBox(width: 4),
+                const SizedBox(
+                  width: 4,
+                ),
                 Text(
                   removeRp(data.nominalInsentif),
                   maxLines: 1,

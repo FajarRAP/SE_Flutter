@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:konsumsi_api_agenda/features/presensi/presentation/pages/presensi_masuk.dart';
+import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +25,7 @@ class _PresensiCameraState extends State<PresensiCamera> {
     startCamera();
   }
 
+  //fungsi untuk memulai kamera
   void startCamera() async {
     cameras = await availableCameras();
     cameraController = CameraController(cameras[1], ResolutionPreset.medium,
@@ -41,28 +42,41 @@ class _PresensiCameraState extends State<PresensiCamera> {
     setState(() {});
   }
 
+  //fungsi untuk menyimpan image ke local storage
   Future<String> saveImageToLocalStorage(XFile image) async {
     try {
-      // Dapatkan path ke direktori aplikasi lokal
+      // dapat path ke direktori aplikasi lokal
       final Directory appDirectory = await getApplicationDocumentsDirectory();
       final String imagePath = '${appDirectory.path}/${DateTime.now()}.jpg';
 
-      // Simpan file gambar ke local storage
+      // simpan ke local storage
       final File localImage = File(imagePath);
       await image.saveTo(localImage.path);
 
       print("Gambar disimpan di: $imagePath");
-      return imagePath; // Return path gambar yang disimpan
+      // return path gambar
+      return imagePath;
     } catch (e) {
       print("Error menyimpan gambar: $e");
-      return ''; // Return empty string jika terjadi error
+      return ''; // return empty string jika terjadi error
     }
   }
 
-  @override
-  void dispose() {
-    cameraController?.dispose();
-    super.dispose();
+  //fungsi untuk deteksi wajah
+  Future<void> detectFace(String imagePath) async {
+    final InputImage inputImage = InputImage.fromFilePath(imagePath);
+    final faceDetector = FaceDetector(
+      options: FaceDetectorOptions(
+          enableContours: true, enableLandmarks: true, enableTracking: true),
+    );
+
+    final List<Face> faces = await faceDetector.processImage(inputImage);
+    if (faces.isEmpty) {
+      print('wajah tidak terdeteksi');
+    } else {
+      print('wajah terdeteksi: ${faces.length}');
+    }
+    faceDetector.close();
   }
 
   @override
@@ -95,7 +109,9 @@ class _PresensiCameraState extends State<PresensiCamera> {
                     if (!mounted) return;
                     final imagePath = await saveImageToLocalStorage(image);
                     if (imagePath.isNotEmpty) {
-                      // Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => PresensiMasukPage(imagePath: imagePath))));
+                      // // Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => PresensiMasukPage(imagePath: imagePath))));
+                      // Navigator.pop(context, imagePath);
+                      await detectFace(imagePath);
                       Navigator.pop(context, imagePath);
                     }
                   } catch (e) {
@@ -122,5 +138,11 @@ class _PresensiCameraState extends State<PresensiCamera> {
                 FloatingActionButtonLocation.centerDocked,
             resizeToAvoidBottomInset: false,
           );
+  }
+
+  @override
+  void dispose() {
+    cameraController?.dispose();
+    super.dispose();
   }
 }

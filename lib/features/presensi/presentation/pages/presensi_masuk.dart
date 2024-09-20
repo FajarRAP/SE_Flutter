@@ -11,7 +11,7 @@ import '../widgets/card_masuk.dart';
 import '../widgets/card_pulang.dart';
 import '../widgets/item_next_shift.dart';
 import '../widgets/shift_empty.dart';
-import 'presensi_kamera.dart';
+// import 'presensi_kamera.dart';
 
 class PresensiMasukPage extends StatefulWidget {
   final String? imagePath;
@@ -175,12 +175,12 @@ class _PresensiMasukPageState extends State<PresensiMasukPage> {
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () async {
-            final imagePath = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const PresensiCamera(),
-              ),
-            );
+            // final imagePath = await Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => const PresensiCamera(),
+            //   ),
+            // );
 
             if (imagePath != null) {
               setState(() {

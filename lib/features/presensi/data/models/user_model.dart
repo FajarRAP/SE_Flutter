@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class UserModel {
   String? id;
   String? name;
@@ -18,8 +20,10 @@ class UserModel {
       id: json['id'],
       name: json['name'],
       image: json['image'],
-      faceFeatures: FaceFeatures.fromJson(json["faceFeatures"]),
-      registeredOn: json['registeredOn'],
+      faceFeatures: json["face_features"] != null
+          ? FaceFeatures.fromJson(jsonDecode(json["face_features"]))
+          : null,
+      registeredOn: json['registered_on'],
     );
   }
 
@@ -28,8 +32,8 @@ class UserModel {
       'id': id,
       'name': name,
       'image': image,
-      'faceFeatures': faceFeatures?.toJson() ?? {},
-      'registeredOn': registeredOn,
+      'face_features': jsonEncode(faceFeatures?.toJson() ?? {}),
+      'registered_on': registeredOn,
     };
   }
 }

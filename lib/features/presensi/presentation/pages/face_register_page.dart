@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
-
-import '../../../../core/constants_finals.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:uuid/uuid.dart';
 import '../../../../utils/ekstraksi_fitur_wajah.dart';
 import '../../data/models/user_model.dart';
 import '../widgets/camera_view.dart';
@@ -25,6 +25,8 @@ class _FaceRecognitionPageState extends State<FaceRecognitionPage> {
   );
   String? _image;
   FaceFeatures? _faceFeatures;
+
+  final SupabaseClient supabase = Supabase.instance.client;
 
   @override
   Widget build(BuildContext context) {
@@ -53,41 +55,59 @@ class _FaceRecognitionPageState extends State<FaceRecognitionPage> {
                   await extractFaceFeatures(inputImage, _faceDetector);
               setState(() {});
               if (mounted) Navigator.of(context).pop();
-              print('Data Face Features: ${_faceFeatures?.toJson()}');
             },
           ),
           const Spacer(),
-          if (_image != null)
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailUser(
-                    image: _image!,
-                    faceFeatures: _faceFeatures!,
-                  ),
+          if (_image != null && _faceFeatures != null)
+            GestureDetector(
+              onTap: () async {
+                try {
+                  var uuid = Uuid();
+                  String userId = uuid.v4();
+
+                  // Save to Supabase
+                  final response = await supabase.from('users').insert({
+                    'id': userId,
+                    'name': 'Lalu',
+                    'image': _image,
+                    'face_features': _faceFeatures?.toJson(),
+                    'registered_on': DateTime.now().toIso8601String(),
+                  });
+                    // Jika berhasil, lakukan navigasi ke halaman DetailUser
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DetailUser(),
+                      ),
+                    );
+                } catch (e) {
+                  // Jika error, tampilkan snackbar error
+                  print('Error saving user: $e');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Failed to save user!'),
+                    ),
+                  );
+                }
+              },
+              child: Container(
+                height: 40,
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.blue,
                 ),
-              );
-            },
-            child: Container(
-              height: 40,
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: kBlue,
-              ),
-              child: Center(
-                child: Text(
-                  'Daftarkan Wajah',
-                  style: Styles.kPoppinsMedium.copyWith(
-                    color: kWhite,
-                    fontSize: 14,
+                child: const Center(
+                  child: Text(
+                    'Daftarkan Wajah',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
         ],
       ),
     );

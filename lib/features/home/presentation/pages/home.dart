@@ -91,7 +91,6 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         // Profile
                         Profile(),
-
                         // Notification
                         ToNotification(),
                       ],
@@ -103,10 +102,10 @@ class _HomePageState extends State<HomePage> {
                   // Presensi and Agenda
                   const Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 24,
+                      horizontal: 20,
                     ),
                     child: SizedBox(
-                      height: 335,
+                      height: 330,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -114,27 +113,23 @@ class _HomePageState extends State<HomePage> {
                             flex: 3,
                             child: Column(
                               children: [
-                                // Presensi
-                                Presensi(),
-
+                                TodayPresensiSection(),
                                 SizedBox(height: 12),
-
-                                // Agenda
-                                ToAgenda(),
+                                Row(
+                                  children: [
+                                    Presensi(),
+                                    SizedBox(width: 12),
+                                    ToAgenda(),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
-
-                          SizedBox(width: 12),
-
-                          // Today Presensi
-                          TodayPresensiSection(),
                         ],
                       ),
                     ),
                   ),
-
-                  const SizedBox(height: 24),
+                  // const SizedBox(height: 24),
                   Container(
                     height: 8,
                     color: const Color(0xFFF6F7F9),

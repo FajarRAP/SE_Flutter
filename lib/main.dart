@@ -1,12 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/constants_finals.dart';
 import 'features/agenda/presentation/cubit/agenda_cubit.dart';
 import 'features/agenda/presentation/cubit/detail_agenda_cubit.dart';
 import 'features/auth/presentation/cubit/auth_cubit.dart';
-import 'features/dashboard/presentation/cubit/detail_presensi_today_cubit.dart';
+import 'features/home/presentation/dashboard/presentation/cubit/detail_presensi_today_cubit.dart';
 import 'features/gaji/presentation/cubit/detail_gaji_cubit.dart';
 import 'features/gaji/presentation/cubit/gaji_cubit.dart';
 import 'features/layanan_cuti/presentation/cubit/cuti_cubit.dart';
@@ -32,6 +33,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  await Supabase.initialize(
+    url: 'https://bxknqavpfdqvbznuhpat.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4a25xYXZwZmRxdmJ6bnVocGF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjY4MDMxNjUsImV4cCI6MjA0MjM3OTE2NX0.D6ogGEzUxa5U3h9PltftTDHkbHGxpHc_8AYPjUYnvoU',
+  );
+  
   await FirebaseRemoteConfigServices().initialize();
   dependencyInjection();
   runApp(const MyApp());

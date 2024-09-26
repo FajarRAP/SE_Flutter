@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../../../../../core/constants_finals.dart';
 import '../cubit/detail_presensi_today_cubit.dart';
 
 class DetailPresensiHariIni extends StatefulWidget {

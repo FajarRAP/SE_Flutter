@@ -65,9 +65,7 @@ class ItemShift extends StatelessWidget {
               SvgPicture.asset(
                 'assets/icons/tunjangan-beras-location.svg',
               ),
-
               const SizedBox(width: 4),
-              
               Text(
                 dataShift.lokasiShift,
                 style: Styles.kPoppinsMedium.copyWith(

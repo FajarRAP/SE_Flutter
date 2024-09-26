@@ -46,7 +46,9 @@ class ItemAkunSaya extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          const Divider(),
+          Divider(
+            color: kGrey.withOpacity(20/100),
+          ),
         ],
       ),
     );

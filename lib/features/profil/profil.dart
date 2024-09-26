@@ -188,7 +188,9 @@ class Profil extends StatelessWidget {
                         SizedBox(
                           height: Screen.kSize12,
                         ),
-                        const Divider()
+                        Divider(
+                          color: kGrey.withOpacity(20/100),
+                        )
                       ],
                     ),
                   ),
@@ -228,7 +230,9 @@ class Profil extends StatelessWidget {
                       SizedBox(
                         height: Screen.kSize12,
                       ),
-                      const Divider()
+                      Divider(
+                        color: kGrey.withOpacity(20/100),
+                      )
                     ],
                   ),
                   SizedBox(
@@ -266,7 +270,9 @@ class Profil extends StatelessWidget {
                         SizedBox(
                           height: Screen.kSize12,
                         ),
-                        const Divider()
+                        Divider(
+                          color: kGrey.withOpacity(20/100),
+                        )
                       ],
                     ),
                   ),
@@ -313,7 +319,9 @@ class Profil extends StatelessWidget {
                         SizedBox(
                           height: Screen.kSize12,
                         ),
-                        const Divider()
+                        Divider(
+                          color: kGrey.withOpacity(20/100),
+                        )
                       ],
                     ),
                   ),
@@ -361,7 +369,9 @@ class Profil extends StatelessWidget {
                         SizedBox(
                           height: Screen.kSize20,
                         ),
-                        const Divider()
+                        Divider(
+                          color: kGrey.withOpacity(20/100),
+                        )
                       ],
                     ),
                   ),
@@ -411,7 +421,9 @@ class Profil extends StatelessWidget {
                                   SizedBox(
                                     height: Screen.kSize20,
                                   ),
-                                  const Divider(),
+                                  Divider(
+                                    color: kGrey.withOpacity(20/100),
+                                  ),
                                   SizedBox(
                                     height: Screen.kSize20,
                                   ),

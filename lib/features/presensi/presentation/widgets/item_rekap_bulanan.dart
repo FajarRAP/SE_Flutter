@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 import '../../const_final_presensi.dart';
 import '../../data/models/presensi.dart';
 
@@ -13,8 +12,9 @@ class ItemRekapBulanan extends StatelessWidget {
   });
 
   String removeMataUang(String input) {
-  return input.replaceFirst('Rp.', '').trim();
-}
+    return input.replaceFirst('Rp.', '').trim();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -125,7 +125,10 @@ class ItemRekapBulanan extends StatelessWidget {
               ),
             ),
           ),
-          const Divider(height: 1),
+          Divider(
+            height: 1,
+            color: kGrey.withOpacity(20 / 100),
+          ),
           Padding(
             padding: const EdgeInsets.all(12),
             child: Row(

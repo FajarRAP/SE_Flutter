@@ -125,7 +125,9 @@ class LayananCutiPage extends StatelessWidget {
                       const SizedBox(
                         height: 16,
                       ),
-                      const Divider(),
+                      Divider(
+                        color: kGrey.withOpacity(20/100),
+                      ),
                       const SizedBox(
                         height: 16,
                       ),

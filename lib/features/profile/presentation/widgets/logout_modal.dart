@@ -37,7 +37,9 @@ Future<void> logoutModal(BuildContext context) {
                 ),
               ),
               const SizedBox(height: 20),
-              const Divider(),
+              Divider(
+                color: kGrey.withOpacity(20/100),
+              ),
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,

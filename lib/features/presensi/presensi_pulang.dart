@@ -141,7 +141,9 @@ class _PresensiPulangState extends State<PresensiPulang> {
                         SizedBox(
                           height: Screen.kSize20,
                         ),
-                        const Divider(),
+                        Divider(
+                          color: kGrey.withOpacity(20 / 100),
+                        ),
                         SizedBox(
                           height: Screen.kSize20,
                         ),
@@ -169,7 +171,10 @@ class _PresensiPulangState extends State<PresensiPulang> {
                             Navigator.pop(context);
                           },
                           style: OutlinedButton.styleFrom(
-                              fixedSize: Size(Screen.width, 48,),
+                              fixedSize: Size(
+                                Screen.width,
+                                48,
+                              ),
                               side: const BorderSide(
                                 color: kBlue,
                               ),
@@ -554,7 +559,9 @@ class _PresensiPulangState extends State<PresensiPulang> {
                                               ),
                                             ],
                                           ),
-                                          const Divider(),
+                                          Divider(
+                                            color: kGrey.withOpacity(20 / 100),
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -668,7 +675,9 @@ class _PresensiPulangState extends State<PresensiPulang> {
                                               ),
                                             ],
                                           ),
-                                          const Divider(),
+                                          Divider(
+                                            color: kGrey.withOpacity(20 / 100),
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,

@@ -49,7 +49,9 @@ class ItemCuti extends StatelessWidget {
               )
             ],
           ),
-          const Divider(),
+          Divider(
+            color: kGrey.withOpacity(20/100),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

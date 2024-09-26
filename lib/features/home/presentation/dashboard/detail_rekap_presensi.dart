@@ -503,8 +503,9 @@ class _DetailRekapPresensiState extends State<DetailRekapPresensi> {
                                                 ),
                                               ),
                                             ),
-                                            const Divider(
+                                            Divider(
                                               height: 1,
+                                              color: kGrey.withOpacity(20/100),
                                             ),
                                             Padding(
                                               padding: EdgeInsets.all(
@@ -758,8 +759,9 @@ class _DetailRekapPresensiState extends State<DetailRekapPresensi> {
                                                 ),
                                               ),
                                             ),
-                                            const Divider(
+                                            Divider(
                                               height: 1,
+                                              color: kGrey.withOpacity(20/100),
                                             ),
                                             Padding(
                                               padding: EdgeInsets.all(

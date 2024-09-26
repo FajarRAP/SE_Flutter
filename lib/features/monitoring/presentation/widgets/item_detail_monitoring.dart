@@ -36,8 +36,9 @@ class ItemDetailMonitoring extends StatelessWidget {
         dataDaftarPresensi.statusPresensi.toLowerCase() == "tepat waktu";
     final bool isTelat =
         dataDaftarPresensi.statusPresensi.toLowerCase() == "telat";
-    
-    final bool isAbsen = dataDaftarPresensi.statusPresensi.toLowerCase() == "absen";
+
+    final bool isAbsen =
+        dataDaftarPresensi.statusPresensi.toLowerCase() == "absen";
 
     return Container(
       height: 130,
@@ -97,7 +98,13 @@ class ItemDetailMonitoring extends StatelessWidget {
                         Text(
                           dataDaftarPresensi.statusPresensi,
                           style: Styles.kPoppinsMedium.copyWith(
-                            color: isAbsen ? kRed : isOnTime ? kGreen : isTelat ? kYellow : kBlack,
+                            color: isAbsen
+                                ? kRed
+                                : isOnTime
+                                    ? kGreen
+                                    : isTelat
+                                        ? kYellow
+                                        : kBlack,
                             fontSize: 16,
                           ),
                         ),
@@ -152,7 +159,9 @@ class ItemDetailMonitoring extends StatelessWidget {
                   ],
                 ),
               ),
-              const Divider(),
+              Divider(
+                color: kGrey.withOpacity(20 / 100),
+              ),
               Row(
                 children: [
                   SvgPicture.asset(

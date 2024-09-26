@@ -59,7 +59,9 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
               onChanged: (value) => setState(() => isSwitched = value),
             ),
             const SizedBox(height: 16),
-            const Divider(),
+             Divider(
+              color: kGrey.withOpacity(20/100),
+             ),
             // Umum
             ItemNotification(
               title: 'Notifikasi Umum',
@@ -69,7 +71,9 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
               onChanged: (value) => setState(() => isSwitched = value),
             ),
             const SizedBox(height: 16),
-            const Divider(),
+             Divider(
+              color: kGrey.withOpacity(20/100),
+             ),
           ],
         ),
       ),

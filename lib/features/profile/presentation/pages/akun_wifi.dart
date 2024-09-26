@@ -113,7 +113,9 @@ class _AkunWiFiPageState extends State<AkunWiFiPage> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  const Divider(),
+                  Divider(
+                    color: kGrey.withOpacity(20/100),
+                  ),
                   const SizedBox(height: 10),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,

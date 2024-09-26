@@ -57,7 +57,9 @@ class Profile extends StatelessWidget {
               ),
             ),
 
-            const Divider(),
+            Divider(
+              color: kGrey.withOpacity(20/100),
+            ),
 
             // Unit Kerja dan Posisi
             Padding(

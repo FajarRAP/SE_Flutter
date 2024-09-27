@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/failure.dart';
+import '../../utils/cuti_failure.dart';
+
+
 
 abstract class CutiRepositories<T> {
   Future<Either<Failure, T>> getCutis();

@@ -1,6 +1,7 @@
 import 'package:http/http.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../utils/monitoring_constants_finals.dart';
+
 
 class MonitoringService {
   Future<Response> getMonitorings() async {

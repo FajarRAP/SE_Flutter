@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:konsumsi_api_agenda/features/monitoring/data/models/daftar_presensi_model.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../injection_container.dart';
+import '../../data/models/daftar_presensi_model.dart';
 import '../../data/repositories/monitoring_repositories_impl.dart';
 
 part 'daftar_presensi_state.dart';

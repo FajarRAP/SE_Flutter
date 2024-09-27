@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../utils/monitoring_constants_finals.dart';
 
 class ItemChartCard extends StatelessWidget {
   final String kata;

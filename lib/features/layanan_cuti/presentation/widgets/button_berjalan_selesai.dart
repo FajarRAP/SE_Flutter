@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../utils/cuti_constant_finals.dart';
 
 class ButtonBerjalanSelesai extends StatelessWidget {
   final String kata;

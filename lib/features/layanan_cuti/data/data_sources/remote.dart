@@ -1,6 +1,6 @@
 import 'package:http/http.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../utils/cuti_constant_finals.dart';
 
 class CutiService {
   Future<Response> getCutis() async {

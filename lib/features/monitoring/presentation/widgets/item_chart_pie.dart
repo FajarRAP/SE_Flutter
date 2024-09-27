@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../utils/monitoring_constants_finals.dart';
 
 PieChartSectionData itemChartPie(
   final String kata,

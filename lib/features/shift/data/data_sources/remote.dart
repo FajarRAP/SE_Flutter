@@ -1,6 +1,7 @@
 import 'package:http/http.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../utils/shift_constant_finals.dart';
+
 
 class ShiftService {
   Future<Response> getShifts() async {

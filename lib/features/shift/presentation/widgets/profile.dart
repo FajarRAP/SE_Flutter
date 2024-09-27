@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../utils/shift_constant_finals.dart';
 
 class Profile extends StatelessWidget {
   const Profile({

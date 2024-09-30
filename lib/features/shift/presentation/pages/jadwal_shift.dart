@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../utils/shift_constant_finals.dart';
 import '../cubit/shift_cubit.dart';
 import '../widgets/button_shift.dart';
 import '../widgets/item_shift.dart';

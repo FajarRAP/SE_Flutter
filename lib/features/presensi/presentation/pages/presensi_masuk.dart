@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:konsumsi_api_agenda/features/presensi/presentation/pages/presensi_kamera.dart';
 
 import '../../const_final_presensi.dart';
 import '../cubit/presensi_cubit.dart';
@@ -12,17 +11,31 @@ import '../widgets/card_masuk.dart';
 import '../widgets/card_pulang.dart';
 import '../widgets/item_next_shift.dart';
 import '../widgets/shift_empty.dart';
+// import 'presensi_kamera.dart';
 
-class PresensiMasukPage extends StatelessWidget {
+class PresensiMasukPage extends StatefulWidget {
   final String? imagePath;
   const PresensiMasukPage({Key? key, this.imagePath}) : super(key: key);
+
+  @override
+  State<PresensiMasukPage> createState() => _PresensiMasukPageState();
+}
+
+class _PresensiMasukPageState extends State<PresensiMasukPage> {
+  String? imagePath;
+
+  @override
+  void initState() {
+    super.initState();
+    imagePath = widget.imagePath; 
+  }
 
   @override
   Widget build(BuildContext context) {
     final ShiftBerikutnyaCubit shiftBerikutnyaCubit =
         context.read<ShiftBerikutnyaCubit>();
     final PresensiCubit presensiCubit = context.read<PresensiCubit>();
-    // bool showAll = false;
+
     return Scaffold(
       backgroundColor: kBlue,
       body: NestedScrollView(
@@ -64,55 +77,36 @@ class PresensiMasukPage extends StatelessWidget {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Lokasi
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: CardLocation(data: state.data),
                         ),
-
                         const SizedBox(height: 16),
-
-                        // Masuk and Pulang
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Row(
                             children: [
-                              // Masuk
                               Expanded(
-                                child: CardMasuk(
-                                  data: state.data,
-                                ),
+                                child: CardMasuk(data: state.data),
                               ),
                               const SizedBox(width: 16),
-                              // // Pulang
                               Expanded(
-                                child: CardPulang(
-                                  data: state.data,
-                                ),
+                                child: CardPulang(data: state.data),
                               ),
                             ],
                           ),
                         ),
                         imagePath == null
-                            ? const SizedBox()
-                            : Image.file(File(imagePath!),
-                                width: 200, height: 200),
-
+                            ? const SizedBox(child: Text("Ini Gambar"))
+                            : Image.file(File(imagePath!), width: 200, height: 200),
                         const SizedBox(height: 24),
                         Container(
                           height: 8,
                           color: const Color(0xFFEEF2F3),
                         ),
                         const SizedBox(height: 24),
-
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
                             'Shift berikutnya',
                             style: Styles.kPoppinsMedium.copyWith(
@@ -132,41 +126,31 @@ class PresensiMasukPage extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  // List Next Shift
-                  child:
-                      BlocBuilder<ShiftBerikutnyaCubit, ShiftBerikutnyaState>(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: BlocBuilder<ShiftBerikutnyaCubit, ShiftBerikutnyaState>(
                     bloc: shiftBerikutnyaCubit..getShiftBerikutnyas(),
                     builder: (context, state) {
                       if (state is ShiftBerikutnyaLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
+                        return const Center(child: CircularProgressIndicator());
                       } else if (state is ShiftBerikutnyaLoaded) {
                         return ListView.separated(
                           padding: EdgeInsets.zero,
-                          itemBuilder: (context, index) => ItemNextShift(
-                            dataShift: state.data[index],
-                          ),
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(height: 12),
+                          itemBuilder: (context, index) => ItemNextShift(dataShift: state.data[index]),
+                          separatorBuilder: (context, index) => const SizedBox(height: 12),
                           itemCount: state.data.length,
                         );
                       } else if (state is ShiftBerikutnyaEmpty) {
                         return const ShiftEmpty();
                       } else if (state is ShiftBerikutnyaError) {
-                        return const Center(
-                          child: Text('Ada Yang Salah'),
-                        );
+                        return const Center(child: Text('Ada Yang Salah'));
                       }
                       return Center(
                         child: ElevatedButton(
-                            onPressed: () {
-                              shiftBerikutnyaCubit.getShiftBerikutnyas();
-                            },
-                            child: const Text('Ulang')),
+                          onPressed: () {
+                            shiftBerikutnyaCubit.getShiftBerikutnyas();
+                          },
+                          child: const Text('Ulang'),
+                        ),
                       );
                     },
                   ),
@@ -184,31 +168,26 @@ class PresensiMasukPage extends StatelessWidget {
               color: Colors.grey.withOpacity(0.5),
               blurRadius: 4,
               offset: const Offset(0, -1),
-            )
+            ),
           ],
         ),
         padding: const EdgeInsets.all(16),
         width: double.infinity,
-        // child: ElevatedButton(
-        //   onPressed: () => presensiMasuk(context),
-        //   style: ElevatedButton.styleFrom(
-        //     backgroundColor: kBlue,
-        //     fixedSize: const Size.fromHeight(48),
-        //     shape: RoundedRectangleBorder(
-        //       borderRadius: BorderRadius.circular(10),
-        //     ),
-        //   ),
-        //   child: Text(
-        //     'Presensi Masuk',
-        //     style: Styles.kPoppinsMedium.copyWith(
-        //       color: kWhite,
-        //       fontSize: 16,
-        //     ),
-        //   ),
-        // ),
         child: ElevatedButton(
-          onPressed: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const PresensiCamera())),
+          onPressed: () async {
+            // final imagePath = await Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => const PresensiCamera(),
+            //   ),
+            // );
+
+            if (imagePath != null) {
+              setState(() {
+                this.imagePath = imagePath; // Set imagePath di dalam state
+              });
+            }
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: kBlue,
             fixedSize: const Size.fromHeight(48),

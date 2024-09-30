@@ -12,13 +12,13 @@ class TodayPresensiSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final presensiCubit = context.read<PresensiCubit>();
     return Expanded(
-      flex: 5,
+      flex: 0,
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: () => Navigator.pushNamed(context, detailTodayPresensiRoute),
         child: Ink(
           padding: const EdgeInsets.symmetric(
-            horizontal: 20,
+            horizontal: 16,
             vertical: 16,
           ),
           decoration: const BoxDecoration(

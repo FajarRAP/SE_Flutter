@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
 
-import 'package:konsumsi_api_agenda/core/failure.dart';
 
 import '../../domain/repositories/shift_repositories.dart';
+import '../../utils/shift_failure.dart';
 import '../data_sources/remote.dart';
 import '../models/shift_model.dart';
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../utils/cuti_constant_finals.dart';
 import '../../data/models/cuti.dart';
 import '../cubit/tambah_sunting_cuti_cubit.dart';
 
@@ -49,7 +49,9 @@ class ItemCuti extends StatelessWidget {
               )
             ],
           ),
-          const Divider(),
+          Divider(
+            color: kGrey.withOpacity(20/100),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

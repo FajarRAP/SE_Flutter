@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-
 import '../../const_final_presensi.dart';
 import '../cubit/presensi_cubit.dart';
 import '../widgets/item_detail_today_presensi.dart';
@@ -72,41 +71,50 @@ class DetailTodayPresensiPage extends StatelessWidget {
                       title: 'Tanggal',
                       subtitle: presensiCubit.getTanggal,
                     ),
-                    const Divider(),
+                    Divider(
+                      color: kGrey.withOpacity(20 / 100),
+                    ),
                     const SizedBox(height: 16),
                     ItemDetailTodayPresensi(
                         path: 'status',
                         title: 'Status Presensi',
                         subtitle: presensiCubit.getStatus),
-                    const Divider(),
+                    Divider(
+                      color: kGrey.withOpacity(20 / 100),
+                    ),
                     const SizedBox(height: 16),
                     ItemDetailTodayPresensi(
                       path: 'lokasi',
                       title: 'Lokasi',
                       subtitle: presensiCubit.getLokasi,
                     ),
-                    const Divider(),
+                    Divider(
+                      color: kGrey.withOpacity(20 / 100),
+                    ),
                     const SizedBox(height: 16),
                     ItemDetailTodayPresensi(
                       path: 'biaya-perjalanan',
                       title: 'Insentif',
                       subtitle: presensiCubit.getInsentif,
                     ),
-                    const Divider(),
+                    Divider(
+                      color: kGrey.withOpacity(20 / 100),
+                    ),
                     const SizedBox(height: 16),
                     ItemDetailTodayPresensi(
                       path: 'masuk',
                       title: 'Jam Masuk',
                       subtitle: presensiCubit.getJamMasuk,
                     ),
-                    const Divider(),
+                    Divider(
+                      color: kGrey.withOpacity(20 / 100),
+                    ),
                     const SizedBox(height: 16),
                     ItemDetailTodayPresensi(
                       path: 'pulang',
                       title: 'Jam Pulang',
                       subtitle: presensiCubit.getJamPulang,
                     ),
-                    const Divider(),
                   ],
                 ),
               ),
@@ -118,4 +126,3 @@ class DetailTodayPresensiPage extends StatelessWidget {
     );
   }
 }
-

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../../core/constants_finals.dart';
 
+import '../../utils/monitoring_constants_finals.dart';
 import '../cubit/monitoring_cubit.dart';
 import '../widgets/item_monitoring.dart';
 

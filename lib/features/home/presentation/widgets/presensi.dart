@@ -47,7 +47,16 @@ class Presensi extends StatelessWidget {
                       ),
                     );
                   }
-                  return const CircularProgressIndicator(color: kBlack);
+                  // return const CircularProgressIndicator(color: kBlack); //nanti aktifkan kembali
+
+                  return Text(
+                    //nanti ini dihapus
+                    '--',
+                    style: Styles.kPoppinsBold.copyWith(
+                      color: kBlack,
+                      fontSize: 40,
+                    ),
+                  );
                 },
               ),
               Row(

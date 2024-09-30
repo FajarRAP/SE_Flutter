@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../utils/shift_constant_finals.dart';
 import '../cubit/shift_cubit.dart';
 
 class ButtonShift extends StatelessWidget {

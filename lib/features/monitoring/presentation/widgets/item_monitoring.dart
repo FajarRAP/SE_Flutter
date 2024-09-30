@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/constants_finals.dart';
+
 import '../../data/models/monitoring.dart';
+import '../../utils/monitoring_constants_finals.dart';
 import '../cubit/detail_monitoring_cubit.dart';
 
 class ItemMonitoring extends StatelessWidget {

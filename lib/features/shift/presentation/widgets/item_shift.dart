@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../utils/shift_constant_finals.dart';
 import '../../data/models/shift_model.dart';
 
 class ItemShift extends StatelessWidget {
@@ -65,9 +65,7 @@ class ItemShift extends StatelessWidget {
               SvgPicture.asset(
                 'assets/icons/tunjangan-beras-location.svg',
               ),
-
               const SizedBox(width: 4),
-              
               Text(
                 dataShift.lokasiShift,
                 style: Styles.kPoppinsMedium.copyWith(

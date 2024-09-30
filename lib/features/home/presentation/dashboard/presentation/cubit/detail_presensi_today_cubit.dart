@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../injection_container.dart';
+import '../../../../../../injection_container.dart';
 import '../../data/models/detail_presensi.dart';
 import '../../data/repositories/detail_presensi_hari_ini_impl.dart';
 part 'detail_presensi_today_state.dart';

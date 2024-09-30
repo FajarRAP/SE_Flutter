@@ -477,7 +477,9 @@ class _PresensiMasukState extends State<PresensiMasuk> {
                                               ),
                                             ],
                                           ),
-                                          const Divider(),
+                                          Divider(
+                                            color: kGrey.withOpacity(20/100),
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -586,7 +588,9 @@ class _PresensiMasukState extends State<PresensiMasuk> {
                                               ),
                                             ],
                                           ),
-                                          const Divider(),
+                                          Divider(
+                                            color: kGrey.withOpacity(20/100),
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_month_picker/flutter_custom_month_picker.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../core/constants_finals.dart';
+import '../../../../core/constants_finals.dart';
 
 
 class DetailRekapPresensi extends StatefulWidget {
@@ -503,8 +503,9 @@ class _DetailRekapPresensiState extends State<DetailRekapPresensi> {
                                                 ),
                                               ),
                                             ),
-                                            const Divider(
+                                            Divider(
                                               height: 1,
+                                              color: kGrey.withOpacity(20/100),
                                             ),
                                             Padding(
                                               padding: EdgeInsets.all(
@@ -758,8 +759,9 @@ class _DetailRekapPresensiState extends State<DetailRekapPresensi> {
                                                 ),
                                               ),
                                             ),
-                                            const Divider(
+                                            Divider(
                                               height: 1,
+                                              color: kGrey.withOpacity(20/100),
                                             ),
                                             Padding(
                                               padding: EdgeInsets.all(

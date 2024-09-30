@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/failure.dart';
+import '../../utils/monitoring_failure.dart';
+
 
 abstract class MonitoringRepositories<T> {
   Future<Either<Failure, T>> getMonitorings();

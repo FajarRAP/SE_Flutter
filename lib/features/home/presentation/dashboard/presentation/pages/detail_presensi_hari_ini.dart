@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../../../../../core/constants_finals.dart';
 import '../cubit/detail_presensi_today_cubit.dart';
 
 class DetailPresensiHariIni extends StatefulWidget {
@@ -141,7 +141,9 @@ class _DetailPresensiHariIniState extends State<DetailPresensiHariIni> {
                                   )
                                 ],
                               ),
-                              const Divider(),
+                              Divider(
+                                color: kGrey.withOpacity(20/100),
+                              ),
                               SizedBox(
                                 height: Screen.kSize16,
                               ),
@@ -179,7 +181,9 @@ class _DetailPresensiHariIniState extends State<DetailPresensiHariIni> {
                                   )
                                 ],
                               ),
-                              const Divider(),
+                              Divider(
+                                color: kGrey.withOpacity(20/100),
+                              ),
                               SizedBox(
                                 height: Screen.kSize16,
                               ),
@@ -217,7 +221,9 @@ class _DetailPresensiHariIniState extends State<DetailPresensiHariIni> {
                                   )
                                 ],
                               ),
-                              const Divider(),
+                              Divider(
+                                color: kGrey.withOpacity(20/100),
+                              ),
                               SizedBox(
                                 height: Screen.kSize16,
                               ),
@@ -255,7 +261,9 @@ class _DetailPresensiHariIniState extends State<DetailPresensiHariIni> {
                                   )
                                 ],
                               ),
-                              const Divider(),
+                              Divider(
+                                color: kGrey.withOpacity(20/100),
+                              ),
                               SizedBox(
                                 height: Screen.kSize16,
                               ),
@@ -293,7 +301,9 @@ class _DetailPresensiHariIniState extends State<DetailPresensiHariIni> {
                                   )
                                 ],
                               ),
-                              const Divider(),
+                              Divider(
+                                color: kGrey.withOpacity(20/100),
+                              ),
                               SizedBox(
                                 height: Screen.kSize16,
                               ),
@@ -331,7 +341,9 @@ class _DetailPresensiHariIniState extends State<DetailPresensiHariIni> {
                                   )
                                 ],
                               ),
-                              const Divider(),
+                              Divider(
+                                color: kGrey.withOpacity(20/100),
+                              ),
                               SizedBox(
                                 height: Screen.kSize16,
                               ),

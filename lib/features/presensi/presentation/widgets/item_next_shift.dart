@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 import '../../const_final_presensi.dart';
 import '../../data/models/shift_berikutnya_model.dart';
 
@@ -14,7 +13,6 @@ class ItemNextShift extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -60,7 +58,9 @@ class ItemNextShift extends StatelessWidget {
               ),
             ],
           ),
-          const Divider(),
+          Divider(
+            color: kGrey.withOpacity(20 / 100),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

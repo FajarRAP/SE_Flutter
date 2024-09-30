@@ -93,7 +93,9 @@ class DetailAgendaPage extends StatelessWidget {
                           keterangan: state.data.peserta,
                         ),
                         const SizedBox(height: 16),
-                        const Divider(),
+                        Divider(
+                          color: kGrey.withOpacity(20/100),
+                        ),
                         const SizedBox(height: 16),
                         Text(
                           'Deskripsi',

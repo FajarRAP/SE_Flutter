@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konsumsi_api_agenda/core/functions.dart';
 
-import '../../../../core/constants_finals.dart';
+import '../../utils/cuti_constant_finals.dart';
 import '../cubit/cuti_cubit.dart';
 import '../cubit/tambah_sunting_cuti_cubit.dart';
 import '../widgets/button_berjalan_selesai.dart';
@@ -125,7 +125,9 @@ class LayananCutiPage extends StatelessWidget {
                       const SizedBox(
                         height: 16,
                       ),
-                      const Divider(),
+                      Divider(
+                        color: kGrey.withOpacity(20/100),
+                      ),
                       const SizedBox(
                         height: 16,
                       ),

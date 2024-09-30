@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
 
-import '../../../../core/failure.dart';
+
 
 import '../../domain/repositories/cuti_repositories.dart';
+import '../../utils/cuti_failure.dart';
 import '../data_sources/remote.dart';
 import '../models/cuti.dart';
 import '../models/rekap_cuti.dart';

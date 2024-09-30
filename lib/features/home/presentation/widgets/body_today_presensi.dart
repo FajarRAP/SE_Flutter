@@ -20,148 +20,141 @@ class BodyTodayPresensi extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          child: Image.asset(
-            'assets/images/tendik.png',
-            width: 125,
-          ),
-        ),
-        Text(
-          '${data.hari}, ${data.tanggal}',
-          style: Styles.kNunitoSemiBold.copyWith(
-            color: kWhite,
-          ),
-        ),
-        const SizedBox(
-          height: 6,
-        ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Icon(
-              Icons.pin_drop,
-              color: Color(0xFFF1416C),
-              size: 20.0,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 150,
+                  child: Text(
+                    data.lokasiGedung,
+                    style: Styles.kPoppinsBold.copyWith(
+                      color: kWhite,
+                      fontSize: 14,
+                    ),
+                    maxLines: null,
+                    overflow: TextOverflow.visible,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  '${data.hari},\n${data.tanggal}',
+                  style: Styles.kPoppinsMedium.copyWith(
+                    color: kWhite,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(width: 4),
-            Text(
-              data.lokasiKampus,
-              style: Styles.kPoppinsMedium.copyWith(
-                fontSize: 16,
-                color: kWhite,
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      jamPresensi(
+                        icon: 'assets/icons/home-presensi-masuk.svg',
+                        title: 'Masuk',
+                        value: data.jamMasuk,
+                      ),
+                      jamPresensi(
+                        icon: 'assets/icons/home-presensi-pulang.svg',
+                        title: 'Pulang',
+                        value: data.jamPulang,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 45,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ketepatanDanInsentif(
+                        icon: Icons.calendar_month,
+                        value: data.statusPresensi,
+                      ),
+                      ketepatanDanInsentif(
+                        icon: Icons.monetization_on,
+                        value: removeRp(data.nominalInsentif),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
-        Text(
-          data.lokasiGedung,
-          textAlign: TextAlign.center,
-          style: Styles.kPoppinsMedium.copyWith(
-            fontSize: 12,
-            color: kWhite,
-          ),
-        ),
-        const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SvgPicture.asset('assets/icons/home-presensi-masuk.svg'),
-                    const SizedBox(width: 4),
-                    Text(
-                      'Masuk',
-                      style: Styles.kNunitoRegular.copyWith(
-                        color: kWhite,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  data.jamMasuk,
-                  style: Styles.kPoppinsBold.copyWith(
-                    color: kWhite,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/home-presensi-pulang.svg'),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    Text(
-                      'Pulang',
-                      style: Styles.kNunitoRegular.copyWith(
-                        color: kWhite,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  data.jamPulang,
-                  style: Styles.kPoppinsBold.copyWith(
-                    color: kWhite,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                const Icon(
-                  Icons.calendar_month,
-                  color: kWhite,
-                  size: 18,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  data.statusPresensi,
-                  style: Styles.kPoppinsSemiBold.copyWith(
-                    color: kWhite,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                const Icon(
-                  Icons.monetization_on,
-                  color: kWhite,
-                  size: 18,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  removeRp(data.nominalInsentif),
-                  maxLines: 1,
-                  style: Styles.kPoppinsSemiBold.copyWith(
-                    color: kWhite,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
             ),
           ],
         ),
       ],
     );
   }
+}
+
+Widget jamPresensi({
+  required String icon,
+  required String title,
+  required String value,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Row(
+        children: [
+          SvgPicture.asset(
+            icon,
+            height: 15,
+            width: 15,
+          ),
+          const SizedBox(
+            width: 4,
+          ),
+          Text(
+            title,
+            style: Styles.kPoppinsMedium.copyWith(
+              color: kWhite,
+              fontSize: 10,
+            ),
+          ),
+        ],
+      ),
+      Text(
+        value,
+        style: Styles.kPoppinsSemiBold.copyWith(
+          color: kWhite,
+          fontSize: 15,
+        ),
+      ),
+    ],
+  );
+}
+
+Widget ketepatanDanInsentif({
+  required IconData icon,
+  required String value,
+}) {
+  return Row(
+    children: [
+      Icon(
+        icon,
+        color: kWhite,
+        size: 10,
+      ),
+      const SizedBox(width: 4),
+      Text(
+        value,
+        style: Styles.kPoppinsSemiBold.copyWith(
+          color: kWhite,
+          fontSize: 12,
+        ),
+      ),
+    ],
+  );
 }

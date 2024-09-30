@@ -107,7 +107,7 @@ class _AkunWifiState extends State<AkunWifi> {
                       )
                     ],
                   ),
-                  const Divider(),
+                  Divider(color: kGrey.withOpacity(20/100),),
                   SizedBox(
                     height: Screen.kSize20,
                   ),

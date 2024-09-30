@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
-import 'package:konsumsi_api_agenda/features/dashboard/data/models/detail_presensi.dart';
+import 'package:konsumsi_api_agenda/features/home/presentation/dashboard/data/models/detail_presensi.dart';
 
-import '../../../../core/failure.dart';
+import '../../../../../../core/failure.dart';
 import '../../domain/repositories/detail_presensi_repositories.dart';
 import '../data_sources/remote.dart';
 

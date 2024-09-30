@@ -93,7 +93,9 @@ class _PengaturanNotifikasiState extends State<PengaturanNotifikasi> {
                   SizedBox(
                     height: Screen.kSize16,
                   ),
-                  const Divider()
+                  Divider(
+                    color: kGrey.withOpacity(20/100),
+                  )
                 ],
               ),
             ),
@@ -139,7 +141,9 @@ class _PengaturanNotifikasiState extends State<PengaturanNotifikasi> {
                   SizedBox(
                     height: Screen.kSize16,
                   ),
-                  const Divider()
+                  Divider(
+                    color: kGrey.withOpacity(20/100),
+                  )
                 ],
               ),
             ),
@@ -185,7 +189,9 @@ class _PengaturanNotifikasiState extends State<PengaturanNotifikasi> {
                   SizedBox(
                     height: Screen.kSize16,
                   ),
-                  const Divider()
+                  Divider(
+                    color: kGrey.withOpacity(20/100),
+                  )
                 ],
               ),
             ),
@@ -231,7 +237,9 @@ class _PengaturanNotifikasiState extends State<PengaturanNotifikasi> {
                   SizedBox(
                     height: Screen.kSize16,
                   ),
-                  const Divider()
+                  Divider(
+                    color: kGrey.withOpacity(20/100),
+                  )
                 ],
               ),
             ),

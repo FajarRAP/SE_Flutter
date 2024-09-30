@@ -40,6 +40,7 @@ void main() async {
   
   await FirebaseRemoteConfigServices().initialize();
   dependencyInjection();
+  
   runApp(const MyApp());
 }
 

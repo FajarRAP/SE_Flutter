@@ -28,6 +28,7 @@ class _CameraViewState extends State<CameraView> {
   void initState() {
     super.initState();
     _imagePicker = ImagePicker();
+    _getImage();
   }
 
   @override
@@ -37,55 +38,34 @@ class _CameraViewState extends State<CameraView> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [          
-          _image != null
-              ? CircleAvatar(
-                  radius: 150,
-                  backgroundColor: const Color(0xffD9D9D9),
-                  backgroundImage: FileImage(_image!),
-                )
-              : const CircleAvatar(
-                  radius: 150,
-                  backgroundColor: Color(0xffD9D9D9),
-                  child: Icon(
-                    Icons.camera_alt,
-                    size: 50,
-                    color: Color(0xff2E2E2E),
-                  ),
-                ),
-          GestureDetector(
-            onTap: _getImage,
-            child: Container(
-              height: 70,
-              width: 70,
-              margin: const EdgeInsets.only(top: 44, bottom: 20),
-              decoration: const BoxDecoration(
-                color: kRed,
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.camera_alt,
-                color: kBlack,
-              ),
-            ),
-          ),
-          // GestureDetector(
-          //   onTap: ()
-          //   {
-          //    Navigator.push(context,MaterialPageRoute(builder: (context) => FaceRegisterPage()));
-          //   },
-          //   child: Container(
-          //     height: 40,
-          //     padding: EdgeInsets.symmetric(vertical: 8),
-          //     decoration: BoxDecoration(
-          //         borderRadius: BorderRadius.circular(8), color: kBlue),
-          //     child: Center(
-          //       child: Text(
-          //         'Daftarkan Wajah',
-          //         style: Styles.kPoppinsMedium.copyWith(
-          //           color: kWhite,
-          //           fontSize: 14,
+          // _image != null
+          //     ? CircleAvatar(
+          //         radius: 150,
+          //         backgroundColor: const Color(0xffD9D9D9),
+          //         backgroundImage: FileImage(_image!),
+          //       )
+          //     : const CircleAvatar(
+          //         radius: 150,
+          //         backgroundColor: Color(0xffD9D9D9),
+          //         child: Icon(
+          //           Icons.camera_alt,
+          //           size: 50,
+          //           color: Color(0xff2E2E2E),
           //         ),
           //       ),
+          // GestureDetector(
+          //   onTap: _getImage,
+          //   child: Container(
+          //     height: 70,
+          //     width: 70,
+          //     margin: const EdgeInsets.only(top: 44, bottom: 20),
+          //     decoration: const BoxDecoration(
+          //       color: kRed,
+          //       shape: BoxShape.circle,
+          //     ),
+          //     child: const Icon(
+          //       Icons.camera_alt,
+          //       color: kBlack,
           //     ),
           //   ),
           // ),

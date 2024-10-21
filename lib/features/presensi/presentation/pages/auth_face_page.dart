@@ -38,7 +38,6 @@ class _AuthenticateFaceState extends State<AuthenticateFace> {
   bool isMatching = false;
   int trialNumber = 1;
 
-
   // Supabase client
   final SupabaseClient supabase = Supabase.instance.client;
 
@@ -100,7 +99,7 @@ class _AuthenticateFaceState extends State<AuthenticateFace> {
   Future _setImage(Uint8List imageToAuthenticate) async {
     image2.bitmap = base64Encode(imageToAuthenticate);
     image2.imageType = regula.ImageType.PRINTED;
-  
+
     setState(() {
       _canAuthenticate = true;
     });
@@ -221,11 +220,15 @@ class _AuthenticateFaceState extends State<AuthenticateFace> {
         scaffoldMessanger.showSnackBar(
           const SnackBar(content: Text("Wajah cocok! Akses diberikan.")),
         );
+        Future.delayed(Duration(seconds: 2), () {
+          Navigator.push(
+            (context),
+            MaterialPageRoute(
+              builder: ((context) => const PresensiMasukPage()),
+            ),
+          );
+        });
 
-        Future.delayed(
-            const Duration(seconds: 2),
-            () => MaterialPageRoute(
-                builder: ((context) => const PresensiMasukPage())));
         _log("Wajah cocok, akses diberikan.");
       } else {
         scaffoldMessanger.showSnackBar(

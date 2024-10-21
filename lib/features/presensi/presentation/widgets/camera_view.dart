@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:konsumsi_api_agenda/core/constants_finals.dart';
 
 class CameraView extends StatefulWidget {
   const CameraView({
@@ -33,45 +32,14 @@ class _CameraViewState extends State<CameraView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [          
-          // _image != null
-          //     ? CircleAvatar(
-          //         radius: 150,
-          //         backgroundColor: const Color(0xffD9D9D9),
-          //         backgroundImage: FileImage(_image!),
-          //       )
-          //     : const CircleAvatar(
-          //         radius: 150,
-          //         backgroundColor: Color(0xffD9D9D9),
-          //         child: Icon(
-          //           Icons.camera_alt,
-          //           size: 50,
-          //           color: Color(0xff2E2E2E),
-          //         ),
-          //       ),
-          // GestureDetector(
-          //   onTap: _getImage,
-          //   child: Container(
-          //     height: 70,
-          //     width: 70,
-          //     margin: const EdgeInsets.only(top: 44, bottom: 20),
-          //     decoration: const BoxDecoration(
-          //       color: kRed,
-          //       shape: BoxShape.circle,
-          //     ),
-          //     child: const Icon(
-          //       Icons.camera_alt,
-          //       color: kBlack,
-          //     ),
-          //   ),
-          // ),
-        ],
-      ),
-    );
+    return const Center();
+    // return Padding(
+    //   padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+    //   child: Column(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     children: [],
+    //   ),
+    // );
   }
 
   Future _getImage() async {

@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import '../core/constants_finals.dart';
 import '../features/home/presentation/pages/home.dart';
 import '../features/presensi/presentation/pages/face_register_page.dart';
-import '../features/presensi/presentation/pages/presensi_masuk.dart';
 import '../features/profile/presentation/pages/profil.dart';
 
 class FragmentView extends StatefulWidget {

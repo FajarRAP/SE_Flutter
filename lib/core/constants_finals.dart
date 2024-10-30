@@ -164,6 +164,7 @@ const String rekapBulananRoute = '${presensiRoute}bulanan/';
 const String detailTodayPresensiRoute = '${presensiRoute}detailToday/';
 const String detailPresensiRoute = '${presensiRoute}detail/';
 
+
 // Hari
 const List<String> days = [
   'Senin',

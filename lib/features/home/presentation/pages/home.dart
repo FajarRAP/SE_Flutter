@@ -2,7 +2,10 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+
 import '../../../../core/constants_finals.dart';
+import '../../../07-bimbingan/perwalian/edit-perwalian-v2.dart';
+import '../../../07-bimbingan/tugas_akhir/edit_bimbingan-v2.dart';
 import '../../../presensi/presentation/cubit/presensi_cubit.dart';
 import '../../../profile/presentation/cubit/profile_cubit.dart';
 import '../widgets/item_adisty_services.dart';
@@ -213,6 +216,30 @@ class _HomePageState extends State<HomePage> {
                     title: 'Layanan Cuti',
                     subtitle: 'Tinjau jatah layanan cuti anda.',
                     path: layananCutiRoute,
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditPerwalianV2(),
+                        ),
+                      );
+                    },
+                    child: const Text('Ke Edit Perwalian'),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditBimbinganV2(),
+                        ),
+                      );
+                    },
+                    child: const Text('Ke Tugas Akhir'),
                   ),
                 ],
               ),

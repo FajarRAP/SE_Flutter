@@ -47,6 +47,7 @@ class _CameraViewState extends State<CameraView> {
       source: ImageSource.camera,
       maxWidth: 400,
       maxHeight: 400,
+      imageQuality: 100
     );
     if (pickedFile != null) {
       _setPickedFile(pickedFile);

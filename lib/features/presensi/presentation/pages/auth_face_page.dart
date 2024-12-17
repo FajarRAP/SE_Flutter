@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:flutter_face_api/face_api.dart' as regula;
-import 'package:konsumsi_api_agenda/features/presensi/presentation/pages/presensi_masuk.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../utils/ekstraksi_fitur_wajah.dart';
 import '../../data/models/user_model.dart';
 import '../widgets/camera_view.dart';
+import 'presensi_masuk.dart';
 
 class AuthenticateFace extends StatefulWidget {
   const AuthenticateFace({super.key});
@@ -32,6 +32,8 @@ class _AuthenticateFaceState extends State<AuthenticateFace> {
   dynamic userFaceData;
   dynamic userId;
 
+  // Tambahkan variabel untuk menyimpan image yang sudah dicapture
+  Uint8List? _capturedImage;
   bool _canAuthenticate = true;
   bool userExists = false;
   UserModel? loggingUser;
@@ -62,11 +64,22 @@ class _AuthenticateFaceState extends State<AuthenticateFace> {
                 },
                 onInputImage: (inputImage) async {
                   setState(() => isMatching = true);
-                  _faceFeatures =
-                      await extractFaceFeatures(inputImage, _faceDetector);
+                  _faceFeatures = await extractFaceFeatures(
+                    inputImage,
+                    _faceDetector,
+                  );
                   setState(() => isMatching = false);
                 },
               ),
+              if (_capturedImage != null)
+                SizedBox(
+                  height: 400,
+                  width: 400,
+                  child: Image.memory(
+                    _capturedImage!,
+                    fit: BoxFit.cover, // Agar gambar menutupi seluruh container
+                  ),
+                ),
               if (_canAuthenticate)
                 InkWell(
                   onTap: () async {
@@ -80,14 +93,11 @@ class _AuthenticateFaceState extends State<AuthenticateFace> {
                     child: const Center(
                       child: Text(
                         'Autentikasi',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: 14),
                       ),
                     ),
                   ),
-                )
+                ),
             ],
           ),
         ),
@@ -102,13 +112,15 @@ class _AuthenticateFaceState extends State<AuthenticateFace> {
 
     setState(() {
       _canAuthenticate = true;
+      _capturedImage = imageToAuthenticate; // Simpan image yang sudah dicapture
     });
   }
 
   // fungsi untuk menghitung jarak euclidean
   double euclideanDistance(Points p1, Points p2) {
-    final sqr =
-        math.sqrt(math.pow((p1.x! - p2.x!), 2) + math.pow((p1.y! - p2.y!), 2));
+    final sqr = math.sqrt(
+      math.pow((p1.x! - p2.x!), 2) + math.pow((p1.y! - p2.y!), 2),
+    );
     return sqr;
   }
 
@@ -134,10 +146,14 @@ class _AuthenticateFaceState extends State<AuthenticateFace> {
 
     double ratioMouth = distMouth1 / distMouth2;
 
-    double distNoseToMouth1 =
-        euclideanDistance(face1.noseBase!, face1.bottomMouth!);
-    double distNoseToMouth2 =
-        euclideanDistance(face2.noseBase!, face2.bottomMouth!);
+    double distNoseToMouth1 = euclideanDistance(
+      face1.noseBase!,
+      face1.bottomMouth!,
+    );
+    double distNoseToMouth2 = euclideanDistance(
+      face2.noseBase!,
+      face2.bottomMouth!,
+    );
 
     double ratioNoseToMouth = distNoseToMouth1 / distNoseToMouth2;
 
@@ -166,9 +182,10 @@ class _AuthenticateFaceState extends State<AuthenticateFace> {
 
       // Ambil data pengguna dari Supabase
       _log("Mengambil data wajah dari Supabase...");
-      final response = await supabase
-          .from('users')
-          .select(); // ambil semua data dari tabel users
+      final response =
+          await supabase
+              .from('users')
+              .select(); // ambil semua data dari tabel users
 
       // Logging hasil respons dari Supabase
       _log("Supabase Response: $response");
@@ -199,7 +216,8 @@ class _AuthenticateFaceState extends State<AuthenticateFace> {
       if (userFaceData == null) {
         scaffoldMessanger.showSnackBar(
           const SnackBar(
-              content: Text("Data fitur wajah pengguna tidak ditemukan.")),
+            content: Text("Data fitur wajah pengguna tidak ditemukan."),
+          ),
         );
         _log("Error: Data fitur wajah pengguna tidak ditemukan.");
         return;

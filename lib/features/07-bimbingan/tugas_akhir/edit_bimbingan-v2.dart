@@ -53,7 +53,6 @@ class EditBimbinganV2 extends StatelessWidget {
           bottom: bottomPadding,
         ),
         child: BottomAppBar(
-          color: Colors.white,
           surfaceTintColor: Colors.white,
           child: Container(
             decoration: BoxDecoration(
